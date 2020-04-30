@@ -5,7 +5,7 @@
 }
 
 .btn-blue {
-    @apply bg-blue-500 text-white;
+    @apply border border-blue-500 bg-blue-500 text-white;
 }
 
 .btn-blue-sec {
@@ -13,7 +13,7 @@
 }
 
 .btn-green {
-    @apply bg-green-500 text-white;
+    @apply border border-green-500 bg-green-500 text-white;
 }
 
 .btn-green-sec {
@@ -21,7 +21,7 @@
 }
 
 .btn-red {
-    @apply bg-red-500 text-white;
+    @apply border border-red-500 bg-red-500 text-white;
 }
 
 .btn-red-sec {
