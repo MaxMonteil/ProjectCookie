@@ -1,5 +1,5 @@
 <template functional>
-  <section class="w-56 rounded shadow space-y-1">
+  <section class="bg-white min-w-56 rounded shadow space-y-1">
     <div class="rounded-t w-full h-32 bg-blue-500" />
 
     <article class="space-y-1 px-2 pb-1">
@@ -62,3 +62,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.min-w-56 {
+  min-width: 14rem;
+}
+</style>
