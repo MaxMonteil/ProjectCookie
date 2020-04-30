@@ -3,11 +3,12 @@
     :ref="data.ref"
     :type="props.type"
     placeholder="Search"
-    class="block rounded text-black placeholder-blue-500 opacity-50 transition-opacity duration-100 pl-2 py-1 w-full outline-none focus:shadow focus:opacity-100"
+    class="block rounded text-black placeholder-gray-600 transition-opacity duration-100 pl-2 py-1 w-full outline-none focus:shadow focus:opacity-100"
     :class="[
       data.class,
       data.staticClass,
-      props.bgGray ? 'bg-gray-200' : 'bg-white'
+      props.bgGray ? 'bg-gray-200' : 'bg-white',
+      props.withOpacity ? 'opacity-50' : 'opacity-100',
     ]"
     :style="[
       data.style,
@@ -26,10 +27,6 @@
 export default {
   name: 'InputText',
   props: {
-    labelWhite: {
-      type: Boolean,
-      default: true,
-    },
     type: {
       type: String,
       default: 'text',
@@ -42,6 +39,10 @@ export default {
       default: false,
     },
     bgGray: {
+      type: Boolean,
+      default: false,
+    },
+    withOpacity: {
       type: Boolean,
       default: false,
     },
