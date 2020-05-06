@@ -72,6 +72,7 @@ CREATE TABLE Users(
     Password varchar(30),
 	PRIMARY KEY(UserID)
 );
+
 CREATE TABLE UserJoinCourse(
 	UserID int NOT NULL,
     CourseID int NOT NULL, 
@@ -83,19 +84,21 @@ CREATE TABLE UserJoinCourse(
 CREATE TABLE UserDoQuiz(
 	UserID int NOT NULL,
     QuizID int NOT NULL, 
-QuizProgress varchar(15) NOT NULL,
+	QuizProgress varchar(15) NOT NULL,
 	PRIMARY KEY(UserID, QuizID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (QuizID) REFERENCES Quizzes(QuizID)
 );
+
 CREATE TABLE UserAttendClass(
 	UserID int NOT NULL,
     ClassID int NOT NULL, 
-ClassProgress varchar(15) NOT NULL,
+	ClassProgress varchar(15) NOT NULL,
 	PRIMARY KEY(UserID, ClassID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ClassID) REFERENCES Classes(ClassID)
 );
+
 CREATE TABLE Quizzes(
 	QuizID int NOT NULL AUTO_INCREMENT,
     QuestionsWithAns varchar(100),
@@ -103,6 +106,7 @@ CREATE TABLE Quizzes(
 	CourseID int, 
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
 );
+
 CREATE TABLE Courses(
 	CourseID int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(CourseID),
@@ -119,6 +123,7 @@ CREATE TABLE Courses(
     FOREIGN KEY (SyllabusName) REFERENCES Syllabus(SyllabusName)
 );
 
+
 CREATE TABLE Classes(
 	ClassID int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(ClassID),
@@ -129,12 +134,12 @@ CREATE TABLE Classes(
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
 );
 
-
 INSERT INTO `users`(`Name`, `Email`, `Password`) VALUES ("Rebica Smith","rebicasmith@gmail.com","stayCalm"),
 ("Saeed Raheel","sr46@aub.edu.lb","Ready2Roll"),
 ("Max Monteil","mmm110@mail.aub.edu","anonymous"),
 ("Karim Majed","rebicasmith@gmail.com","anonymous"),
 ("Hanin Wehbi","hanin.wehbi@gmail.com","jumpToMoon@midnt");
+
 
 INSERT INTO `userjoincourse`(`UserID`, `CourseID`, `CourseProgress`) VALUES (2,1,"the creater"),
 (1,1,"30"),
@@ -146,6 +151,7 @@ INSERT INTO `userdoquiz`(`UserID`, `QuizID`, `QuizProgress`) VALUES (2,2,"the cr
  (1,2,"95");
 INSERT INTO `userattendclass`(`UserID`, `ClassID`, `ClassProgress`) VALUES (3,5,"00:15:00"),
 (1,6,"Finished");
+
 
 INSERT INTO `courses`(`CourseName`, `Topic`, `Description`, `Teacher`, `RecommendedUsers`, `StartDate`, `EndDate`, `Cost`, `NumOfViewers`, `SyllabusName`) VALUES 
 ("Web programming","CMPS","This course help the students practice developing web pages and create a complete web project","Saeed Raheel","Seniors","2020-02-21 09:00:00","2020-05-2 10:00:00","$2500",1,"CMPS1"),
@@ -172,12 +178,6 @@ INSERT INTO `classes`(`VideoPath`, `Description`, `ModuleName`, `CourseID`) VALU
 
 INSERT INTO `quizzes`(`QuestionsWithAns`, `CourseID`) VALUES ( "What are higher order functions: a)",2),
 ( "Are html, ccs & js used for the frontend: a)",1);
-
-
-
-
-
-
 
 
 ### Back-end (Karim)
