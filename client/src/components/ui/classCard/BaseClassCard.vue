@@ -1,6 +1,9 @@
 <template functional>
-  <section class="bg-white min-w-56 rounded shadow space-y-1">
-    <div class="rounded-t w-full h-32 bg-blue-500" />
+  <section class="bg-white min-w-56 w-56 rounded shadow space-y-1">
+    <div
+      class="rounded-t w-full h-32"
+      :class="props.color === 'blue' ? 'bg-blue-500' : 'bg-green-500'"
+    />
 
     <article class="space-y-1 px-2 pb-1">
       <h1 class="text-lg font-bold">
@@ -16,14 +19,16 @@
 
       <p
         v-if="!!scopedSlots['student-count']"
-        class="text-blue-900 text-xs"
+        class="text-xs"
+        :class="props.color === 'blue' ? 'text-blue-900' : 'text-green-900'"
       >
         <slot name="student-count" />
       </p>
 
       <p
         v-if="!!scopedSlots.progress"
-        class="text-blue-900 text-xs"
+        class="text-xs"
+        :class="props.color === 'blue' ? 'text-blue-900' : 'text-green-900'"
       >
         <slot name="progress" />
       </p>
@@ -58,6 +63,10 @@ export default {
     showButtons: {
       type: Boolean,
       default: false,
+    },
+    color: {
+      type: String,
+      default: 'blue',
     },
   },
 }
