@@ -21,10 +21,9 @@
       v-bind="data.attrs"
       v-on="{ ...listeners, input: e => listeners.input(e.target.value) }"
     >
-      <option
-        disabled
-        value=""
-      >-</option>
+      <option value="">
+        -
+      </option>
       <option
         v-for="option in props.values"
         :key="option.value || option"
