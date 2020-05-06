@@ -30,7 +30,7 @@ export default {
       required: true,
       validator (value) {
         // The value must match one of these strings
-        return ['enrolled'].includes(value)
+        return ['enrolled', 'detailed'].includes(value)
       },
     },
     tight: {
@@ -42,7 +42,7 @@ export default {
     classCard () {
       const cards = {
         enrolled: () => import('@/components/ui/classCard/EnrolledClassCard'),
-        // enrolled: EnrolledClassCard,
+        detailed: () => import('@/components/ui/classCard/DetailedClassCard'),
       }
 
       return cards[this.card]
