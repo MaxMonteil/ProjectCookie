@@ -11,12 +11,12 @@
         class="shadow"
       />
 
-      <a
-        href="#"
+      <router-link
+        :to="{ name: 'search' }"
         class="text-blue-900 text-sm underline self-end mt-4"
       >
         Advanced Search
-      </a>
+      </router-link>
     </section>
 
     <!-- TOP -->
@@ -58,7 +58,7 @@ export default {
   data () {
     return {
       search: '',
-      courses: courses,
+      courses,
     }
   },
 }
