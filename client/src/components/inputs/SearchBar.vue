@@ -18,7 +18,7 @@
     v-on="{
       ...listeners,
       input: e => listeners.input(e.target.value),
-      blur: e => listeners.input(''),
+      blur: props.withBlur ? e => listeners.input('') : () => {},
     }"
   >
 </template>
@@ -45,6 +45,10 @@ export default {
     withOpacity: {
       type: Boolean,
       default: false,
+    },
+    withBlur: {
+      type: Boolean,
+      default: true,
     },
   },
 }
