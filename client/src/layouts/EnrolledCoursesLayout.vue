@@ -1,8 +1,8 @@
 <template>
   <section class="flex flex-col">
-    <h1 class="text-3xl leading-none font-semibold mb-6">
+    <h2 class="text-3xl leading-none font-semibold mb-6">
       Enrolled Courses
-    </h1>
+    </h2>
 
     <ClassCardRow
       card="enrolled"
