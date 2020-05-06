@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import courses from '../../courses.json'
+
 import EnrolledCoursesLayout from '@/layouts/EnrolledCoursesLayout'
 import TopCoursesLayout from '@/layouts/TopCoursesLayout'
 import SearchBar from '@/components/inputs/SearchBar'
@@ -56,71 +58,7 @@ export default {
   data () {
     return {
       search: '',
-      courses: [
-        {
-          id: 1,
-          title: 'World History',
-          subject: 'history',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-        {
-          id: 2,
-          title: 'Microbiology',
-          subject: 'science',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-        {
-          id: 3,
-          title: 'Magnetism',
-          subject: 'science',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-        {
-          id: 4,
-          title: 'Web Development',
-          subject: 'development',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-        {
-          id: 5,
-          title: 'CVSP 205',
-          subject: 'philosophy',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-        {
-          id: 6,
-          title: 'PHIL 211',
-          subject: 'philosophy',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-        {
-          id: 7,
-          title: 'Linear Algebra',
-          subject: 'math',
-          startDate: 'April 26, 2020',
-          studentCount: '145, 900',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis neque sed vehicula interdu.',
-          progress: 20,
-        },
-      ],
+      courses: courses,
     }
   },
 }
