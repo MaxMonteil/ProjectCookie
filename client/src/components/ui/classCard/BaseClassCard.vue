@@ -12,7 +12,8 @@
 
       <p
         v-if="!!scopedSlots['start-date']"
-        class="text-blue-900 text-xs"
+        class="text-xs"
+        :class="props.color === 'blue' ? 'text-blue-900' : 'text-green-900'"
       >
         <slot name="start-date" />
       </p>
