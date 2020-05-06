@@ -1,7 +1,9 @@
 <template>
   <header class="fixed top-0 left-0 bg-blue-500 px-32 py-4 w-full flex items-center space-x-8 shadow">
     <h1 class="text-2xl text-white font-bold">
-      ProjectCookie
+      <router-link :to="{ name: 'home' }">
+        ProjectCookie
+      </router-link>
     </h1>
 
     <SearchBar
