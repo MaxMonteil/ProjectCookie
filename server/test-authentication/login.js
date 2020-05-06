@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    setCookie("jwt", "", 1);
     $("#submit").click(checkLogin);
 })
 
@@ -16,6 +15,7 @@ function checkLogin() {
         success: function (data) {
             //setCookie("jwt", data.jwt, 1);
             console.log(data);
+            window.location = "protectedtest.html";
             //$("#limiter").html("message: "+data['message']);
         }
     });

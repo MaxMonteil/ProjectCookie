@@ -19,37 +19,12 @@ $authheaders = apache_request_headers();
 $arr = explode(" ", $authheaders['authorization']);
 
 $jwt = $arr[1];
-echo "first: ";
-echo $jwt;
+
 if($jwt){
     try {
         $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
 
-        $secret_key = "YOUR_SECRET_KEY";
-        $issuer_claim = "THE_ISSUER"; // this can be the servername
-        $audience_claim = "THE_AUDIENCE";
-        $issuedat_claim = time(); // issued at
-        $notbefore_claim = $issuedat_claim + 10; //not before in seconds
-        $expire_claim = $issuedat_claim + 600; // expire time in seconds
-        $token = array(
-            "iss" => $issuer_claim,
-            "aud" => $audience_claim,
-            "iat" => $issuedat_claim,
-            "nbf" => $issuedat_claim,
-            "exp" => $expire_claim,
-            "data" => array(
-                "id" => $id,
-                "firstname" => $firstname,
-                "lastname" => $lastname,
-                "email" => $email
-        ));
-
-        $jwt = JWT::encode($token, $secret_key);
-        $cookie_name = "jwt";
-        $cookie_value = $jwt;
-
-        setcookie($cookie_name, $cookie_value, time() + (600), "/"); //change time according to jwt
-
+        // Access is granted. Add code of the operation here 
         http_response_code(200);
         
         echo json_encode(array(

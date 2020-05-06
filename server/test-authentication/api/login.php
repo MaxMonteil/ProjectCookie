@@ -58,6 +58,13 @@ if($num > 0){
         http_response_code(200);
         
         $jwt = JWT::encode($token, $secret_key);
+        $cookie_name = "jwt";
+        $cookie_name2 = "email";
+        $cookie_value = $jwt;
+        $cookie_value2 = $email;
+        setcookie($cookie_name, $cookie_value, time() + (600), "/");
+        setcookie($cookie_name2, $cookie_value2, time() + (600), "/");
+
         echo json_encode(
             array(
                 "message" => "Successful login.",
