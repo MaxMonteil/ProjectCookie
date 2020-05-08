@@ -10,11 +10,17 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    meta: {
+      hideHeaderSearchBar: true,
+    },
   },
   {
     path: '/search',
     name: 'search',
     component: Search,
+    meta: {
+      hideHeaderSearchBar: true,
+    },
   },
   {
     // catch all route

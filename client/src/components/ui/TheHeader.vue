@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 left-0 bg-blue-500 px-32 py-4 w-full flex items-center space-x-8 shadow">
+  <header class="fixed top-0 left-0 bg-blue-500 px-32 py-4 w-full flex items-center justify-between space-x-8 shadow">
     <h1 class="text-2xl text-white font-bold">
       <router-link :to="{ name: 'home' }">
         ProjectCookie
@@ -7,6 +7,7 @@
     </h1>
 
     <SearchBar
+      v-if="!$route.matched.some(r => r.meta.hideHeaderSearchBar)"
       v-model="search"
       label="search"
       :with-opacity="true"
