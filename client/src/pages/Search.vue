@@ -1,5 +1,12 @@
 <template>
-  <main class="space-y-12">
+  <h1 v-if="loading">
+    loading...
+  </h1>
+
+  <main
+    v-else
+    class="space-y-12"
+  >
     <!-- SEARCH -->
     <form
       class="space-y-6"
@@ -48,9 +55,9 @@
       </div>
     </form>
 
-    <div class="space-y-4">
-      <header class="flex justify-between">
-        <h1 class="text-3xl leading-none font-semibold mb-6">
+    <div class="space-y-6">
+      <header class="flex justify-between items-end">
+        <h1 class="text-3xl leading-none font-semibold">
           Results {{ search ? `for: ${search}` : '' }}
         </h1>
 
@@ -63,7 +70,7 @@
         />
       </header>
 
-      <section class="grid grid-cols-4 gap-8">
+      <section class="grid grid-cols-5 gap-8 items-center">
         <DetailedClassCard
           v-for="course in searchResults"
           :key="course.id"
@@ -75,8 +82,6 @@
 </template>
 
 <script>
-import courses from '../../courses.json'
-
 import InputSelect from '@/components/inputs/InputSelect'
 import SearchBar from '@/components/inputs/SearchBar.vue'
 import DetailedClassCard from '@/components/ui/classCard/DetailedClassCard'
@@ -105,9 +110,10 @@ export default {
   },
   data () {
     return {
-      courses,
-      search: '',
-      sort: '',
+      loading: true,
+      courses: [],
+      search: this.$route.query.q || '',
+      sort: 'name',
       sortOptions: [
         'subject',
         'name',
@@ -141,7 +147,7 @@ export default {
         startDate: [],
       }
 
-      for (const course of courses) {
+      for (const course of this.courses) {
         Object.keys(options).forEach(option => {
           if (!options[option].includes(course[option])) {
             options[option].push(course[option])
@@ -152,5 +158,21 @@ export default {
       return options
     },
   },
+  created () {
+    this.fetchCourses()
+  },
+  methods: {
+    async fetchCourses () {
+      const response = await fetch('./courses.json')
+      this.courses = await response.json()
+      this.loading = false
+    },
+  },
 }
 </script>
+
+<style scoped>
+.items-center {
+  justify-items: center;
+}
+</style>

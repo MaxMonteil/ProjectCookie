@@ -1,15 +1,24 @@
 <template>
-  <main class="space-y-8">
+  <h1 v-if="loading">
+    loading...
+  </h1>
+
+  <main
+    v-else
+    class="space-y-8"
+  >
     <!-- ENROLLED -->
     <EnrolledCoursesLayout :courses="courses" />
 
     <!-- SEARCH -->
     <section class="flex flex-col">
-      <SearchBar
-        v-model="search"
-        :bg-gray="true"
-        class="shadow"
-      />
+      <form @submit.prevent="submitSearch">
+        <SearchBar
+          v-model="search"
+          :bg-gray="true"
+          class="shadow"
+        />
+      </form>
 
       <router-link
         :to="{ name: 'search' }"
@@ -42,8 +51,6 @@
 </template>
 
 <script>
-import courses from '../../courses.json'
-
 import EnrolledCoursesLayout from '@/layouts/EnrolledCoursesLayout'
 import TopCoursesLayout from '@/layouts/TopCoursesLayout'
 import SearchBar from '@/components/inputs/SearchBar'
@@ -57,9 +64,25 @@ export default {
   },
   data () {
     return {
+      loading: true,
       search: '',
-      courses,
+      courses: [],
     }
+  },
+  created () {
+    this.fetchCourses()
+  },
+  methods: {
+    submitSearch () {
+      if (this.search.trim().length > 0) {
+        this.$router.push({ name: 'search', query: { q: this.search.trim() } })
+      }
+    },
+    async fetchCourses () {
+      const response = await fetch('./courses.json')
+      this.courses = await response.json()
+      this.loading = false
+    },
   },
 }
 </script>
