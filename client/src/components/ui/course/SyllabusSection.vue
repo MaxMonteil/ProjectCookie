@@ -17,7 +17,9 @@
           v-for="(lesson, i) in section.lessons"
           :key="lesson.id"
         >
-          <p><span class="mr-2">{{ i + 1 }}</span>{{ lesson.name }}</p>
+          <router-link :to="{ name: 'lesson', params: { courseId: lesson.courseId, sectionId: section.id, lessonId: lesson.id } }">
+            <span class="mr-2">{{ i + 1 }}</span>{{ lesson.name }}
+          </router-link>
         </li>
       </ol>
     </div>

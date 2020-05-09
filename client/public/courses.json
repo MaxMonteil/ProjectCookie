@@ -59,7 +59,7 @@
             "type": "class",
             "name": "What is the internet?",
             "completed": true,
-            "prevLessonId": "1",
+            "prevLessonId": "",
             "nextLessonId": "1"
           },
           {
@@ -68,7 +68,9 @@
             "courseId": "3",
             "type": "class",
             "name": "The path of a request",
-            "completed": true
+            "completed": true,
+            "prevLessonId": "0",
+            "nextLessonId": "2"
           },
           {
             "id": "2",
@@ -76,7 +78,9 @@
             "courseId": "3",
             "type": "class",
             "name": "Understanding web servers",
-            "completed": true
+            "completed": true,
+            "prevLessonId": "1",
+            "nextLessonId": "3"
           },
           {
             "id": "3",
@@ -84,7 +88,9 @@
             "courseId": "3",
             "type": "class",
             "name": "How the browser renders a page",
-            "completed": true
+            "completed": true,
+            "prevLessonId": "2",
+            "nextLessonId": "4"
           },
           {
             "id": "4",
@@ -92,7 +98,9 @@
             "courseId": "3",
             "type": "quiz",
             "name": "Section Quiz",
-            "completed": false
+            "completed": false,
+            "prevLessonId": "3",
+            "nextLessonId": ""
           }
         ]
       },
