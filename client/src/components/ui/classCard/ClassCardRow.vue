@@ -13,13 +13,8 @@
 </template>
 
 <script>
-import EnrolledClassCard from '@/components/ui/classCard/EnrolledClassCard'
-
 export default {
   name: 'ClassCardRow',
-  components: {
-    EnrolledClassCard,
-  },
   props: {
     courses: {
       type: Array,
@@ -30,7 +25,7 @@ export default {
       required: true,
       validator (value) {
         // The value must match one of these strings
-        return ['enrolled', 'detailed'].includes(value)
+        return ['enrolled', 'detailed', 'completed'].includes(value)
       },
     },
     tight: {
@@ -43,6 +38,7 @@ export default {
       const cards = {
         enrolled: () => import('@/components/ui/classCard/EnrolledClassCard'),
         detailed: () => import('@/components/ui/classCard/DetailedClassCard'),
+        completed: () => import('@/components/ui/classCard/CompletedClassCard'),
       }
 
       return cards[this.card]

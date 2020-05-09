@@ -2,6 +2,8 @@
   <component
     :is="injections.components.BaseClassCard"
     :course-id="props.course.id"
+    color="gray"
+    :show-image="false"
   >
     <template #title>
       {{ props.course.title }}
