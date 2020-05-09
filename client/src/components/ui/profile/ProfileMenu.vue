@@ -6,7 +6,7 @@
         :key="menu.name"
         class="rounded transition-all duration-200 hover:bg-blue-200"
         :class="$route.name === menu.to.name
-          ? 'w-48 py-2 text-lg text-center text-blue-900 bg-blue-200'
+          ? 'w-full py-2 text-lg text-center text-blue-900 bg-blue-200'
           : 'py-2 pl-2 text-gray-600'
         "
       >
