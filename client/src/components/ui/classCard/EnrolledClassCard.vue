@@ -1,5 +1,8 @@
 <template functional>
-  <component :is="injections.components.BaseClassCard">
+  <component
+    :is="injections.components.BaseClassCard"
+    :course-id="'' + props.course.id"
+  >
     <template #title>
       {{ props.course.title }}
     </template>
