@@ -98,6 +98,25 @@
             "courseId": "3",
             "type": "quiz",
             "name": "Section Quiz",
+            "description": "Quiz description. Praesent at pretium augue. Suspendisse hendrerit velit non bibendum pellentesque. Morbi blandit diam posuere, volutpat ex quis, rhoncus dolor. Mauris fringilla neque nulla, scelerisque pulvinar lorem dapibus vel. Nam eget vulputate metus, sed egestas ligula. Vestibulum porttitor, orci eget suscipit elementum, libero odio consequat tortor, in scelerisque orci dolor eu felis. Nunc blandit ultrices purus a molestie. Pellentesque mattis, lectus non volutpat interdum.",
+            "questions": [
+              {
+                "question": "Question. Integer et tempus urna. In nec pretium velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut lacus eget ex tincidunt congue eu sit amet justo. Donec lobortis felis id lacus hendrerit vulputate.",
+                "answers": [
+                  "Option A",
+                  "Option B",
+                  "Option C",
+                  "Option D",
+                  "Option E",
+                  "Option F",
+                  "Option G"
+                ]
+              },
+              {
+                "question": "Question. Integer et tempus urna. In nec pretium velit. Interdum et malesuada fames.",
+                "answers": ["Option A", "Option B", "Option C"]
+              }
+            ],
             "completed": false,
             "prevLessonId": "3",
             "nextLessonId": ""
