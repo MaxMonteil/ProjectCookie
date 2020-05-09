@@ -14,13 +14,13 @@
       :courses="courses"
     />
 
-    <a
+    <router-link
       v-if="!showAll"
-      href="#"
+      :to="{ name: 'my-courses' }"
       class="self-end mt-4 text-sm text-blue-900 underline"
     >
       See all
-    </a>
+    </router-link>
   </section>
 </template>
 
