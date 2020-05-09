@@ -42,7 +42,7 @@
         />
 
         <InputSelect
-          v-model.number="options.price"
+          v-model="options.price"
           label="Price"
           :values="searchOptions.price"
         />
@@ -97,8 +97,8 @@ const stringCompare = (a, b) => {
 const compareFunctions = {
   subject: (a, b) => stringCompare(a.subject, b.subject),
   name: (a, b) => stringCompare(a.title, b.title),
-  'price asc': (a, b) => a.price - b.price,
-  'price des': (a, b) => b.price - a.price,
+  'price asc': (a, b) => parseInt(a.price) - parseInt(b.price),
+  'price des': (a, b) => parseInt(b.price) - parseInt(a.price),
 }
 
 export default {
