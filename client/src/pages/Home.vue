@@ -8,7 +8,7 @@
     class="space-y-8"
   >
     <!-- ENROLLED -->
-    <EnrolledCoursesLayout :courses="courses" />
+    <EnrolledCoursesLayout />
 
     <!-- SEARCH -->
     <section class="flex flex-col">
