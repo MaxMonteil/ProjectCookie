@@ -12,64 +12,22 @@
       </h1>
     </header>
 
-    <div class="relative bg-video">
-      <svg
-        class="absolute play"
-        width="48"
-        height="56"
-        viewBox="0 0 48 56"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M46.5 25.4019C48.5 26.5566 48.5 29.4434 46.5 30.5981L4.49999 54.8468C2.49999 56.0015 -2.64708e-06 54.5581 -2.54613e-06 52.2487L-4.26242e-07 3.75128C-3.25295e-07 1.44188 2.5 -0.00149082 4.5 1.15321L46.5 25.4019Z"
-          fill="white"
-        />
-      </svg>
-      <video class="w-full" />
-    </div>
-
-    <div class="flex items-center justify-between">
-      <router-link
-        v-if="lesson.prevLessonId"
-        :to="{ name: 'lesson', params: { courseId, sectionId, lessonId: lesson.prevLessonId } }"
-        class="text-blue-500 underline"
-      >
-        &#8678; Previous Lesson
-      </router-link>
-      <a
-        v-else
-        disabled
-        class="text-gray-600 underline"
-      >
-        &#8678; Previous Lesson
-      </a>
-
-      <button class="btn btn-blue">
-        Mark Lesson as Completed
-      </button>
-
-      <router-link
-        v-if="lesson.nextLessonId"
-        :to="{ name: 'lesson', params: { courseId, sectionId, lessonId: lesson.nextLessonId } }"
-        class="text-blue-500 underline"
-      >
-        Next Lesson &#8680;
-      </router-link>
-      <a
-        v-else
-        disabled
-        class="text-gray-600 underline"
-      >
-        Next Lesson &#8680;
-      </a>
-    </div>
+    <component
+      :is="lessonComponent"
+      :lesson="lesson"
+    />
   </main>
 </template>
 
 <script>
+import VideoLesson from '@/components/ui/lesson/VideoLesson'
+import QuizLesson from '@/components/ui/lesson/QuizLesson'
+
 export default {
   name: 'Lesson',
+  components: {
+    VideoLesson,
+  },
   props: {
     courseId: {
       type: String,
@@ -90,6 +48,13 @@ export default {
       courseName: '',
       lesson: {},
     }
+  },
+  computed: {
+    lessonComponent () {
+      return this.lesson.type === 'class'
+        ? VideoLesson
+        : QuizLesson
+    },
   },
   created () {
     this.fetchLessonData()
@@ -113,13 +78,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.play {
-  top: 45%;
-  left: 49%;
-}
-.bg-video {
-  background: linear-gradient(155.44deg, #4299E1 16.29%, #2A4365 148.99%);
-}
-</style>
