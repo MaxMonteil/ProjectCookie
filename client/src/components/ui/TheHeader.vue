@@ -6,12 +6,17 @@
       </router-link>
     </h1>
 
-    <SearchBar
-      v-if="!$route.matched.some(r => r.meta.hideHeaderSearchBar)"
-      v-model="search"
-      label="search"
-      :with-opacity="true"
-    />
+    <form
+      class="w-full"
+      @submit.prevent="submitSearch"
+    >
+      <SearchBar
+        v-if="!$route.matched.some(r => r.meta.hideHeaderSearchBar)"
+        v-model="search"
+        label="search"
+        :with-opacity="true"
+      />
+    </form>
 
     <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
   </header>
@@ -29,6 +34,13 @@ export default {
     return {
       search: '',
     }
+  },
+  methods: {
+    submitSearch () {
+      if (this.search.trim().length > 0) {
+        this.$router.push({ name: 'search', query: { q: this.search.trim() } })
+      }
+    },
   },
 }
 </script>
