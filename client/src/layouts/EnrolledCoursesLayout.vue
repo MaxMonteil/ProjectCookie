@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-col">
-    <h2 class="mb-6 text-3xl font-semibold leading-none">
+    <h2 class="mb-6 text-3xl font-semibold leading-tight">
       Enrolled Courses
     </h2>
 

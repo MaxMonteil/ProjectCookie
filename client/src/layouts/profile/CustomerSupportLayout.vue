@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1 class="mb-6 text-3xl font-semibold leading-none">
+    <h1 class="mb-6 text-3xl font-semibold leading-tight">
       Customer Support
     </h1>
 
