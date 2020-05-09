@@ -1,6 +1,6 @@
 <template functional>
   <label
-    class="text-sm font-medium leading-none"
+    class="block text-sm font-medium leading-none"
     :class="props.labelWhite ? 'text-white' : 'text-blue-500'"
   >
     {{ props.label }}
