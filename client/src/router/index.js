@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
+import Course from '../pages/Course.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,12 @@ const routes = [
     meta: {
       hideHeaderSearchBar: true,
     },
+  },
+  {
+    path: '/course/:id',
+    name: 'course',
+    component: Course,
+    props: true,
   },
   {
     // catch all route
