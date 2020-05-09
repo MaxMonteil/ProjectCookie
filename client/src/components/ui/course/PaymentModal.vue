@@ -36,46 +36,8 @@
         </h2>
       </header>
 
-      <form
-        class="space-y-20"
-        @submit.prevent="$emit('close')"
-      >
-        <div class="space-y-6">
-          <InputText
-            label="Cardholder Name"
-            :bg-gray="true"
-            :label-white="false"
-          />
-
-          <div class="flex space-x-4">
-            <div class="flex-grow">
-              <InputText
-                class="flex-grow"
-                label="Card Number"
-                :bg-gray="true"
-                :label-white="false"
-              />
-            </div>
-
-            <div class="w-1/3">
-              <InputText
-                label="Expiration Date"
-                :bg-gray="true"
-                :label-white="false"
-              />
-            </div>
-          </div>
-
-          <div class="w-1/5">
-            <InputText
-              label="CVC"
-              :bg-gray="true"
-              :label-white="false"
-            />
-          </div>
-        </div>
-
-        <div class="text-center space-x-6">
+      <PaymentForm>
+        <div class="mt-20 text-center space-x-6">
           <button class="btn btn-blue-sec">
             Enroll
           </button>
@@ -84,20 +46,20 @@
             Save payment details and Enroll
           </button>
         </div>
-      </form>
+      </PaymentForm>
     </div>
   </PopupBase>
 </template>
 
 <script>
-import InputText from '@/components/inputs/InputText'
 import PopupBase from '@/components/popups/PopupBase'
+import PaymentForm from '@/components/forms/PaymentForm'
 
 export default {
   name: 'PaymentModal',
   components: {
-    InputText,
     PopupBase,
+    PaymentForm,
   },
   props: {
     course: {
