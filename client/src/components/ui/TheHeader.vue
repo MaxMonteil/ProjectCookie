@@ -18,7 +18,9 @@
       />
     </form>
 
-    <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
+    <router-link :to="{ name: 'profile' }">
+      <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
+    </router-link>
   </header>
 </template>
 

@@ -4,6 +4,7 @@ import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
 import Course from '../pages/Course.vue'
 import Lesson from '../pages/Lesson.vue'
+import Profile from '../pages/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     name: 'lesson',
     component: Lesson,
     props: true,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
   },
   {
     // catch all route
