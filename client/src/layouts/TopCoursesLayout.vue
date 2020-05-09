@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-col">
-    <h2 class="text-3xl leading-none font-semibold mb-6">
+    <h2 class="mb-6 text-3xl font-semibold leading-none">
       Top Courses
     </h2>
 
@@ -9,7 +9,7 @@
         <button
           v-for="subject in subjects"
           :key="subject"
-          class="ml-4 btn capitalize"
+          class="ml-4 capitalize btn"
           :class="open === subject ? 'btn-green' : 'btn-inactive'"
           @click="open = subject"
         >
@@ -17,7 +17,7 @@
         </button>
       </div>
 
-      <div class="flex flex-col border border-green-500 rounded p-4 space-y-4">
+      <div class="flex flex-col p-4 border border-green-500 rounded space-y-4">
         <ClassCardRow
           card="detailed"
           :courses="subjectCourses"
@@ -26,7 +26,7 @@
 
         <a
           href="#"
-          class="text-green-900 text-sm underline self-end"
+          class="self-end text-sm text-green-900 underline"
         >
           See all
         </a>

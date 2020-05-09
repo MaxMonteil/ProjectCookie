@@ -3,7 +3,7 @@
     :ref="data.ref"
     :type="props.type"
     placeholder="Search"
-    class="block rounded text-black placeholder-gray-600 transition-opacity duration-100 pl-2 py-1 w-full outline-none focus:shadow focus:opacity-100"
+    class="block w-full py-1 pl-2 text-black placeholder-gray-600 rounded outline-none transition-opacity duration-100 focus:shadow focus:opacity-100"
     :class="[
       data.class,
       data.staticClass,

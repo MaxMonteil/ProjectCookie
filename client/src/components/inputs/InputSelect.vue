@@ -1,6 +1,6 @@
 <template functional>
   <label
-    class="font-medium inline"
+    class="inline font-medium"
     :class="[
       props.labelBlack ? 'text-black': 'text-blue-500',
     ]"
@@ -8,7 +8,7 @@
     {{ props.label }}
     <select
       :ref="data.ref"
-      class="capitalize select bg-no-repeat block mt-2 pl-3 pr-6 py-1 bg-gray-200 rounded text-black outline-none focus:shadow"
+      class="block py-1 pl-3 pr-6 mt-2 text-black capitalize bg-gray-200 bg-no-repeat rounded outline-none select focus:shadow"
       :class="[
         data.class,
         data.staticClass,

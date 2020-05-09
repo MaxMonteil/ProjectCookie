@@ -22,7 +22,7 @@
 
       <router-link
         :to="{ name: 'search' }"
-        class="text-blue-900 text-sm underline self-end mt-4"
+        class="self-end mt-4 text-sm text-blue-900 underline"
       >
         Advanced Search
       </router-link>
@@ -35,14 +35,14 @@
     <section class="text-gray-600 space-y-6">
       <a
         href="#"
-        class="block text-3xl leading-none font-semibold hover:underline"
+        class="block text-3xl font-semibold leading-none hover:underline"
       >
         See all subjects >
       </a>
 
       <a
         href="#"
-        class="block text-3xl leading-none font-semibold hover:underline"
+        class="block text-3xl font-semibold leading-none hover:underline"
       >
         See all courses >
       </a>

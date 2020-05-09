@@ -1,13 +1,13 @@
 <template functional>
   <label
-    class="text-sm leading-none font-medium"
+    class="text-sm font-medium leading-none"
     :class="props.labelWhite ? 'text-white' : 'text-blue-500'"
   >
     {{ props.label }}
     <input
       :ref="data.ref"
       :type="props.type"
-      class="block mt-2 rounded text-lg text-black pl-2 py-1 w-full outline-none focus:shadow"
+      class="block w-full py-1 pl-2 mt-2 text-lg text-black rounded outline-none focus:shadow"
       :class="[
         data.class,
         data.staticClass,

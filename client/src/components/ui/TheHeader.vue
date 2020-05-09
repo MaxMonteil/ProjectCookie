@@ -1,6 +1,6 @@
 <template>
-  <header class="fixed top-0 left-0 bg-blue-500 px-32 py-4 w-full flex items-center justify-between space-x-8 shadow">
-    <h1 class="text-2xl text-white font-bold">
+  <header class="fixed top-0 left-0 flex items-center justify-between w-full px-32 py-4 bg-blue-500 shadow space-x-8">
+    <h1 class="text-2xl font-bold text-white">
       <router-link :to="{ name: 'home' }">
         ProjectCookie
       </router-link>
@@ -13,7 +13,7 @@
       :with-opacity="true"
     />
 
-    <div class="p-4 w-8 h-8 bg-blue-900 rounded-full" />
+    <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
   </header>
 </template>
 

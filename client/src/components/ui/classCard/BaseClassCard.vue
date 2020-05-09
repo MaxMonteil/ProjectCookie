@@ -1,13 +1,17 @@
 <template functional>
-  <section class="bg-white min-w-56 w-56 rounded shadow space-y-1">
+  <section class="w-56 bg-white rounded shadow min-w-56 space-y-1">
     <div
-      class="rounded-t w-full h-32"
+      class="w-full h-32 rounded-t"
       :class="props.color === 'blue' ? 'bg-blue-500' : 'bg-green-500'"
     />
 
-    <article class="space-y-1 px-2 pb-1">
+    <article class="px-2 pb-1 space-y-1">
       <h1 class="text-lg font-bold">
-        <slot name="title" />
+        <router-link
+          :to="{ name: 'course', params: { id: props.courseId } }"
+        >
+          <slot name="title" />
+        </router-link>
       </h1>
 
       <p
@@ -49,7 +53,7 @@
 
       <p
         v-if="!!scopedSlots.description"
-        class="text-sm h-20 leading-snug overflow-hidden"
+        class="h-20 overflow-hidden text-sm leading-snug"
       >
         <slot name="description" />
       </p>
@@ -61,6 +65,10 @@
 export default {
   name: 'BaseClassCard',
   props: {
+    courseId: {
+      type: String,
+      required: true,
+    },
     showButtons: {
       type: Boolean,
       default: false,

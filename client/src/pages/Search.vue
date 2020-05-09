@@ -56,8 +56,8 @@
     </form>
 
     <div class="space-y-6">
-      <header class="flex justify-between items-end">
-        <h1 class="text-3xl leading-none font-semibold">
+      <header class="flex items-end justify-between">
+        <h1 class="text-3xl font-semibold leading-none">
           Results {{ search ? `for: ${search}` : '' }}
         </h1>
 
@@ -70,7 +70,7 @@
         />
       </header>
 
-      <section class="grid grid-cols-5 gap-8 items-center">
+      <section class="items-center grid grid-cols-5 gap-8">
         <DetailedClassCard
           v-for="course in searchResults"
           :key="course.id"

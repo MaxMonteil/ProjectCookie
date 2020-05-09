@@ -1,6 +1,6 @@
 <template>
   <section
-    class="pl-2 pb-2 flex overflow-x-auto"
+    class="flex pb-2 pl-2 overflow-x-auto"
     :class="tight ? 'space-x-4' : 'space-x-8'"
   >
     <component
