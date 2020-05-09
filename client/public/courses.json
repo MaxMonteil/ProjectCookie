@@ -191,5 +191,19 @@
     "teacher": "John Doe",
     "language": "arabic",
     "enrolled": false
+  },
+  {
+    "id": "7",
+    "title": "Databases",
+    "subject": "development",
+    "startDate": "April 26, 2020",
+    "completedOn": "May 09, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "100",
+    "price": "10",
+    "teacher": "John Doe",
+    "language": "arabic",
+    "enrolled": true
   }
 ]

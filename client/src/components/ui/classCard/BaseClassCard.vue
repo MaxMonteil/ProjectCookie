@@ -33,9 +33,20 @@
       <p
         v-if="!!scopedSlots.progress"
         class="text-xs"
-        :class="props.color === 'blue' ? 'text-blue-900' : 'text-green-900'"
+        :class="{
+          'text-blue-900': props.color === 'blue',
+          'text-green-900': props.color === 'green',
+          'text-gray-600': props.color === 'gray',
+        }"
       >
         <slot name="progress" />
+      </p>
+
+      <p
+        v-if="!!scopedSlots['completed-on']"
+        class="text-xs text-gray-600"
+      >
+        <slot name="completed-on" />
       </p>
 
       <div
