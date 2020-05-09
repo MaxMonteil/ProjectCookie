@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
 import Course from '../pages/Course.vue'
+import Lesson from '../pages/Lesson.vue'
 
 Vue.use(VueRouter)
 
@@ -24,9 +25,15 @@ const routes = [
     },
   },
   {
-    path: '/course/:id',
+    path: '/course/:courseId',
     name: 'course',
     component: Course,
+    props: true,
+  },
+  {
+    path: '/course/:courseId/section/:sectionId/lesson/:lessonId',
+    name: 'lesson',
+    component: Lesson,
     props: true,
   },
   {

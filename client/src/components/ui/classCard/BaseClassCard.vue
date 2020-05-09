@@ -8,7 +8,7 @@
     <article class="px-2 pb-1 space-y-1">
       <h1 class="text-lg font-bold">
         <router-link
-          :to="{ name: 'course', params: { id: props.courseId } }"
+          :to="{ name: 'course', params: { courseId: props.courseId } }"
         >
           <slot name="title" />
         </router-link>

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import PaymentModal from '@/components/ui/PaymentModal'
+import PaymentModal from '@/components/ui/course/PaymentModal'
 import SyllabusSection from '@/components/ui/course/SyllabusSection'
 
 export default {
@@ -72,7 +72,7 @@ export default {
     SyllabusSection,
   },
   props: {
-    id: {
+    courseId: {
       type: String,
       required: true,
     },
@@ -92,7 +92,7 @@ export default {
       const response = await fetch('../courses.json')
       const courses = await response.json()
 
-      this.course = courses.find(course => course.id.toString() === this.id)
+      this.course = courses.find(course => course.id === this.courseId)
       this.loading = false
     },
   },
