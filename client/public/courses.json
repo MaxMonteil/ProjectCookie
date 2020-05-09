@@ -50,12 +50,37 @@
       {
         "name": "The Web",
         "description": "Before learning how to develop for the web, we first need to understand how a webpage functions and what happens when you navigate to a page.",
-        "content": [
-          "What is the internet?",
-          "The path of a request",
-          "Understanding web servers",
-          "How the browser renders a page",
-          "Section Quiz"
+        "lessons": [
+          {
+            "id": 0,
+            "type": "class",
+            "name": "What is the internet?",
+            "completed": true
+          },
+          {
+            "id": 1,
+            "type": "class",
+            "name": "The path of a request",
+            "completed": true
+          },
+          {
+            "id": 2,
+            "type": "class",
+            "name": "Understanding web servers",
+            "completed": true
+          },
+          {
+            "id": 3,
+            "type": "class",
+            "name": "How the browser renders a page",
+            "completed": true
+          },
+          {
+            "id": 4,
+            "type": "quiz",
+            "name": "Section Quiz",
+            "completed": false
+          }
         ]
       },
       {

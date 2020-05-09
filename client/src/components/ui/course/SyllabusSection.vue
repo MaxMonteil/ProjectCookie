@@ -14,10 +14,10 @@
       <p>{{ section.description }}</p>
       <ol class="ml-2 space-y-4">
         <li
-          v-for="(content, i) in section.content"
-          :key="content"
+          v-for="(lesson, i) in section.lessons"
+          :key="lesson.id"
         >
-          <p><span class="mr-2">{{ i + 1 }}</span>{{ content }}</p>
+          <p><span class="mr-2">{{ i + 1 }}</span>{{ lesson.name }}</p>
         </li>
       </ol>
     </div>
