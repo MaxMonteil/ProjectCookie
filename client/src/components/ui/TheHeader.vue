@@ -18,7 +18,7 @@
       />
     </form>
 
-    <router-link :to="{ name: 'profile' }">
+    <router-link :to="{ name: 'my-courses' }">
       <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
     </router-link>
   </header>

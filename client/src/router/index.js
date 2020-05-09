@@ -4,7 +4,12 @@ import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
 import Course from '../pages/Course.vue'
 import Lesson from '../pages/Lesson.vue'
+
 import Profile from '../pages/Profile.vue'
+import MyCoursesLayout from '../layouts/profile/MyCoursesLayout.vue'
+import TeachersCenterLayout from '../layouts/profile/TeachersCenterLayout.vue'
+import AccountSettingsLayout from '../layouts/profile/AccountSettingsLayout.vue'
+import CustomerSupportLayout from '../layouts/profile/CustomerSupportLayout.vue'
 
 Vue.use(VueRouter)
 
@@ -39,8 +44,33 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'profile',
     component: Profile,
+    children: [
+      {
+        path: '',
+        redirect: 'my-courses',
+      },
+      {
+        path: 'my-courses',
+        name: 'my-courses',
+        component: MyCoursesLayout,
+      },
+      {
+        path: 'teachers-center',
+        name: 'teachers-center',
+        component: TeachersCenterLayout,
+      },
+      {
+        path: 'account-settings',
+        name: 'account-settings',
+        component: AccountSettingsLayout,
+      },
+      {
+        path: 'customer-support',
+        name: 'customer-support',
+        component: CustomerSupportLayout,
+      },
+    ],
   },
   {
     // catch all route

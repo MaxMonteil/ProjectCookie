@@ -9,7 +9,8 @@
     "progress": "20",
     "price": "20",
     "teacher": "John Doe",
-    "language": "english"
+    "language": "english",
+    "enrolled": false
   },
   {
     "id": "1",
@@ -21,7 +22,8 @@
     "progress": "20",
     "price": "20",
     "teacher": "Jane Longlastname",
-    "language": "english"
+    "language": "english",
+    "enrolled": true
   },
   {
     "id": "2",
@@ -33,7 +35,8 @@
     "progress": "20",
     "price": "10",
     "teacher": "John Doe",
-    "language": "french"
+    "language": "french",
+    "enrolled": false
   },
   {
     "id": "3",
@@ -46,6 +49,7 @@
     "price": "20",
     "teacher": "John Doe",
     "language": "english",
+    "enrolled": true,
     "syllabus": [
       {
         "id": "0",
@@ -159,7 +163,8 @@
     "progress": "20",
     "price": "10",
     "teacher": "John Doe",
-    "language": "french"
+    "language": "french",
+    "enrolled": true
   },
   {
     "id": "5",
@@ -171,7 +176,8 @@
     "progress": "20",
     "price": "5",
     "teacher": "John Doe",
-    "language": "arabic"
+    "language": "arabic",
+    "enrolled": false
   },
   {
     "id": "6",
@@ -183,6 +189,7 @@
     "progress": "20",
     "price": "10",
     "teacher": "John Doe",
-    "language": "arabic"
+    "language": "arabic",
+    "enrolled": false
   }
 ]
