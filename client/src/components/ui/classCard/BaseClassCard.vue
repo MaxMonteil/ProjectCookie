@@ -1,6 +1,10 @@
 <template functional>
-  <section class="w-56 bg-white rounded shadow min-w-56 space-y-1">
+  <section
+    class="w-56 bg-white rounded min-w-56 space-y-1"
+    :class="props.color !== 'gray' ? 'shadow' : 'border-2 border-gray-200'"
+  >
     <div
+      v-if="props.showImage"
       class="w-full h-32 rounded-t"
       :class="props.color === 'blue' ? 'bg-blue-500' : 'bg-green-500'"
     />
@@ -79,6 +83,10 @@ export default {
     courseId: {
       type: String,
       required: true,
+    },
+    showImage: {
+      type: Boolean,
+      default: true,
     },
     showButtons: {
       type: Boolean,
