@@ -19,8 +19,6 @@ $authheaders = apache_request_headers();
 $arr = explode(" ", $authheaders['authorization']);
 
 $jwt = $arr[1];
-echo "first: ";
-echo $jwt;
 if($jwt){
     try {
         $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
@@ -49,6 +47,7 @@ if($jwt){
         $cookie_value = $jwt;
 
         setcookie($cookie_name, $cookie_value, time() + (600), "/"); //change time according to jwt
+
 
         http_response_code(200);
         
