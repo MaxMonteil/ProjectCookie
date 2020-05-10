@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-20">
-    <section class="flex flex-col">
-      <h2 class="mb-6 text-3xl font-semibold leading-tight">
+    <section class="flex flex-col space-y-6">
+      <h2 class="text-3xl font-semibold leading-tight">
         Published Courses
       </h2>
 
@@ -23,10 +23,19 @@
       </p>
     </section>
 
-    <section class="flex flex-col">
-      <h2 class="mb-6 text-3xl font-semibold leading-tight">
-        Drafts
-      </h2>
+    <section class="flex flex-col space-y-6">
+      <header class="flex items-center justify-between">
+        <h2 class="text-3xl font-semibold leading-tight">
+          Drafts
+        </h2>
+
+        <router-link
+          class="text-lg font-bold text-gray-600 underline"
+          :to="{ name: 'form', params: { formType: 'course' } }"
+        >
+          <span class="text-blue-500">+</span> Create a new course
+        </router-link>
+      </header>
 
       <p v-if="drafts.loading">
         Loading...

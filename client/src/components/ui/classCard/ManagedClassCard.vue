@@ -10,7 +10,7 @@
     <div class="flex justify-between">
       <router-link
         class="text-lg font-bold text-gray-600 underline"
-        :to="{ name: 'form' }"
+        :to="{ name: 'form', params: { formType: 'course' } }"
       >
         Edit
       </router-link>
@@ -18,7 +18,7 @@
       <router-link
         v-if="props.course.isDraft"
         class="text-lg font-bold text-green-500 underline"
-        :to="{ name: 'form' }"
+        :to="{ name: 'form', params: { formType: 'course' } }"
       >
         Publish!
       </router-link>

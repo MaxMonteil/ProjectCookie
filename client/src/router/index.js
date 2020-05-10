@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
 import Course from '../pages/Course.vue'
@@ -10,6 +11,8 @@ import MyCoursesLayout from '../layouts/profile/MyCoursesLayout.vue'
 import TeachersCenterLayout from '../layouts/profile/TeachersCenterLayout.vue'
 import AccountSettingsLayout from '../layouts/profile/AccountSettingsLayout.vue'
 import CustomerSupportLayout from '../layouts/profile/CustomerSupportLayout.vue'
+
+import Form from '../pages/Form.vue'
 
 Vue.use(VueRouter)
 
@@ -73,6 +76,12 @@ const routes = [
         component: CustomerSupportLayout,
       },
     ],
+  },
+  {
+    path: '/form/:formType',
+    name: 'form',
+    component: Form,
+    props: true,
   },
   {
     // catch all route

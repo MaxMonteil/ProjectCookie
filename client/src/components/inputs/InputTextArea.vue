@@ -8,10 +8,11 @@
     ]"
   >
     {{ props.label }}
-    <input
+    <textarea
       :ref="data.ref"
       :type="props.type"
-      class="block w-full py-1 pl-2 mt-2 text-lg text-black rounded outline-none focus:shadow"
+      :rows="props.rows"
+      class="block w-full px-3 py-2 mt-2 text-lg text-black rounded outline-none focus:shadow"
       :class="[
         data.class,
         data.staticClass,
@@ -23,7 +24,7 @@
       ]"
       v-bind="data.attrs"
       v-on="{ ...listeners, input: e => listeners.input(e.target.value) }"
-    >
+    />
   </label>
 </template>
 
@@ -53,6 +54,10 @@ export default {
     bgGray: {
       type: Boolean,
       default: false,
+    },
+    rows: {
+      type: [String, Number],
+      default: 10,
     },
   },
 }
