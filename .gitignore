@@ -24,6 +24,7 @@ node_modules/
 
 # PHP
 vendor/
+.php_cs.cache
 
 # General
 dist/
