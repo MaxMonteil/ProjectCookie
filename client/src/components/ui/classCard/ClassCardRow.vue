@@ -25,7 +25,7 @@ export default {
       required: true,
       validator (value) {
         // The value must match one of these strings
-        return ['enrolled', 'detailed', 'completed'].includes(value)
+        return ['enrolled', 'detailed', 'completed', 'managed'].includes(value)
       },
     },
     tight: {
@@ -39,6 +39,7 @@ export default {
         enrolled: () => import('@/components/ui/classCard/EnrolledClassCard'),
         detailed: () => import('@/components/ui/classCard/DetailedClassCard'),
         completed: () => import('@/components/ui/classCard/CompletedClassCard'),
+        managed: () => import('@/components/ui/classCard/ManagedClassCard'),
       }
 
       return cards[this.card]

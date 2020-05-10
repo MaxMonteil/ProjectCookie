@@ -10,7 +10,7 @@
         @submit.prevent
       >
         <InputText
-          v-model="user.email"
+          v-model="localUser.email"
           label="Email"
           type="email"
           :bg-gray="true"
@@ -18,7 +18,7 @@
         />
 
         <InputText
-          v-model="user.password"
+          v-model="localUser.password"
           label="Password"
           type="password"
           :bg-gray="true"
@@ -75,10 +75,16 @@ export default {
     InputText,
     PaymentForm,
   },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
-      user: {
-        email: 'abc123@mail.aub.edu',
+      localUser: {
+        email: this.user.email,
         password: '********',
       },
     }

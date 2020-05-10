@@ -23,7 +23,8 @@
     "price": "20",
     "teacher": "Jane Longlastname",
     "language": "english",
-    "enrolled": true
+    "enrolled": true,
+    "isPublished": true
   },
   {
     "id": "2",

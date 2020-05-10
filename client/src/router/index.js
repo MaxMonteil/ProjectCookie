@@ -59,11 +59,13 @@ const routes = [
         path: 'teachers-center',
         name: 'teachers-center',
         component: TeachersCenterLayout,
+        props: true,
       },
       {
         path: 'account-settings',
         name: 'account-settings',
         component: AccountSettingsLayout,
+        props: true,
       },
       {
         path: 'customer-support',

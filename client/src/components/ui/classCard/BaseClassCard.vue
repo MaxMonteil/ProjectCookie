@@ -53,18 +53,7 @@
         <slot name="completed-on" />
       </p>
 
-      <div
-        v-if="props.showButtons"
-        class="flex justify-between"
-      >
-        <button class="btn btn-blue-sec">
-          View
-        </button>
-
-        <button class="btn btn-blue">
-          Manage
-        </button>
-      </div>
+      <slot />
 
       <p
         v-if="!!scopedSlots.description"
@@ -87,10 +76,6 @@ export default {
     showImage: {
       type: Boolean,
       default: true,
-    },
-    showButtons: {
-      type: Boolean,
-      default: false,
     },
     color: {
       type: String,
