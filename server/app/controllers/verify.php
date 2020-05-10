@@ -1,18 +1,18 @@
 <!DOCTYPE html>
- 
+
 <html>
 <head>
     <title>ProjectCookie > Sign up</title>
     <link href="../css/style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-    <!-- start header div --> 
+    <!-- start header div -->
     <div id="header">
         <h3>ProjectCoookie > Sign up</h3>
     </div>
-    <!-- end header div -->   
-     
-    <!-- start wrap div -->   
+    <!-- end header div -->
+
+    <!-- start wrap div -->
     <div id="wrap">
         <!-- start PHP code -->
         <?php
@@ -58,9 +58,9 @@
             }// Invalid approach
         ?>
         <!-- stop PHP Code -->
- 
-         
+
+
     </div>
-    <!-- end wrap div --> 
+    <!-- end wrap div -->
 </body>
 </html>

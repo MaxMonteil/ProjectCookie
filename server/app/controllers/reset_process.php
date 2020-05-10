@@ -15,14 +15,14 @@ if ('POST' === $_SERVER['REQUEST_METHOD']) {
 
     // Store the cipher method
     $ciphering = "AES-128-CTR";
-  
+
     // Use OpenSSl Encryption method
     $iv_length = openssl_cipher_iv_length($ciphering);
     $options = 0;
 
     // Non-NULL Initialization Vector for encryption
     $decryption_iv = '1234567891011121';
-    
+
     // Store the encryption key
     $decryption_key = "000102030405060708090a0b0c0d0e0f";
 

@@ -5,7 +5,7 @@
     $conn = $databaseService->getConnection();
     $table_name = 'Users';
 ?>
- 
+
 <html>
 <head>
     <title>ProjectCookie > Passowrd Recovery</title>

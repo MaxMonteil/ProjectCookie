@@ -51,7 +51,7 @@ if ($jwt) {
         setcookie($cookie_name, $cookie_value, time() + (600), "/"); //change time according to jwt
 
         http_response_code(200);
-        
+
         echo json_encode(array(
             "message" => "Access granted.",
             "token" => $jwt
@@ -61,7 +61,7 @@ if ($jwt) {
         setcookie('email', null, time() - 3600, "/");
 
         http_response_code(401);
-        
+
         echo json_encode(array(
             "message" => "Access denied.",
             "error" => $e->getMessage()
@@ -72,7 +72,7 @@ if ($jwt) {
     setcookie('email', null, time() - 3600, "/");
 
     http_response_code(401);
-    
+
     echo json_encode(array(
         "message" => "Access denied.",
         "error" => "No Access"

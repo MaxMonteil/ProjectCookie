@@ -42,7 +42,7 @@ if ($jwt) {
         $stmt->bindParam(1, $email);
         $stmt->execute();
         $num = $stmt->rowCount();
-        
+
         http_response_code(200);
 
         if ($num > 0) {
@@ -69,7 +69,7 @@ if ($jwt) {
         }
     } catch (Exception $e) {
         http_response_code(401);
-    
+
         echo json_encode(array(
         "message" => "Access denied.",
         "error" => $e->getMessage()
@@ -77,7 +77,7 @@ if ($jwt) {
     }
 } else {
     http_response_code(401);
-    
+
     echo json_encode(array(
         "message" => "Access denied.",
         "error" => "No Access"

@@ -67,7 +67,7 @@ if ($num > 0) {
                 "lastname" => $lastname,
                 "email" => $email
         ));
-        
+
         $jwt = JWT::encode($token, $secret_key);
         $cookie_name = "jwt";
         $cookie_name2 = "email";
