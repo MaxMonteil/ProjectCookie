@@ -1,0 +1,105 @@
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# Python
+venv/
+
+*.pyc
+__pycache__/
+
+.pytest_cache/
+.coverage
+
+*.egg-info/
+
+# Javascript
+src/.temp
+node_modules/
+
+# PHP
+vendor/
+.php_cs.cache
+
+# General
+dist/
+build/
+
+# local env files
+.env
+.env.*
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+
+# local files
+.todos.json
+
+# Secrets
+keys/
+
+# Miscellaneous
+.DS_Store
+.cache
+tags
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# Python
+venv/
+
+*.pyc
+__pycache__/
+
+.pytest_cache/
+.coverage
+
+*.egg-info/
+
+# Javascript
+src/.temp
+node_modules/
+
+# PHP
+vendor/
+
+# General
+dist/
+build/
+
+# local env files
+.env
+.env.*
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+
+# local files
+.todos.json
+
+# Secrets
+keys/
+
+# Miscellaneous
+.DS_Store
+.cache
+tags
