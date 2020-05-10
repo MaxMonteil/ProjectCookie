@@ -22,12 +22,12 @@ $table_name = 'Users';
 
 $query = "SELECT id, first_name, last_name, password, verified FROM " . $table_name . " WHERE email = ? LIMIT 0,1";
 
-$stmt = $conn->prepare( $query );
+$stmt = $conn->prepare($query);
 $stmt->bindParam(1, $email);
 $stmt->execute();
 $num = $stmt->rowCount();
 
-if($num > 0){
+if ($num > 0) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $id = $row['id'];
     $firstname = $row['first_name'];
@@ -35,16 +35,16 @@ if($num > 0){
     $password2 = $row['password'];
     $verified = $row['verified'];
 
-    if(password_verify($password, $password2))
-    {
+    if (password_verify($password, $password2)) {
         http_response_code(200);
-        if($verified == "0") {
+        if ($verified == "0") {
             setcookie("verification", "0", time() + (600), "/");
             echo json_encode(
                 array(
                     "message" => "Verificaiton Required.",
                     "email" => $email,
-                ));
+                )
+            );
             return;
         } else {
             setcookie("verification", "", time() - 3600, "/");
@@ -82,9 +82,9 @@ if($num > 0){
                 "jwt" => $jwt,
                 "email" => $email,
                 "expireAt" => $expire_claim
-            ));
-    }
-    else{
+            )
+        );
+    } else {
         http_response_code(401);
         echo json_encode(array("message" => "Login failed. Email or password does not exist."));
     }
@@ -92,4 +92,3 @@ if($num > 0){
     http_response_code(401);
     echo json_encode(array("message" => "Login failed. Email or password does not exist."));
 }
-?>

@@ -21,43 +21,41 @@
             $conn = $databaseService->getConnection();
             $table_name = 'Users';
 
-            if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !empty($_GET['hash'])){
+            if (isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !empty($_GET['hash'])) {
                 $email = $_GET['email'];
                 $hash = $_GET['hash'];
                 // Verify data
                 $query = "SELECT email, hash, verified FROM " . $table_name . " WHERE email='".$email."' AND hash='".$hash."' AND verified='0'";
 
-                $stmt = $conn->prepare( $query );
+                $stmt = $conn->prepare($query);
                 $stmt->execute();
                 $num = $stmt->rowCount();
 
-                if($num > 0){
+                if ($num > 0) {
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     $emailSQL = $row['email'];
                     $hashSQL = $row['hash'];
                     $verified = $row['verified'];
-                    if($hash == $hashSQL && $email == $emailSQL && $verified == "0") {
+                    if ($hash == $hashSQL && $email == $emailSQL && $verified == "0") {
                         $query2 = "UPDATE " . $table_name . "
                         SET `verified`=1 WHERE email = :email";
-                        $stmt = $conn->prepare( $query2 );
+                        $stmt = $conn->prepare($query2);
                         $stmt->bindParam(':email', $email);
-                        if($stmt->execute()){
+                        if ($stmt->execute()) {
                             echo '<div class="statusmsg">Your account has been activated, you can now login</div>';
-                        }
-                        else{
+                        } else {
                             echo '<div class="statusmsg">The url is either invalid or you already have activated your account.</div>';
                         }
-                    }else {
+                    } else {
                         echo '<div class="statusmsg">The url is either invalid or you already have activated your account.</div>';
                     }
                 } else {
                     echo '<div class="statusmsg">The url is either invalid or you already have activated your account.</div>';
                 }
-                             
-            } else{
+            } else {
                 // Invalid approach
                 echo '<div class="statusmsg">Invalid approach, please use the link that has been send to your email.</div>';
-            }// Invalid approach             
+            }// Invalid approach
         ?>
         <!-- stop PHP Code -->
  

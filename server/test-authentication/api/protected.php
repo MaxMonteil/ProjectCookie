@@ -21,7 +21,7 @@ $arr = explode(" ", $authheaders['authorization']);
 $jwt = $arr[1];
 echo "first: ";
 echo $jwt;
-if($jwt){
+if ($jwt) {
     try {
         $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
 
@@ -56,8 +56,7 @@ if($jwt){
             "message" => "Access granted.",
             "token" => $jwt
         ));
-
-    }catch (Exception $e){
+    } catch (Exception $e) {
         setcookie('jwt', null, time() - 3600, "/");
         setcookie('email', null, time() - 3600, "/");
 
@@ -67,8 +66,7 @@ if($jwt){
             "message" => "Access denied.",
             "error" => $e->getMessage()
         ));
-}
-
+    }
 } else {
     setcookie('jwt', null, time() - 3600, "/");
     setcookie('email', null, time() - 3600, "/");
@@ -80,4 +78,3 @@ if($jwt){
         "error" => "No Access"
     ));
 }
-?>

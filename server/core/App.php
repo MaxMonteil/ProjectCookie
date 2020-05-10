@@ -7,7 +7,8 @@ namespace App\Core;
  *
  * Dependency injection container for the application.
  */
-class App {
+class App
+{
     protected static $registry = [];
 
     /**
@@ -18,7 +19,8 @@ class App {
      *
      * @return void
      */
-    public static function bind(string $key, $dep): void {
+    public static function bind(string $key, $dep): void
+    {
         static::$registry[$key] = $dep;
     }
 
@@ -29,7 +31,8 @@ class App {
      *
      * @return mixed The registry dependency.
      */
-    public static function get(string $key) {
+    public static function get(string $key)
+    {
         if (!array_key_exists($key, static::$registry)) {
             throw new \Exception("No {$key} is bound in the container");
         }

@@ -18,7 +18,8 @@ App::bind('database', new QueryBuilder(
  *
  * @return bool Required view file.
  */
-function view(string $name, array $data = []): bool {
+function view(string $name, array $data = []): bool
+{
     extract($data);
     return require "app/views/{$name}.view.php";
 }
@@ -30,6 +31,7 @@ function view(string $name, array $data = []): bool {
  *
  * @return void
  */
-function redirect(string $path): void {
+function redirect(string $path): void
+{
     header("Location: /{$path}");
 }

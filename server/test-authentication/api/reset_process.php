@@ -13,28 +13,33 @@ if ('POST' === $_SERVER['REQUEST_METHOD']) {
         return;
     }
 
-    // Store the cipher method 
-    $ciphering = "AES-128-CTR"; 
+    // Store the cipher method
+    $ciphering = "AES-128-CTR";
   
-    // Use OpenSSl Encryption method 
-    $iv_length = openssl_cipher_iv_length($ciphering); 
-    $options = 0; 
+    // Use OpenSSl Encryption method
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
 
-    // Non-NULL Initialization Vector for encryption 
-    $decryption_iv = '1234567891011121'; 
+    // Non-NULL Initialization Vector for encryption
+    $decryption_iv = '1234567891011121';
     
-    // Store the encryption key 
-    $decryption_key = "000102030405060708090a0b0c0d0e0f"; 
+    // Store the encryption key
+    $decryption_key = "000102030405060708090a0b0c0d0e0f";
 
-    $decryption = openssl_decrypt($token, $ciphering,  
-        $decryption_key, $options, $decryption_iv); 
+    $decryption = openssl_decrypt(
+        $token,
+        $ciphering,
+        $decryption_key,
+        $options,
+        $decryption_iv
+    );
 
     $ar = explode("%;;;%", $decryption);
 
     $email = $ar[0];
     $expiry = $ar[1];
 
-    if(intval($expiry) < time()) {
+    if (intval($expiry) < time()) {
         echo "expired token";
         exit();
     }
@@ -62,4 +67,3 @@ if ('POST' === $_SERVER['REQUEST_METHOD']) {
         echo '<div class="statusmsg">2Invalid approach, please use the link that has been send to your email.</div>';
     }
 }
-?>

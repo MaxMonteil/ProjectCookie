@@ -29,32 +29,37 @@ $table_name = 'Users';
 
 $query = "SELECT verified FROM " . $table_name . " WHERE email = ? LIMIT 0,1";
 
-$stmt = $conn->prepare( $query );
+$stmt = $conn->prepare($query);
 $stmt->bindParam(1, $email);
 $stmt->execute();
 $num = $stmt->rowCount();
 
-if($num > 0){
+if ($num > 0) {
     $expires = new DateTime('NOW');
     $expires->add(new DateInterval('PT02H')); // 2 hours
     $message = $email."%;;;%".$expires->format('U');
 
-    // Store the cipher method 
-    $ciphering = "AES-128-CTR"; 
+    // Store the cipher method
+    $ciphering = "AES-128-CTR";
   
-    // Use OpenSSl Encryption method 
-    $iv_length = openssl_cipher_iv_length($ciphering); 
-    $options = 0; 
+    // Use OpenSSl Encryption method
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
     
-    // Non-NULL Initialization Vector for encryption 
-    $encryption_iv = '1234567891011121'; 
+    // Non-NULL Initialization Vector for encryption
+    $encryption_iv = '1234567891011121';
     
-    // Store the encryption key 
-    $encryption_key = "000102030405060708090a0b0c0d0e0f"; 
+    // Store the encryption key
+    $encryption_key = "000102030405060708090a0b0c0d0e0f";
     
-    // Use openssl_encrypt() function to encrypt the data 
-    $validator = openssl_encrypt($message, $ciphering, 
-                $encryption_key, $options, $encryption_iv);
+    // Use openssl_encrypt() function to encrypt the data
+    $validator = openssl_encrypt(
+        $message,
+        $ciphering,
+        $encryption_key,
+        $options,
+        $encryption_iv
+    );
     try {
         $validator = rawurlencode($validator);
         //Server settings
@@ -103,10 +108,8 @@ if($num > 0){
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-}
-else{
+} else {
     //http_response_code(400);
 
     echo json_encode(array("message" => "Unable to register the user."));
 }
-?>

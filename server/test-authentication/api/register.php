@@ -50,7 +50,7 @@ $confirmpassword = $_POST['confirmpassword'];
     }
 
 $table_name = 'Users';
-$hash = md5( rand(0,1000) );
+$hash = md5(rand(0, 1000));
 
 $query = "INSERT INTO " . $table_name . "
                 SET first_name = :firstname,
@@ -71,16 +71,16 @@ $password_hash = password_hash($password, PASSWORD_BCRYPT);
 $stmt->bindParam(':password', $password_hash);
 
 
-if($stmt->execute()){
-        try {
-            $mail->SMTPOptions = array(
+if ($stmt->execute()) {
+    try {
+        $mail->SMTPOptions = array(
                 'ssl' => array(
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
                 )
             );
-            //Server settings
+        //Server settings
             $mail->SMTPDebug = 2;                      // Enable verbose debug output
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = "smtp.gmail.com";                       // Set the SMTP server to send through
@@ -91,21 +91,21 @@ if($stmt->execute()){
             $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
         
             //Recipients
-            $mail->setFrom('projectcookievalidation@gmail.com', 'ProjectCookie Verification');
-            //$mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+        $mail->setFrom('projectcookievalidation@gmail.com', 'ProjectCookie Verification');
+        //$mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
             $mail->addAddress($email);               // Name is optional
             //$mail->addReplyTo('info@example.com', 'Information');
             //$mail->addCC('cc@example.com');
             //$mail->addBCC('bcc@example.com');
         
             // Attachments
-            //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+        //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
         
-            // Content
+        // Content
             $mail->isHTML(false);                                  // Set email format to HTML
             $mail->Subject = 'Signup | Verification';
-            $mail->Body    = '
+        $mail->Body    = '
  
             Thanks for signing up!
             Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
@@ -119,20 +119,18 @@ if($stmt->execute()){
             http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/verify.php?email='.$email.'&hash='.$hash.'
              
             ';
-            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             
-            $mail->send();
-            echo 'Message has been sent';
-            setcookie("verification", "0", time() + (600), "/");
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
+        $mail->send();
+        echo 'Message has been sent';
+        setcookie("verification", "0", time() + (600), "/");
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
     //http_response_code(200);
     echo json_encode(array("message" => "User was successfully registered."));
-}
-else{
+} else {
     //http_response_code(400);
 
     echo json_encode(array("message" => "Unable to register the user."));
 }
-?>

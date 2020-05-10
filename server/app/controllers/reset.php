@@ -17,10 +17,9 @@
     </div>
     <div id="wrap">
         <?php
-            if(isset($_GET['validator']) && !empty($_GET['validator'])){
+            if (isset($_GET['validator']) && !empty($_GET['validator'])) {
                 $validator = $_GET['validator'];
-                echo $validator;
-                ?>
+                echo $validator; ?>
                     <form method="post" action="reset_process.php">
                         <input type="hidden" name="validator" value="<?php echo $validator ?>"> <br>
                         New Password <input type="text" name="newpass"> <br>
