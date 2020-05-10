@@ -1,0 +1,37 @@
+@tailwind base;
+
+.btn {
+    @apply inline-flex justify-center items-center leading-tight font-semibold rounded px-6 py-2;
+}
+
+.btn-blue {
+    @apply shadow border border-blue-500 bg-blue-500 text-white;
+}
+
+.btn-blue-sec {
+    @apply shadow border border-blue-900 bg-white text-blue-900;
+}
+
+.btn-green {
+    @apply shadow border border-green-500 bg-green-500 text-white;
+}
+
+.btn-green-sec {
+    @apply shadow border border-green-900 bg-white text-green-900;
+}
+
+.btn-red {
+    @apply shadow border border-red-500 bg-red-500 text-white;
+}
+
+.btn-red-sec {
+    @apply shadow border border-red-900 bg-white text-red-900;
+}
+
+.btn-inactive {
+    @apply border border-gray-600 bg-white text-gray-600;
+}
+
+@tailwind components;
+
+@tailwind utilities;

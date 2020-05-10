@@ -1,0 +1,211 @@
+[
+  {
+    "id": "0",
+    "name": "World History",
+    "subject": "history",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "20",
+    "teacher": "John Doe",
+    "language": "english",
+    "enrolled": false
+  },
+  {
+    "id": "1",
+    "name": "Microbiology",
+    "subject": "science",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "20",
+    "teacher": "Jane Longlastname",
+    "language": "english",
+    "enrolled": true,
+    "isPublished": true
+  },
+  {
+    "id": "2",
+    "name": "Magnetism",
+    "subject": "science",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "10",
+    "teacher": "John Doe",
+    "language": "french",
+    "enrolled": false
+  },
+  {
+    "id": "3",
+    "name": "Web Development",
+    "subject": "development",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "20",
+    "teacher": "John Doe",
+    "language": "english",
+    "enrolled": true,
+    "syllabus": [
+      {
+        "id": "0",
+        "name": "The Web",
+        "description": "Before learning how to develop for the web, we first need to understand how a webpage functions and what happens when you navigate to a page.",
+        "lessons": [
+          {
+            "id": "0",
+            "sectionId": "0",
+            "courseId": "3",
+            "type": "class",
+            "name": "What is the internet?",
+            "completed": true,
+            "prevLessonId": "",
+            "nextLessonId": "1"
+          },
+          {
+            "id": "1",
+            "sectionId": "0",
+            "courseId": "3",
+            "type": "class",
+            "name": "The path of a request",
+            "completed": true,
+            "prevLessonId": "0",
+            "nextLessonId": "2"
+          },
+          {
+            "id": "2",
+            "sectionId": "0",
+            "courseId": "3",
+            "type": "class",
+            "name": "Understanding web servers",
+            "completed": true,
+            "prevLessonId": "1",
+            "nextLessonId": "3"
+          },
+          {
+            "id": "3",
+            "sectionId": "0",
+            "courseId": "3",
+            "type": "class",
+            "name": "How the browser renders a page",
+            "completed": true,
+            "prevLessonId": "2",
+            "nextLessonId": "4"
+          },
+          {
+            "id": "4",
+            "sectionId": "0",
+            "courseId": "3",
+            "type": "quiz",
+            "name": "Section Quiz",
+            "description": "Quiz description. Praesent at pretium augue. Suspendisse hendrerit velit non bibendum pellentesque. Morbi blandit diam posuere, volutpat ex quis, rhoncus dolor. Mauris fringilla neque nulla, scelerisque pulvinar lorem dapibus vel. Nam eget vulputate metus, sed egestas ligula. Vestibulum porttitor, orci eget suscipit elementum, libero odio consequat tortor, in scelerisque orci dolor eu felis. Nunc blandit ultrices purus a molestie. Pellentesque mattis, lectus non volutpat interdum.",
+            "questions": [
+              {
+                "question": "Question. Integer et tempus urna. In nec pretium velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut lacus eget ex tincidunt congue eu sit amet justo. Donec lobortis felis id lacus hendrerit vulputate.",
+                "answers": [
+                  "Option A",
+                  "Option B",
+                  "Option C",
+                  "Option D",
+                  "Option E",
+                  "Option F",
+                  "Option G"
+                ]
+              },
+              {
+                "question": "Question. Integer et tempus urna. In nec pretium velit. Interdum et malesuada fames.",
+                "answers": ["Option A", "Option B", "Option C"]
+              }
+            ],
+            "completed": false,
+            "prevLessonId": "3",
+            "nextLessonId": ""
+          }
+        ]
+      },
+      {
+        "id": "1",
+        "name": "HTML",
+        "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim.",
+        "content": []
+      },
+      {
+        "id": "2",
+        "name": "CSS",
+        "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim.",
+        "content": []
+      },
+      {
+        "id": "3",
+        "name": "JS",
+        "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim.",
+        "content": []
+      },
+      {
+        "id": "4",
+        "name": "PHP",
+        "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim.",
+        "content": []
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "CVSP 205",
+    "subject": "philosophy",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "10",
+    "teacher": "John Doe",
+    "language": "french",
+    "enrolled": true
+  },
+  {
+    "id": "5",
+    "name": "PHIL 211",
+    "subject": "philosophy",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "5",
+    "teacher": "John Doe",
+    "language": "arabic",
+    "enrolled": false
+  },
+  {
+    "id": "6",
+    "name": "Linear Algebra",
+    "subject": "math",
+    "startDate": "April 26, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "20",
+    "price": "10",
+    "teacher": "John Doe",
+    "language": "arabic",
+    "enrolled": false
+  },
+  {
+    "id": "7",
+    "name": "Databases",
+    "subject": "development",
+    "startDate": "April 26, 2020",
+    "completedOn": "May 09, 2020",
+    "studentCount": "145, 900",
+    "description": "Course description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum tempor erat, id sollicitudin mi. Aenean tincidunt semper eros, a tempus lacus. Etiam vel magna at lectus molestie tempus vitae at enim. Morbi vel tristique enim. Etiam tempus mi quis dui pharetra, ut sodales turpis interdum. Aenean tristique odio vitae congue molestie. Aliquam erat volutpat. Aliquam venenatis neque eget tellus commodo fermentum. Quisque ultricies congue metus in tempus.",
+    "progress": "100",
+    "completed": true,
+    "price": "10",
+    "teacher": "John Doe",
+    "language": "arabic",
+    "enrolled": true
+  }
+]
