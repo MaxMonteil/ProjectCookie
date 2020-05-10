@@ -3,8 +3,8 @@
     :is="injections.components.BaseClassCard"
     :course-id="props.course.id"
   >
-    <template #title>
-      {{ props.course.title }}
+    <template #name>
+      {{ props.course.name }}
     </template>
 
     <template #progress>

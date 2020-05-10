@@ -66,7 +66,7 @@ export default {
       const course = courses.find(course => course.id === this.courseId)
       const section = course.syllabus.find(section => section.id === this.sectionId)
 
-      this.courseName = course.title
+      this.courseName = course.name
 
       this.lesson = section.lessons.find(lesson => lesson.id === this.lessonId)
       this.loading = false

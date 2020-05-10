@@ -4,8 +4,8 @@
     :course-id="props.course.id"
     color="green"
   >
-    <template #title>
-      {{ props.course.title }}
+    <template #name>
+      {{ props.course.name }}
     </template>
 
     <template #start-date>

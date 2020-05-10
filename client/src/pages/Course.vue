@@ -11,7 +11,7 @@
     <main class="space-y-8">
       <header class="space-y-2">
         <h1 class="text-3xl font-semibold leading-tight">
-          {{ course.title }}
+          {{ course.name }}
         </h1>
 
         <span class="flex items-center rounded space-x-2 divide-x-2 divide-gray-200">

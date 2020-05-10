@@ -1,7 +1,7 @@
 [
   {
     "id": "0",
-    "title": "World History",
+    "name": "World History",
     "subject": "history",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -14,7 +14,7 @@
   },
   {
     "id": "1",
-    "title": "Microbiology",
+    "name": "Microbiology",
     "subject": "science",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -28,7 +28,7 @@
   },
   {
     "id": "2",
-    "title": "Magnetism",
+    "name": "Magnetism",
     "subject": "science",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -41,7 +41,7 @@
   },
   {
     "id": "3",
-    "title": "Web Development",
+    "name": "Web Development",
     "subject": "development",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -156,7 +156,7 @@
   },
   {
     "id": "4",
-    "title": "CVSP 205",
+    "name": "CVSP 205",
     "subject": "philosophy",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -169,7 +169,7 @@
   },
   {
     "id": "5",
-    "title": "PHIL 211",
+    "name": "PHIL 211",
     "subject": "philosophy",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -182,7 +182,7 @@
   },
   {
     "id": "6",
-    "title": "Linear Algebra",
+    "name": "Linear Algebra",
     "subject": "math",
     "startDate": "April 26, 2020",
     "studentCount": "145, 900",
@@ -195,7 +195,7 @@
   },
   {
     "id": "7",
-    "title": "Databases",
+    "name": "Databases",
     "subject": "development",
     "startDate": "April 26, 2020",
     "completedOn": "May 09, 2020",

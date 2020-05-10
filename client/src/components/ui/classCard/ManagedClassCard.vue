@@ -3,21 +3,25 @@
     :is="injections.components.BaseClassCard"
     :course-id="props.course.id"
   >
-    <template #title>
-      {{ props.course.title }}
+    <template #name>
+      {{ props.course.name }}
     </template>
 
     <div class="flex justify-between">
-      <button
-        v-if="props.course.isPublished"
-        class="btn btn-blue-sec"
+      <router-link
+        class="text-lg font-bold text-gray-600 underline"
+        :to="{ name: 'form' }"
       >
-        View
-      </button>
+        Edit
+      </router-link>
 
-      <button class="btn btn-blue">
-        Manage
-      </button>
+      <router-link
+        v-if="props.course.isDraft"
+        class="text-lg font-bold text-green-500 underline"
+        :to="{ name: 'form' }"
+      >
+        Publish!
+      </router-link>
     </div>
   </component>
 </template>

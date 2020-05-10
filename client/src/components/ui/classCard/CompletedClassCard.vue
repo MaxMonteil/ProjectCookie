@@ -5,8 +5,8 @@
     color="gray"
     :show-image="false"
   >
-    <template #title>
-      {{ props.course.title }}
+    <template #name>
+      {{ props.course.name }}
     </template>
 
     <template #progress>

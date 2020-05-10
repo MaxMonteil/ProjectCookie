@@ -14,7 +14,7 @@
         <router-link
           :to="{ name: 'course', params: { courseId: props.courseId } }"
         >
-          <slot name="title" />
+          <slot name="name" />
         </router-link>
       </h1>
 

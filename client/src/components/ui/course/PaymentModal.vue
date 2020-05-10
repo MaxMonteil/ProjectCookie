@@ -14,7 +14,7 @@
         </h2>
 
         <h1 class="mb-2 text-3xl font-semibold leading-tight">
-          {{ course.title }}
+          {{ course.name }}
         </h1>
 
         <div class="flex justify-center mb-12 rounded space-x-2 divide-x-2 divide-gray-200">

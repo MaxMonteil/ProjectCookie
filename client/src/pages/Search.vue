@@ -96,7 +96,7 @@ const stringCompare = (a, b) => {
 
 const compareFunctions = {
   subject: (a, b) => stringCompare(a.subject, b.subject),
-  name: (a, b) => stringCompare(a.title, b.title),
+  name: (a, b) => stringCompare(a.name, b.name),
   'price asc': (a, b) => parseInt(a.price) - parseInt(b.price),
   'price des': (a, b) => parseInt(b.price) - parseInt(a.price),
 }
@@ -131,7 +131,7 @@ export default {
   computed: {
     searchResults () {
       const result = this.courses.filter(course => {
-        const matchesSearchTerm = course.title.toLowerCase().includes(this.search.trim().toLowerCase())
+        const matchesSearchTerm = course.name.toLowerCase().includes(this.search.trim().toLowerCase())
         const matchesOptions = Object.entries(this.options).every(([option, value]) => !value || value === course[option])
 
         return matchesSearchTerm && matchesOptions
