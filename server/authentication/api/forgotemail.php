@@ -35,70 +35,73 @@ $stmt->execute();
 $num = $stmt->rowCount();
 
 if($num > 0){
-    $token = random_bytes(32);
-    $validator = bin2hex($token);
-    $hash = hash('sha256', $token);
     $expires = new DateTime('NOW');
     $expires->add(new DateInterval('PT02H')); // 2 hours
+    $message = $email."%;;;%".$expires->format('U');
 
-    $query2 = "UPDATE " . $table_name . "
-        SET `passhash`= :hash, `passhashexpire`= :expire WHERE email  = :email";
-    $stmt = $conn->prepare( $query2 );
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':hash', $hash);
-    $stmt->bindParam(':expire', $expires->format('U'));
+    // Store the cipher method 
+    $ciphering = "AES-128-CTR"; 
+  
+    // Use OpenSSl Encryption method 
+    $iv_length = openssl_cipher_iv_length($ciphering); 
+    $options = 0; 
+    
+    // Non-NULL Initialization Vector for encryption 
+    $encryption_iv = '1234567891011121'; 
+    
+    // Store the encryption key 
+    $encryption_key = "000102030405060708090a0b0c0d0e0f"; 
+    
+    // Use openssl_encrypt() function to encrypt the data 
+    $validator = openssl_encrypt($message, $ciphering, 
+                $encryption_key, $options, $encryption_iv);
+    try {
+        $validator = rawurlencode($validator);
+        //Server settings
+        $mail->SMTPDebug = 3;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = "smtp.gmail.com";                       // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'projectcookievalidation@gmail.com';                     // SMTP username
+        $mail->Password   = 'ProjectCookie1@';                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    
+        //Recipients
+        $mail->setFrom('projectcookievalidation@gmail.com', 'ProjectCookie Verification');
+        //$mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+        $mail->addAddress($email);               // Name is optional
+        //$mail->addReplyTo('info@example.com', 'Information');
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
+    
+        // Attachments
+        //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+    
+        // Content
+        $mail->isHTML(false);                                  // Set email format to HTML
+        $mail->Subject = 'Email Recovery | ProjectCookie';
+        $mail->Body    = '
 
-    if($stmt->execute()){
-        try {
-            //Server settings
-            $mail->SMTPDebug = 3;                      // Enable verbose debug output
-            $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = "smtp.gmail.com";                       // Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'projectcookievalidation@gmail.com';                     // SMTP username
-            $mail->Password   = 'ProjectCookie1@';                               // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-        
-            //Recipients
-            $mail->setFrom('projectcookievalidation@gmail.com', 'ProjectCookie Verification');
-            //$mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
-            $mail->addAddress($email);               // Name is optional
-            //$mail->addReplyTo('info@example.com', 'Information');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
-        
-            // Attachments
-            //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-        
-            // Content
-            $mail->isHTML(false);                                  // Set email format to HTML
-            $mail->Subject = 'Email Recovery | ProjectCookie';
-            $mail->Body    = '
- 
-            Password Recovery Email!
-            If you did not request to change your password, please ignore this email.
-             
-            ------------------------
-            Email: '.$email.'
-            ------------------------
-             
-            Please click this link to change your account\'s password:
-            http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/reset.php?email='.$email.'&validator='.$validator.'
-             
-            ';
-            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        Password Recovery Email!
+        If you did not request to change your password, please ignore this email.
             
-            $mail->send();
-            echo 'Message has been sent';
-            exit();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
-    }
-    else{
-        echo 'Unable to send password recovery';
+        ------------------------
+        Email: '.$email.'
+        ------------------------
+            
+        Please click this link to change your account\'s password:
+        http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/reset.php?'.'&validator='.$validator.'
+            
+        ';
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        
+        $mail->send();
+        echo 'Message has been sent';
+        exit();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
 else{

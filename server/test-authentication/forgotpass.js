@@ -14,7 +14,7 @@ function checkLogin() {
         },
         success: function (data) {
             console.log(data);
-            window.location.replace("login.html");
+            //window.location.replace("login.html");
         }
     });
 }

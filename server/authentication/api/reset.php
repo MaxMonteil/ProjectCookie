@@ -17,12 +17,11 @@
     </div>
     <div id="wrap">
         <?php
-            if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['validator']) && !empty($_GET['validator'])){
-                $email = $_GET['email'];
+            if(isset($_GET['validator']) && !empty($_GET['validator'])){
                 $validator = $_GET['validator'];
+                echo $validator;
                 ?>
                     <form method="post" action="reset_process.php">
-                        <input type="hidden" name="email" value="<?php echo $email ?>"> <br>
                         <input type="hidden" name="validator" value="<?php echo $validator ?>"> <br>
                         New Password <input type="text" name="newpass"> <br>
                         Confirm Password <input type="text" name="confpass"> <br>
