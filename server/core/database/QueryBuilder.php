@@ -1,34 +1,19 @@
 <?php
 
-class Connection {
-    public static function make() {
-        try {
-            return new \PDO(
-                'mysql:host=localhost;dbname=cookie',
-                'root',
-                '',
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                ],
-            );
-        } catch (\PDOException $e) {
-            die(var_dump($e->getMessage()));
-        }
-    }
-}
+namespace App\Core\Database;
 
-class Database {
+class QueryBuilder {
     private $pdo;
 
-    public function __construct() {
-        $this->pdo = Connection::make();
+    public function __construct(\PDO $pdo) {
+        $this->pdo = $pdo;
     }
 
     public function selectAll($table) {
         $statement = $this->pdo->prepare("SELECT * FROM {$table}");
         $statement->execute();
 
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function selectOne($table, $parameters, $columns) {
@@ -42,7 +27,7 @@ class Database {
         $statement = $this->pdo->prepare($sql);
         $statement->execute($parameters);
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function selectByAttrValues($table, $parameter, $values, $columns) {
@@ -57,7 +42,7 @@ class Database {
         $statement = $this->pdo->prepare($sql);
         $statement->execute();
 
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function insert($table, $parameters) {
@@ -75,7 +60,7 @@ class Database {
             die(var_dump($e->getMessage()));
         }
     }
-	public function deleteOne($table, $parameters) {
+    public function deleteOne($table, $parameters) {
         $sql = sprintf(
             'DELETE FROM %s WHERE %s',
             $table,
@@ -89,34 +74,31 @@ class Database {
             die(var_dump($e->getMessage()));
         }
     }
-	public function deleteAll($table){
-		$sql = sprintf(
+    public function deleteAll($table) {
+        $sql = sprintf(
             'DELETE FROM %s ',
             $table,
         );
-		try {
+        try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute();
         } catch (\Exception $e) {
             die(var_dump($e->getMessage()));
         }
-	}
-	public function update($table, $parameters, $conditions){
-		$sql = sprintf(
+    }
+    public function update($table, $parameters, $conditions) {
+        $sql = sprintf(
             'UPDATE %s SET %s WHERE %s',
             $table,
-			implode(' , ', array_map(fn ($p) => "{$p} = :{$p}", array_keys($parameters))),
-			implode(' AND ', array_map(fn ($c) => "{$c} = :{$c}", array_keys($conditions))),
+            implode(' , ', array_map(fn ($p) => "{$p} = :{$p}", array_keys($parameters))),
+            implode(' AND ', array_map(fn ($c) => "{$c} = :{$c}", array_keys($conditions))),
         );
-		try {
+        try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute($parameters);
-			$statement->execute($conditions);
+            $statement->execute($conditions);
         } catch (\Exception $e) {
             die(var_dump($e->getMessage()));
         }
-		
-		
-	}
-	
+    }
 }
