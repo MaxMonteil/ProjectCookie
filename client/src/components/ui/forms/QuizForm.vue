@@ -22,7 +22,7 @@
       {{ value.questions.length }} Questions
       <button
         class="block mt-2 whitespace-no-wrap btn btn-blue"
-        @click.prevent
+        @click.prevent="showModal = true"
       >
         Edit Quiz
       </button>
@@ -34,18 +34,27 @@
     >
       - Remove this Quiz
     </button>
+
+    <QuestionsForm
+      v-if="showModal"
+      :value="value"
+      @input="$emit('input', $event)"
+      @close="showModal = false"
+    />
   </div>
 </template>
 
 <script>
 import InputText from '@/components/inputs/InputText'
 import InputTextArea from '@/components/inputs/InputTextArea'
+import QuestionsForm from '@/components/ui/forms/QuestionsForm'
 
 export default {
   name: 'QuizForm',
   components: {
     InputText,
     InputTextArea,
+    QuestionsForm,
   },
   props: {
     value: {
@@ -60,6 +69,11 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data () {
+    return {
+      showModal: false,
+    }
   },
 }
 </script>
