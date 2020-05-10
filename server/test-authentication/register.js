@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    setCookie("jwt", "", 1);
     $("#submit").click(checkLogin);
 })
 
@@ -9,6 +8,8 @@ function checkLogin() {
     var email = $("#email").val();
     var pass = $("#pass").val();
     var cpass = $("#cpass").val();
+    this.disabled=true;
+    this.value='Registering, please wait...';
     $.ajax({
         type: 'POST',
         url: 'api/register.php',
@@ -20,32 +21,10 @@ function checkLogin() {
                 "confirmpassword": cpass,
             },
         success: function (data) {
-            //setCookie("jwt", data.jwt, 1);
             console.log(data);
-            //$("#limiter").html("message: "+data['message']);
+            window.location.replace("login.html");
         }
     });
-}
-
-// function to set cookie
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-// show home page
-function showHomePage(){
- 
-    // validate jwt to verify access
-    var jwt = getCookie('jwt');
-    $.post("api/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
- 
-        // home page html will be here
-    })
- 
-    // show login page on error will be here
 }
 
 // get or read cookie

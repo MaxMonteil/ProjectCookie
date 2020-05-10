@@ -20,7 +20,7 @@ $password = $_POST["password"];
 
 $table_name = 'Users';
 
-$query = "SELECT id, first_name, last_name, password FROM " . $table_name . " WHERE email = ? LIMIT 0,1";
+$query = "SELECT id, first_name, last_name, password, verified FROM " . $table_name . " WHERE email = ? LIMIT 0,1";
 
 $stmt = $conn->prepare( $query );
 $stmt->bindParam(1, $email);
@@ -33,9 +33,22 @@ if($num > 0){
     $firstname = $row['first_name'];
     $lastname = $row['last_name'];
     $password2 = $row['password'];
+    $verified = $row['verified'];
 
     if(password_verify($password, $password2))
     {
+        http_response_code(200);
+        if($verified == "0") {
+            setcookie("verification", "0", time() + (600), "/");
+            echo json_encode(
+                array(
+                    "message" => "Verificaiton Required.",
+                    "email" => $email,
+                ));
+            return;
+        } else {
+            setcookie("verification", "", time() - 3600, "/");
+        }
         $secret_key = "YOUR_SECRET_KEY";
         $issuer_claim = "THE_ISSUER"; // this can be the servername
         $audience_claim = "THE_AUDIENCE";
@@ -54,10 +67,15 @@ if($num > 0){
                 "lastname" => $lastname,
                 "email" => $email
         ));
-
-        http_response_code(200);
         
         $jwt = JWT::encode($token, $secret_key);
+        $cookie_name = "jwt";
+        $cookie_name2 = "email";
+        $cookie_value = $jwt;
+        $cookie_value2 = $email;
+        setcookie($cookie_name, $cookie_value, time() + (600), "/");
+        setcookie($cookie_name2, $cookie_value2, time() + (600), "/");
+
         echo json_encode(
             array(
                 "message" => "Successful login.",
