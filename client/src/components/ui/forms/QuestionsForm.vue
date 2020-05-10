@@ -4,7 +4,7 @@
     @close="$emit('close')"
   >
     <template #backdrop>
-      <div class="absolute w-full h-full bg-black bg-opacity-25" />
+      <div class="absolute w-full h-screen -mt-6 bg-black bg-opacity-25" />
     </template>
 
     <div class="w-4/5 px-16 py-12 overflow-y-auto bg-white rounded shadow-lg h-90 space-y-8">
