@@ -3,6 +3,9 @@
 use App\Core\App;
 use App\Core\Database\QueryBuilder;
 use App\Core\Database\Connection;
+use App\Services\Notifications\MailService;
+
+\Dotenv\Dotenv::createImmutable(__DIR__)->load();
 
 App::bind('config', require 'config.php');
 
