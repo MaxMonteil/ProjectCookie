@@ -17,10 +17,10 @@ class Users {
     public static function newUser($user): void {
         // field validation
         PDOException $e;
-        if(!preg_match(^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$,$password)){
+        if(!preg_match(^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$,$user['Password'])){
             die(var_dump($e->"This password is weak, please enter another one"));
         }
-        if(!preg_match(^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$, $Email)){
+        if(!preg_match(^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$, $user['Email'])){
             die(var_dump($e->"Invalid email, please enter another one"));
         }
         App::get('database')->insert(static::$table, $user);
@@ -29,7 +29,8 @@ class Users {
         $columns = ['UserID', 'Name', 'Email', 'Password', 'Verified', 'HashEmail'];
         return App::get('database')->selectOne(static::$table, $user, $columns);
     }
-    public static function updatePass($user, $Email){
-        return App::get('database')->update(static::$table, $user, $Email);
+    public static function updatePass($user){
+        
+        return App::get('database')->update(static::$table, ['Password'=> $user['Password']], ['Email'=> $user['Email']); // $user = [Email => "ksjd@gmail.com", password => "something"]
     }
 }
