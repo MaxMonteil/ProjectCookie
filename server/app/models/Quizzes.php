@@ -14,11 +14,13 @@ class Quizzes {
     }
 
     public static function getQuiz($quiz) {
-        $columns = [ 'QuizID','CourseID', 'QuestionsAns'];
+        $columns = ['QuizID','CourseID', 'QuestionsAns'];
         return App::get('database')->selectOne(static::$table, $quiz, $columns);
     }
     public static function updateQuiz($quiz){
-        return App::get('database')->update(static::$table, $quiz, ['QuizID'=> $quiz['QuizID']]);
+        App::get('database')->update(static::$table, $quiz, ['QuizID'=> $quiz['QuizID']]);
     }
+    // getAllQuizzes
+    // deleteQuiz
 }
 
