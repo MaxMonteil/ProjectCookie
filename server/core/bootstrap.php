@@ -13,6 +13,10 @@ App::bind('database', new QueryBuilder(
     Connection::make(App::get('config')['database'])
 ));
 
+App::bind('email', new MailService(
+    App::get('config')['email']
+));
+
 /**
  * Return a page's view from the app/views folder.
  *
