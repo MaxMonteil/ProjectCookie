@@ -1,6 +1,6 @@
 <?php
 
-class Quiz {
+class Quizzes {
     protected static $table = 'quizzes';
     $questionsAns;
     public static function newQuiz($quiz) {
@@ -11,14 +11,15 @@ class Quiz {
         if($courseID==NULL){
             die(var_dump($e->"The quiz should belong to a course"));
         }
-        App::get('db')->insert(static::$table, $quiz);
+        App::get('database')->insert(static::$table, $quiz);
     }
 
     public static function getQuiz($quiz) {
         $columns = [ 'QuizID','CourseID', 'QuestionsAns'];
-        return App::get('db')->selectOne(static::$table, $quiz, $columns);
+        return App::get('database')->selectOne(static::$table, $quiz, $columns);
     }
-    public static function updateQuiz($quiz){
-        return App::get('db')->update(static::$table, $quiz, $QuizID);
+    public static function updateQuiz($quiz, $quizID){
+        return App::get('database')->update(static::$table, $quiz, $quizID);
     }
 }
+
