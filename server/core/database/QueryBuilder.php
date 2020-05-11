@@ -2,25 +2,21 @@
 
 namespace App\Core\Database;
 
-class QueryBuilder
-{
+class QueryBuilder {
     private $pdo;
 
-    public function __construct(\PDO $pdo)
-    {
+    public function __construct(\PDO $pdo) {
         $this->pdo = $pdo;
     }
 
-    public function selectAll($table)
-    {
+    public function selectAll($table) {
         $statement = $this->pdo->prepare("SELECT * FROM {$table}");
         $statement->execute();
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function selectOne($table, $parameters, $columns)
-    {
+    public function selectOne($table, $parameters, $columns) {
         $sql = sprintf(
             'SELECT %s FROM %s WHERE %s',
             implode(', ', $columns),
@@ -34,8 +30,7 @@ class QueryBuilder
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function selectByAttrValues($table, $parameter, $values, $columns)
-    {
+    public function selectByAttrValues($table, $parameter, $values, $columns) {
         $sql = sprintf(
             'SELECT %s FROM %s WHERE %s IN (%s)',
             implode(', ', $columns),
@@ -50,8 +45,7 @@ class QueryBuilder
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function insert($table, $parameters)
-    {
+    public function insert($table, $parameters) {
         $sql = sprintf(
             'INSERT INTO %s (%s) VALUES (%s)',
             $table,
@@ -66,8 +60,8 @@ class QueryBuilder
             die(var_dump($e->getMessage()));
         }
     }
-    public function deleteOne($table, $parameters)
-    {
+
+    public function deleteOne($table, $parameters) {
         $sql = sprintf(
             'DELETE FROM %s WHERE %s',
             $table,
@@ -81,8 +75,8 @@ class QueryBuilder
             die(var_dump($e->getMessage()));
         }
     }
-    public function deleteAll($table)
-    {
+
+    public function deleteAll($table) {
         $sql = sprintf(
             'DELETE FROM %s ',
             $table,
@@ -94,8 +88,8 @@ class QueryBuilder
             die(var_dump($e->getMessage()));
         }
     }
-    public function update($table, $parameters, $conditions)
-    {
+
+    public function update($table, $parameters, $conditions) {
         $sql = sprintf(
             'UPDATE %s SET %s WHERE %s',
             $table,
