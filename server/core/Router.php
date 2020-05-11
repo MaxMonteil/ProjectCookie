@@ -7,8 +7,7 @@ namespace App\Core;
  *
  * Application router.
  */
-class Router
-{
+class Router {
     public $routes = [
         'GET' => [],
         'POST' => [],
@@ -21,8 +20,7 @@ class Router
      *
      * @return Router
      */
-    public static function load(string $file): self
-    {
+    public static function load(string $file): self {
         $router = new self;
 
         require $file;
@@ -38,8 +36,7 @@ class Router
      *
      * @return void
      */
-    public function get(string $uri, string $controller): void
-    {
+    public function get(string $uri, string $controller): void {
         $this->routes['GET'][$uri] = $controller;
     }
 
@@ -51,8 +48,7 @@ class Router
      *
      * @return void
      */
-    public function post(string $uri, string $controller): void
-    {
+    public function post(string $uri, string $controller): void {
         $this->routes['POST'][$uri] = $controller;
     }
 
@@ -65,8 +61,7 @@ class Router
      *
      * @return bool
      */
-    public function direct(string $uri, string $method): bool
-    {
+    public function direct(string $uri, string $method): bool {
         if (array_key_exists($uri, $this->routes[$method])) {
             return $this->callAction(
                 ...explode('@', $this->routes[$method][$uri]),
@@ -84,8 +79,7 @@ class Router
      *
      * @return bool
      */
-    protected function callAction(string $controller, string $action): bool
-    {
+    protected function callAction(string $controller, string $action): bool {
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
 
@@ -95,6 +89,7 @@ class Router
             );
         }
 
+        header('Content-Type: application/json');
         return $controller->$action();
     }
 }
