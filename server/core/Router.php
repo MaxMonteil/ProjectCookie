@@ -61,14 +61,12 @@ class Router {
      *
      * @return bool
      */
-    public function direct(string $uri, string $method): bool {
-        if (array_key_exists($uri, $this->routes[$method])) {
-            return $this->callAction(
-                ...explode('@', $this->routes[$method][$uri]),
-            );
+    public function direct(string $uri, string $method): void {
+        if (!array_key_exists($uri, $this->routes[$method])) {
+            throw new \Exception("No route defined for this URI: {$uri}");
         }
 
-        throw new \Exception('No route defined for this URI.');
+        $this->callAction(...explode('@', $this->routes[$method][$uri]));
     }
 
     /**
@@ -79,7 +77,7 @@ class Router {
      *
      * @return bool
      */
-    protected function callAction(string $controller, string $action): bool {
+    protected function callAction(string $controller, string $action): void {
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
 
@@ -90,6 +88,6 @@ class Router {
         }
 
         header('Content-Type: application/json');
-        return $controller->$action();
+        $controller->$action();
     }
 }
