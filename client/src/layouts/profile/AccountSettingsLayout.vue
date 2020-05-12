@@ -5,21 +5,43 @@
         User Information
       </h2>
 
+      <InputText
+        v-model="email"
+        class="w-1/2 text-gray-600"
+        label="Email"
+        type="email"
+        :bg-gray="true"
+        :label-white="false"
+        disabled
+      />
+
       <form
         class="flex flex-col w-1/2 space-y-8"
         @submit.prevent
       >
+        <h3 class="text-lg font-bold text-gray-600">
+          Change Password
+        </h3>
+
         <InputText
-          v-model="localUser.email"
-          label="Email"
-          type="email"
+          v-model="password.current"
+          label="Current password"
+          type="password"
           :bg-gray="true"
           :label-white="false"
         />
 
         <InputText
-          v-model="localUser.password"
-          label="Password"
+          v-model="password.new"
+          label="New password"
+          type="password"
+          :bg-gray="true"
+          :label-white="false"
+        />
+
+        <InputText
+          v-model="password.confirm"
+          label="Confirm new password"
           type="password"
           :bg-gray="true"
           :label-white="false"
@@ -29,10 +51,11 @@
           class="self-end btn btn-blue"
           type="submit"
         >
-          Save Changes
+          Change Password
         </button>
+
         <button
-          class="self-end btn btn-red"
+          class="btn btn-red"
           type="submit"
         >
           Delete my account
@@ -83,9 +106,11 @@ export default {
   },
   data () {
     return {
-      localUser: {
-        email: this.user.email,
-        password: '********',
+      email: this.user.email,
+      password: {
+        current: '',
+        new: '',
+        confirm: '',
       },
     }
   },

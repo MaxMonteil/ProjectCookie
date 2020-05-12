@@ -2,8 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from '../pages/Home.vue'
+
+import Auth from '../pages/Auth.vue'
+import LoginLayout from '../layouts/auth/LoginLayout.vue'
+import RegisterLayout from '../layouts/auth/RegisterLayout.vue'
+import ForgotPasswordLayout from '../layouts/auth/ForgotPasswordLayout.vue'
+
 import Search from '../pages/Search.vue'
+
 import Course from '../pages/Course.vue'
+
 import Lesson from '../pages/Lesson.vue'
 
 import Profile from '../pages/Profile.vue'
@@ -23,6 +31,34 @@ const routes = [
     component: Home,
     meta: {
       hideHeaderSearchBar: true,
+    },
+  },
+  {
+    path: '/auth',
+    component: Auth,
+    children: [
+      {
+        path: '',
+        redirect: 'login',
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: LoginLayout,
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: RegisterLayout,
+      },
+      {
+        path: 'forgot-password',
+        name: 'forgot-password',
+        component: ForgotPasswordLayout,
+      },
+    ],
+    meta: {
+      hideHeader: true,
     },
   },
   {
