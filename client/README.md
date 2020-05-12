@@ -34,7 +34,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 So if the client POSTS this:
 
-```json
+```jsonc
 {
     "name": "John Doe",
     "age": 30
@@ -52,7 +52,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ### Errors
 
-```json
+```jsonc
 {
     "message": "oops something went wrong" //string
 }
@@ -68,7 +68,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ##### Data
 
-```json
+```jsonc
 {
     "email": "abc123@mail.edu", // string
     "password": "password123",  // string
@@ -77,7 +77,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ##### Expected Response
 
-```json
+```jsonc
 {
     "jwt": "jwt_token_oaiwhtalwkj", // string
     "email": "abc123@mail.edu"      // string
@@ -92,7 +92,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ##### Data
 
-```json
+```jsonc
 {
     "email": "abc123@mail.edu",         // string
     "password": "password123",          // string
@@ -108,7 +108,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ##### Data
 
-```json
+```jsonc
 {
     "email": "abc123@mail.edu",         // string
     "oldpassword": "password123",       // string
@@ -127,9 +127,9 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ##### Data
 
-```json
+```jsonc
 {
-    "email": "abc123@mail.edu",         // string
+    "email": "abc123@mail.edu", // string
 }
 ```
 
