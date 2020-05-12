@@ -87,7 +87,13 @@ export default {
           password: this.password,
         })
 
-        window.localStorage.setItem(process.env.VUE_APP_JWT_STORAGE_KEY, response.jwt)
+        window.localStorage.setItem(
+          process.env.VUE_APP_USER_KEY,
+          JSON.stringify({
+            token: response.jwt,
+            email: response.email,
+          }),
+        )
 
         this.loading = false
         this.$router.push({ name: 'home' })

@@ -78,7 +78,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ```json
 {
-    "jwt": "jwt_token_oaiwhtalwkj" // string
+    "jwt": "jwt_token_oaiwhtalwkj", // string
+    "email": "abc123@mail.edu"      // string
 }
 ```
 

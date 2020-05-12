@@ -1,12 +1,12 @@
-const localStorageKey = process.env.VUE_APP_JWT_STORAGE_KEY
+const localStorageKey = process.env.VUE_APP_USER_KEY
 
 export async function client (endpoint, { body, ...customConfig } = {}) {
-  const token = window.localStorage.getItem(localStorageKey)
+  const user = window.localStorage.getItem(localStorageKey)
 
   const headers = { 'content-type': 'application/json' }
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`
+  if (user) {
+    headers.Authorization = `Bearer ${user.token}`
   }
 
   const config = {
