@@ -19,6 +19,7 @@ npm run build
 ```
 npm run lint
 ```
+
 ## Client-Server Communication Reference
 
 This is a reference of all the routes of the client side along with the server endpoints it communicates with. It describes the format and structure of the data it requests and sends.
@@ -65,7 +66,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 | -------- |:------:|
 | /login   | POST   |
 
-#### Data
+##### Data
 
 ```json
 {
@@ -74,7 +75,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 }
 ```
 
-#### Expected Response
+##### Expected Response
 
 ```json
 {
@@ -89,7 +90,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 | -------- |:------:|
 | /register   | POST   |
 
-#### Data
+##### Data
 
 ```json
 {
@@ -105,7 +106,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 | -------- |:------:|
 | /changepassword   | POST   |
 
-#### Data
+##### Data
 
 ```json
 {
@@ -115,3 +116,21 @@ $data = json_decode(file_get_contents('php://input'), true);
     "confirmnewpassword": "123456pass", // string
 }
 ```
+
+### User
+
+#### Get User
+
+| endpoint | method |
+| -------- |:------:|
+| /user    | POST   |
+
+##### Data
+
+```json
+{
+    "email": "abc123@mail.edu",         // string
+}
+```
+
+##### Expected Response
