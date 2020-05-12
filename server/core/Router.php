@@ -61,7 +61,7 @@ class Router {
      *
      * @return bool
      */
-    public function direct(string $uri, string $method): bool {
+    public function direct(string $uri, string $method) {
         if (array_key_exists($uri, $this->routes[$method])) {
             return $this->callAction(
                 ...explode('@', $this->routes[$method][$uri]),
@@ -79,7 +79,7 @@ class Router {
      *
      * @return bool
      */
-    protected function callAction(string $controller, string $action): bool {
+    protected function callAction(string $controller, string $action) {
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
 

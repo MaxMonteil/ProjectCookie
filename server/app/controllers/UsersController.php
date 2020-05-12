@@ -23,7 +23,7 @@ class UsersController {
         $data = json_decode(file_get_contents('php://input'), true);
 
         $name = $data['name'];
-        $email = $data['email'];
+        $email = htmlspecialchars($data['email']);
         $password = $data['password'];
         $confirmpassword = $data['confirmpassword'];
 
@@ -65,8 +65,13 @@ class UsersController {
      * @return void
      */
     public function login(): void {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $email = htmlspecialchars($data['email']);
+        $password = $data['password'];
+
         $user = Users::getUser([
-            'email' => htmlspecialchars($_POST["email"]),
+            'email' => htmlspecialchars($email),
         ]);
 
         if (!$user) {
@@ -75,14 +80,14 @@ class UsersController {
             return;
         }
 
-        if (!password_verify(htmlspecialchars($_POST["password"]), $user['Password'])) {
+        if (!password_verify(htmlspecialchars($password), $user['Password'])) {
             http_response_code(401);
             echo json_encode([ 'message' => 'incorrect password' ]);
             return;
         }
 
         http_response_code(200);
-        if (!$user['verified']) {
+        if (!$user['Verified']) {
             // setcookie("verification", false, time() + 600, "/");
             http_response_code(401);
             echo json_encode([
@@ -123,13 +128,15 @@ class UsersController {
      * @return void
      */
     public function changePassword(): void {
-        $email = htmlspecialchars($_POST['email']);
-        $password = $_POST['newpassword'];
-        $confirmnewpassword = $_POST['confirmnewpassword'];
-        $oldpassword = $_POST['oldpassword'];
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $email = htmlspecialchars($data['email']);
+        $password = $data['password'];
+        $confirmnewpassword = $data['confirmnewpassword'];
+        $oldpassword = $data['oldpassword'];
 
         $user = Users::getUser([
-            'email' => $email,
+            'Email' => $email,
         ]);
 
         if (!$user) {
@@ -140,7 +147,7 @@ class UsersController {
             http_response_code(406);
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
-        } else if ($oldpassword != $user['Password']) {
+        } else if (!password_verify($oldpassword, $user['Password'])) {
             http_response_code(406);
             echo json_encode([ 'message' => 'Incorrect original password' ]);
             return;
@@ -148,12 +155,12 @@ class UsersController {
 
         try {
             Users::updatePass([
-            'email' => $_POST['email'],
-            'newPassword' => $password,
+            'Email' => $email,
+            'Password' => $password,
             ]);
 
             http_response_code(201);
-            echo json_encode([ 'message' => 'user created successfully' ]);
+            echo json_encode([ 'message' => 'user password updated successfully' ]);
         } catch (\Exception $e) {
             http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
@@ -189,10 +196,12 @@ class UsersController {
      * @return void
      */
     public function verify(): void {
-        $token = $_POST['token'];
-        $email = htmlspecialchars($_POST["email"]);
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $token = $data['token'];
+        $email = htmlspecialchars($data['email']);
         $user = Users::getUser([
-            'email' => $email,
+            'Email' => $email,
         ]);
 
         if (!$user) {
@@ -200,7 +209,6 @@ class UsersController {
             echo json_encode([ 'message' => 'no user with this email address found' ]);
             return;
         }
-
         if (htmlspecialchars($token) != $user['EmailHash']) {
             http_response_code(401);
             echo json_encode([ 'message' => 'invalid token' ]);
@@ -209,9 +217,9 @@ class UsersController {
         
         try {
             Users::verifyUser([
-            'email' => $email,
+            'Email' => $email,
             ]);
-
+            
             http_response_code(200);
             echo json_encode([
                 "message" => "account has been verified",
@@ -230,9 +238,11 @@ class UsersController {
      * @return void
      */
     public function resetPassword(): void {
-        $token = $_POST['validator'];
-        $password = $_POST['newpass'];
-        $confirmpassword = $_POST['confirmnewpass'];
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $token = $data['validator'];
+        $password = $data['password'];
+        $confirmpassword = $data['confirmpassword'];
 
         if ($password != $confirmpassword) {
             http_response_code(401);
@@ -267,7 +277,7 @@ class UsersController {
         $expiry = $ar[1];
 
         $user = Users::getUser([
-            'email' => htmlspecialchars($email),
+            'Email' => htmlspecialchars($email),
         ]);
 
         if (!$user) {
@@ -284,8 +294,8 @@ class UsersController {
 
         try {
             Users::updatePass([
-            'email' => $email,
-            'newPassword' => $password,
+            'Email' => $email,
+            'Password' => $password,
             ]);
 
             http_response_code(201);
@@ -303,9 +313,11 @@ class UsersController {
      * @return void
      */
     public function forgotPasswordEmail(): void {
-        $email = htmlspecialchars($_POST['email']);
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $email = htmlspecialchars($data['email']);
         $user = Users::getUser([
-            'email' => $email,
+            'Email' => $email,
         ]);
 
         if (!$user) {

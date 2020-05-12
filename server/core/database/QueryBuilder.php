@@ -100,8 +100,7 @@ class QueryBuilder {
         // $parameters =[name=> 'marwa']   
         try {
             $statement = $this->pdo->prepare($sql);
-            $statement->execute($parameters);
-            $statement->execute($conditions);
+            $statement->execute(array_merge($parameters, $conditions));
         } catch (\Exception $e) {
             die(var_dump($e->getMessage()));
         }
