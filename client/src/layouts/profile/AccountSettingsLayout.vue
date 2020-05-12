@@ -122,7 +122,7 @@ export default {
   data () {
     return {
       loading: false,
-      sucess: true,
+      sucess: false,
       message: '',
       error: '',
       email: '',
