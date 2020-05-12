@@ -16,12 +16,12 @@ class Users {
      */
     public static function newUser($user): void {
         // field validation
-        PDOException $e;
-        if(!preg_match(^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$,$user['Password'])){
-            die(var_dump($e->"This password is weak, please enter another one"));
+        if(!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])[0-9A-Za-z!@#$%^&*]{8,}$/", $user['Password'])){
+            throw new \Exception("This password is weak, please enter another one");
         }
-        if(!preg_match(^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$, $user['Email'])){
-            die(var_dump($e->"Invalid email, please enter another one"));
+        $user['Password'] = password_hash($user['Password'], PASSWORD_BCRYPT);
+        if(!preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]{2,})+(\.[a-zA-Z0-9-]{2,})*(\.[a-zA-Z]{2,})$/", $user['Email'])){
+            throw new \Exception("Invalid email, please enter another one");
         }
         App::get('database')->insert(static::$table, $user);
     }

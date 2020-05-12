@@ -20,30 +20,38 @@ class UsersController {
     public function register(): void {
         // TODO properly generate the token
         $token = md5(rand(0, 1000));
+        $data = json_decode(file_get_contents('php://input'), true);
 
-        $password = $_POST['password'];
-        $confirmpassword = $_POST['confirmpassword'];
+        $name = $data['name'];
+        $email = $data['email'];
+        $password = $data['password'];
+        $confirmpassword = $data['confirmpassword'];
 
         if ($password != $confirmpassword) {
             http_response_code(406);
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
         }
-
+        
         try {
             Users::newUser([
-            'email' => $password,
-            'password' => $confirmpassword,
-            'token' => $token,
+            'Name' => $name,
+            'Email' => $email,
+            'Password' => $password,
+            'EmailHash' => $token,
             ]);
         } catch(\Exception $e) {
+            http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
+            return;
         }
 
         try {
-            MailService::sendVerification($_POST['email'], $token);
+            MailService::sendVerification($email, $token);
         } catch (\Exception $e) {
+            http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
+            return;
         }
 
         http_response_code(201);
@@ -338,6 +346,7 @@ class UsersController {
             echo json_encode([ 'message' => 'password recovery sent to email' ]);
             return;
         } catch (\Exception $e) {
+            http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
             return;
         }
