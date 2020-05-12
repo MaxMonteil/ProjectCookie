@@ -97,3 +97,20 @@ $data = json_decode(file_get_contents('php://input'), true);
     "confirmpassword": "password123",   // string
 }
 ```
+
+#### Change Password
+
+| endpoint | method |
+| -------- |:------:|
+| /changepassword   | POST   |
+
+#### Data
+
+```json
+{
+    "email": "abc123@mail.edu",         // string
+    "oldpassword": "password123",       // string
+    "newpassword": "123456pass",        // string
+    "confirmnewpassword": "123456pass", // string
+}
+```

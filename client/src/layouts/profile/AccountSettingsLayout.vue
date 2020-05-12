@@ -7,17 +7,16 @@
 
       <InputText
         v-model="email"
-        class="w-1/2 text-gray-600"
+        class="w-1/2"
         label="Email"
         type="email"
-        :bg-gray="true"
         :label-white="false"
-        disabled
+        :disabled="true"
       />
 
       <form
         class="flex flex-col w-1/2 space-y-8"
-        @submit.prevent
+        @submit.prevent="changePass"
       >
         <h3 class="text-lg font-bold text-gray-600">
           Change Password
@@ -29,6 +28,7 @@
           type="password"
           :bg-gray="true"
           :label-white="false"
+          :disabled="loading"
         />
 
         <InputText
@@ -37,6 +37,7 @@
           type="password"
           :bg-gray="true"
           :label-white="false"
+          :disabled="loading"
         />
 
         <InputText
@@ -45,21 +46,35 @@
           type="password"
           :bg-gray="true"
           :label-white="false"
+          :disabled="loading"
         />
 
         <button
           class="self-end btn btn-blue"
+          :class="{ 'bg-blue-200 border-blue-200 text-blue-900 cursor-wait' : loading }"
           type="submit"
+          :disabled="loading"
         >
           Change Password
         </button>
 
-        <button
-          class="btn btn-red"
-          type="submit"
+        <div
+          v-if="error"
+          class="p-4 text-center bg-red-500 rounded shadow"
         >
-          Delete my account
-        </button>
+          <p class="font-bold text-white">
+            {{ error }}
+          </p>
+        </div>
+
+        <div
+          v-if="sucess"
+          class="p-4 text-center bg-green-500 rounded shadow"
+        >
+          <p class="font-bold text-white">
+            Your password has been changed.
+          </p>
+        </div>
       </form>
     </section>
 
@@ -106,13 +121,48 @@ export default {
   },
   data () {
     return {
-      email: this.user.email,
+      loading: false,
+      sucess: true,
+      message: '',
+      error: '',
+      email: '',
       password: {
         current: '',
         new: '',
         confirm: '',
       },
     }
+  },
+  mounted () {
+    const id = setTimeout(() => {
+      clearTimeout(id)
+      this.sucess = false
+    }, 3000)
+  },
+  methods: {
+    async changePass () {
+      try {
+        this.loading = true
+        this.error = ''
+
+        await this.$api.changePass({
+          email: this.email,
+          oldpassword: this.password.current,
+          newpassword: this.password.new,
+          confirmnewpassword: this.password.confirm,
+        })
+
+        this.loading = false
+        this.sucess = true
+        const id = setTimeout(() => {
+          clearTimeout(id)
+          this.sucess = false
+        }, 3000)
+      } catch (error) {
+        this.loading = false
+        this.error = error.message
+      }
+    },
   },
 }
 </script>
