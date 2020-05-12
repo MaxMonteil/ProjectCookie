@@ -8,6 +8,8 @@ namespace App\Core;
  * Application router.
  */
 class Router {
+    protected static $baseURL = 'api/v1';
+
     public $routes = [
         'GET' => [],
         'POST' => [],
@@ -37,7 +39,8 @@ class Router {
      * @return void
      */
     public function get(string $uri, string $controller): void {
-        $this->routes['GET'][$uri] = $controller;
+        $uri = $uri == '' ? $uri : '/' . $uri;
+        $this->routes['GET'][static::$baseURL . $uri] = $controller;
     }
 
     /**
@@ -49,7 +52,8 @@ class Router {
      * @return void
      */
     public function post(string $uri, string $controller): void {
-        $this->routes['POST'][$uri] = $controller;
+        $uri = $uri == '' ? $uri : '/' . $uri;
+        $this->routes['POST'][static::$baseURL . $uri] = $controller;
     }
 
 
