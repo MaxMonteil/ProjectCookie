@@ -1,14 +1,14 @@
 <template functional>
   <component
     :is="injections.components.BaseClassCard"
-    :course-id="props.course.id"
+    :course-id="props.course.id || ' '"
   >
     <template #name>
-      {{ props.course.name }}
+      {{ props.course.name || 'Loading' }}
     </template>
 
     <template #progress>
-      Progress: {{ props.course.progress }}%
+      Progress: {{ props.course.progress || '...' }}%
     </template>
   </component>
 </template>

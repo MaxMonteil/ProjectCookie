@@ -4,12 +4,7 @@
       Enrolled Courses
     </h2>
 
-    <p v-if="loading">
-      Loading...
-    </p>
-
     <ClassCardRow
-      v-else
       card="enrolled"
       :courses="courses"
     />
@@ -41,7 +36,7 @@ export default {
   data () {
     return {
       loading: true,
-      courses: [],
+      courses: [{}],
     }
   },
   created () {
