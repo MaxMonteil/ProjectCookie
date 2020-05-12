@@ -82,7 +82,7 @@ export default {
         this.loading = true
         this.error = ''
 
-        const response = await this.$api.login({
+        const response = await this.$api.auth.login({
           email: this.email,
           password: this.password,
         })

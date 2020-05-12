@@ -97,7 +97,7 @@ export default {
         this.loading = true
         this.error = ''
 
-        await this.$api.register({
+        await this.$api.auth.register({
           email: this.email,
           password: this.password,
           confirmpassword: this.passwordConfirm,

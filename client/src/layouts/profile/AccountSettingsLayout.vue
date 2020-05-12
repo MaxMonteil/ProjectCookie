@@ -133,19 +133,13 @@ export default {
       },
     }
   },
-  mounted () {
-    const id = setTimeout(() => {
-      clearTimeout(id)
-      this.sucess = false
-    }, 3000)
-  },
   methods: {
     async changePass () {
       try {
         this.loading = true
         this.error = ''
 
-        await this.$api.changePass({
+        await this.$api.auth.changePass({
           email: this.email,
           oldpassword: this.password.current,
           newpassword: this.password.new,
