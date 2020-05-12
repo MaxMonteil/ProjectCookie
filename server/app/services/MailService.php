@@ -19,7 +19,7 @@ class MailService {
             ];
 
         //Server settings
-        static::$phpMailer->SMTPDebug = 2;
+        static::$phpMailer->SMTPDebug = 0;
         static::$phpMailer->isSMTP();
         static::$phpMailer->Host = "smtp.gmail.com";
         static::$phpMailer->SMTPAuth = true;
@@ -59,7 +59,41 @@ class MailService {
         try {
             static::$phpMailer->send();
         } catch (Exception $e) {
-            throw new \Exception($e->errorMessage());
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Send the password recovery email to a user with a link to change their password
+     *
+     * @param string $email the user's email address
+     * @param string $token a unique token to validate their identity on the site
+     *
+     * @return void
+     */
+    public static function sendRecovery(string $email, $token): void {
+        //Recipients
+        static::$phpMailer->setFrom(static::$phpMailer->Username, 'ProjectCookie Password Recovery');
+        static::$phpMailer->addAddress($email);
+
+        // Content
+        static::$phpMailer->isHTML(false);
+        static::$phpMailer->Subject = 'Password Recovery | ProjectCookie';
+        static::$phpMailer->Body = "
+        Password Recovery Email!
+        If you did not request to change your password, please ignore this email.
+
+        ------------------------
+        Email: '.$email.'
+        ------------------------
+
+        Please click this link to change your account\'s password:
+        http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/reset.php?'.'&validator='.$token.'";
+
+        try {
+            static::$phpMailer->send();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }

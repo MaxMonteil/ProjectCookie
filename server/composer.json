@@ -1,7 +1,12 @@
 {
-    "require": {
-        "firebase/php-jwt": "^5.2",
-        "phpmailer/phpmailer": "^6.1",
-        "vlucas/phpdotenv": "^4.1"
-    }
+  "autoload": {
+    "classmap": [
+      "./"
+    ]
+  },
+  "require": {
+    "firebase/php-jwt": "^5.2",
+    "phpmailer/phpmailer": "^6.1",
+    "vlucas/phpdotenv": "^4.1"
+  }
 }
