@@ -25,7 +25,7 @@ This is a reference of all the routes of the client side along with the server e
 
 ### Parsing JSON data
 
-When the client send JSON data to the server, it sets the `Content-Type` header to `application/json`. This data type cannot be handled by the PHP super global `$_POST`. Instead you must retrieve the data from PHP's input stream and then decode it, this is how:
+When the client sends JSON data to the server, it sets the `Content-Type` header to `application/json`. This data type cannot be handled by the PHP super global `$_POST`. Instead you must retrieve the data from PHP's input stream and then decode it.
 
 ```php
 $data = json_decode(file_get_contents('php://input'), true);
