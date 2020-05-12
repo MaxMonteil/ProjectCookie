@@ -41,19 +41,16 @@ export default {
   components: {
     SearchBar,
   },
+  props: {
+    loggedIn: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       search: '',
-      loggedIn: false,
     }
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler () {
-        this.loggedIn = !!localStorage.getItem(process.env.VUE_APP_USER_KEY)
-      },
-    },
   },
   methods: {
     submitSearch () {
