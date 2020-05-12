@@ -20,5 +20,6 @@ export default {
   background-image: linear-gradient(155.44deg, rgb(66, 153, 225) 16.29%, rgb(42, 67, 101) 148.99%);
   background-image: linear-gradient(155.44deg, rgb(66, 153, 225) 16.29%, rgb(42, 67, 101) 148.99%), url("../../public/cookie_bg-min.jpg");
   background-blend-mode: multiply;
+  background-size: cover;
 }
 </style>
