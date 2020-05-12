@@ -18,8 +18,17 @@
       />
     </form>
 
-    <router-link :to="{ name: 'my-courses' }">
-      <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
+    <router-link
+      :to="{ name: loggedIn ? 'my-courses' : 'login' }"
+      :class="{ 'btn btn-blue-sec': !loggedIn }"
+    >
+      <div
+        v-if="loggedIn"
+        class="w-8 h-8 p-4 bg-blue-900 rounded-full"
+      />
+      <p v-else>
+        Login
+      </p>
     </router-link>
   </header>
 </template>
@@ -35,7 +44,16 @@ export default {
   data () {
     return {
       search: '',
+      loggedIn: false,
     }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler () {
+        this.loggedIn = !!localStorage.getItem(process.env.VUE_APP_USER_KEY)
+      },
+    },
   },
   methods: {
     submitSearch () {

@@ -121,7 +121,7 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      loading: true,
       sucess: false,
       message: '',
       error: '',
@@ -132,6 +132,11 @@ export default {
         confirm: '',
       },
     }
+  },
+  created () {
+    const user = window.localStorage.getItem(process.env.VUE_APP_USER_KEY)
+    this.email = user.email
+    this.loading = false
   },
   methods: {
     async changePass () {
@@ -153,6 +158,9 @@ export default {
           this.sucess = false
         }, 3000)
       } catch (error) {
+        this.password.current = ''
+        this.password.new = ''
+        this.password.confirm = ''
         this.loading = false
         this.error = error.message
       }
