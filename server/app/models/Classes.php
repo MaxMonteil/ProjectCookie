@@ -2,22 +2,29 @@
 
 class Class {
     protected static $table = 'classes';
-    /*public static function newClass($user, $password, $Email) {
+    public static function newClass($class) {
         PDOException $e;
-        if(!preg_match(^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$,$password)){
-            die(var_dump($e->"This password is weak, please enter another one"));
+        if (is_null($class['ClassName'])
+            {die(var_dump($e->"please provide the class's name"));
+        } 
+        if (is_null($class['VideoPath'])
+            {die(var_dump($e->"please provide the course's subject"));
         }
-        if(!preg_match(^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$, $Email)){
-            die(var_dump($e->"Invalid email, please enter another one"));
+        if (is_null($class['Description']){
+            die(var_dump($e->"please provide the class's description"));
         }
-        App::get('db')->insert(static::$table, $user);
+        if (is_null($class['ModuleName']){
+            die(var_dump($e->"please provide module name for this class"));
+        } 
+        if (is_null($course['CourseID']){
+            die(var_dump($e->"please provide where you're going to add new class (to which course ID)"));
+        }
+        App::get('database')->insert(static::$table, $class);
     }
 
-    public static function getUser($user) {
-        $columns = ['UserID', 'Name', 'Email', 'Password', 'Verified', 'HashEmail'];
-        return App::get('db')->selectOne(static::$table, $user, $columns);
+    public static function getClass($class) {
+        $columns = ['ClassID', 'ClassName', 'VideoPath', 'Description', 'ModuleName', 'CourseID'];
+        return App::get('database')->selectOne(static::$table, $class, $columns);
     }
-    public static function updatePass($user, $Email){
-        return App::get('db')->update(static::$table, $user, $Email);
-    }*/
+    // getClassProgress
 }

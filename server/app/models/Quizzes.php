@@ -21,6 +21,12 @@ class Quizzes {
         App::get('database')->update(static::$table, $quiz, ['QuizID'=> $quiz['QuizID']]);
     }
     // getAllQuizzes
+
     // deleteQuiz
+    // getQuizProgress
+    public static function getQuizProgressForUser($quiz, $user) {
+        $columns = ['QuizID','CourseID', 'QuestionsAns'];
+        return App::get('database')->selectOne(static:: 'userdoquiz', $quiz, $columns);
+    }
 }
 
