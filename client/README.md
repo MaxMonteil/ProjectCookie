@@ -48,6 +48,15 @@ $data = json_decode(file_get_contents('php://input'), true);
 // $data['name'] => 'John Doe'
 // $data['age'] => 30
 ```
+
+### Errors
+
+```json
+{
+    "message": "oops something went wrong" //string
+}
+```
+
 ### Auth
 
 #### Login
@@ -60,7 +69,31 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ```json
 {
-    "email": string,
-    "password": string,
+    "email": "abc123@mail.edu", // string
+    "password": "password123",  // string
+}
+```
+
+#### Expected Response
+
+```json
+{
+    "jwt": "jwt_token_oaiwhtalwkj" // string
+}
+```
+
+#### Register
+
+| endpoint | method |
+| -------- |:------:|
+| /register   | POST   |
+
+#### Data
+
+```json
+{
+    "email": "abc123@mail.edu",         // string
+    "password": "password123",          // string
+    "confirmpassword": "password123",   // string
 }
 ```
