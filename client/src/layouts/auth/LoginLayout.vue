@@ -12,18 +12,19 @@
         v-model="email"
         label="Email (must end with .edu)"
         class="flex-grow"
-        :disabled="!loading"
+        :disabled="loading"
       />
 
       <div>
         <InputText
           v-model="password"
           label="Password"
-          :disabled="!loading"
+          :disabled="loading"
         />
         <router-link
           :to="{ name: 'forgot-password' }"
           class="inline-block mt-3 text-sm text-gray-200 underline"
+          :class="{ 'cursor-default no-underline': loading }"
         >
           I forgot my password...
         </router-link>
@@ -41,16 +42,18 @@
       <div class="text-center">
         <button
           class="self-center w-4/5 mt-20 btn btn-blue"
-          :disabled="!loading"
+          :class="{ 'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading }"
+          :disabled="loading"
         >
-          Login
+          {{ loading ? 'Logging in...' : 'Login' }}
         </button>
       </div>
     </form>
     <router-link
       :to="{ name: 'register' }"
       class="inline-block mt-3 text-sm text-gray-200 underline"
-      :disabled="!loading"
+      :class="{ 'cursor-default no-underline': loading }"
+      :disabled="loading"
     >
       Register for an account!
     </router-link>
