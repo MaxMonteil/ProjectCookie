@@ -2,16 +2,15 @@
 
 namespace App\Services\Notifications;
 
-use Exception as GlobalException;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class MailService {
-    private $phpMailer;
+    protected static $phpMailer;
 
-    public function __construct($config) {
-        $this->phpMailer = new PHPMailer(true);
-        $this->phpMailer->SMTPOptions = [
+    public static function setup($config) {
+        static::$phpMailer = new PHPMailer(true);
+        static::$phpMailer->SMTPOptions = [
             'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
@@ -20,14 +19,14 @@ class MailService {
             ];
 
         //Server settings
-        $this->phpMailer->SMTPDebug = 2;
-        $this->phpMailer->isSMTP();
-        $this->phpMailer->Host = "smtp.gmail.com";
-        $this->phpMailer->SMTPAuth = true;
-        $this->phpMailer->Username = $config['username'];
-        $this->phpMailer->Password = $config['password'];
-        $this->phpMailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $this->phpMailer->Port = 587;
+        static::$phpMailer->SMTPDebug = 2;
+        static::$phpMailer->isSMTP();
+        static::$phpMailer->Host = "smtp.gmail.com";
+        static::$phpMailer->SMTPAuth = true;
+        static::$phpMailer->Username = $config['username'];
+        static::$phpMailer->Password = $config['password'];
+        static::$phpMailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        static::$phpMailer->Port = 587;
     }
 
     /**
@@ -40,13 +39,13 @@ class MailService {
      */
     public static function sendVerification(string $email, $token): void {
         //Recipients
-        $this->phpMailer->setFrom($this->phpMailer->Username, 'ProjectCookie Verification');
-        $this->phpMailer->addAddress($email);
+        static::$phpMailer->setFrom(static::$phpMailer->Username, 'ProjectCookie Verification');
+        static::$phpMailer->addAddress($email);
 
         // Content
-        $this->phpMailer->isHTML(false);
-        $this->phpMailer->Subject = 'Signup | Verification';
-        $this->phpMailer->Body = "
+        static::$phpMailer->isHTML(false);
+        static::$phpMailer->Subject = 'Signup | Verification';
+        static::$phpMailer->Body = "
             Thanks for signing up!
             Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
 
@@ -58,7 +57,7 @@ class MailService {
             http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/verify.php?email={$email}&hash={$token}";
 
         try {
-            $this->phpMailer->send();
+            static::$phpMailer->send();
         } catch (Exception $e) {
             throw new \Exception($e->errorMessage());
         }
