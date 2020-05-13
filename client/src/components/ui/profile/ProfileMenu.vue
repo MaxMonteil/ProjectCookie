@@ -18,7 +18,10 @@
       </li>
     </ul>
 
-    <button class="btn btn-blue">
+    <button
+      class="btn btn-blue"
+      @click="logout"
+    >
       Logout
     </button>
   </aside>
@@ -48,6 +51,12 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    logout () {
+      window.localStorage.removeItem(process.env.VUE_APP_USER_KEY)
+      this.$router.push({ name: 'home' })
+    },
   },
 }
 </script>

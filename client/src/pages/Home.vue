@@ -8,7 +8,7 @@
     class="space-y-8"
   >
     <!-- ENROLLED -->
-    <EnrolledCoursesLayout />
+    <EnrolledCoursesLayout v-if="loggedIn" />
 
     <!-- SEARCH -->
     <section class="flex flex-col">
@@ -61,6 +61,12 @@ export default {
     EnrolledCoursesLayout,
     TopCoursesLayout,
     SearchBar,
+  },
+  props: {
+    loggedIn: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {

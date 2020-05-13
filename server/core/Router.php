@@ -8,6 +8,8 @@ namespace App\Core;
  * Application router.
  */
 class Router {
+    protected static $baseURL = 'api/v1';
+
     public $routes = [
         'GET' => [],
         'POST' => [],
@@ -37,7 +39,8 @@ class Router {
      * @return void
      */
     public function get(string $uri, string $controller): void {
-        $this->routes['GET'][$uri] = $controller;
+        $uri = $uri == '' ? $uri : '/' . $uri;
+        $this->routes['GET'][static::$baseURL . $uri] = $controller;
     }
 
     /**
@@ -49,7 +52,8 @@ class Router {
      * @return void
      */
     public function post(string $uri, string $controller): void {
-        $this->routes['POST'][$uri] = $controller;
+        $uri = $uri == '' ? $uri : '/' . $uri;
+        $this->routes['POST'][static::$baseURL . $uri] = $controller;
     }
 
 
@@ -61,14 +65,12 @@ class Router {
      *
      * @return bool
      */
-    public function direct(string $uri, string $method) {
-        if (array_key_exists($uri, $this->routes[$method])) {
-            return $this->callAction(
-                ...explode('@', $this->routes[$method][$uri]),
-            );
+    public function direct(string $uri, string $method): void {
+        if (!array_key_exists($uri, $this->routes[$method])) {
+            throw new \Exception("No route defined for this URI: {$uri}");
         }
 
-        throw new \Exception('No route defined for this URI.');
+        $this->callAction(...explode('@', $this->routes[$method][$uri]));
     }
 
     /**
@@ -79,7 +81,7 @@ class Router {
      *
      * @return bool
      */
-    protected function callAction(string $controller, string $action) {
+    protected function callAction(string $controller, string $action): void {
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
 
@@ -90,6 +92,6 @@ class Router {
         }
 
         header('Content-Type: application/json');
-        return $controller->$action();
+        $controller->$action();
     }
 }
