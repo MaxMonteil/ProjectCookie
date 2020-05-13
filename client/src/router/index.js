@@ -7,6 +7,7 @@ import Auth from '../pages/Auth.vue'
 import LoginLayout from '../layouts/auth/LoginLayout.vue'
 import RegisterLayout from '../layouts/auth/RegisterLayout.vue'
 import ForgotPasswordLayout from '../layouts/auth/ForgotPasswordLayout.vue'
+import VerifyLayout from '../layouts/auth/VerifyLayout.vue'
 
 import Search from '../pages/Search.vue'
 
@@ -62,6 +63,11 @@ const routes = [
         path: 'forgot-password',
         name: 'forgot-password',
         component: ForgotPasswordLayout,
+      },
+      {
+        path: 'verify',
+        name: 'verify',
+        component: VerifyLayout,
       },
     ],
   },
