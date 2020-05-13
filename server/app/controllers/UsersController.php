@@ -73,21 +73,21 @@ class UsersController {
         ]);
         
         if (!$user) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => 'no user with this email address found',
             "email" => $email ]);
             return;
         }
 
         if (!password_verify(htmlspecialchars($password), $user['Password'])) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => 'incorrect password',
             "email" => $email ]);
             return;
         }
 
         if (!$user['Verified']) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([
                 "message" => "account not verified",
                 "email" => $user['Email'],
