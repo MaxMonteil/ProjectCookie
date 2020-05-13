@@ -54,7 +54,7 @@ class MailService {
             ------------------------
 
             Please click this link to activate your account:
-            http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/verify.php?email={$email}&hash={$token}";
+            http://localhost:8888/auth/verify?email={$email}&hash={$token}";
 
         try {
             static::$phpMailer->send();
