@@ -27,7 +27,7 @@ class UsersController {
         $confirmpassword = $data['confirmpassword'];
 
         if ($password != $confirmpassword) {
-            http_response_code(406);
+            http_response_code(400);
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
         }
@@ -39,7 +39,7 @@ class UsersController {
             'EmailHash' => $token,
             ]);
         } catch(\Exception $e) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => $e->getMessage() ]);
             return;
         }
@@ -47,12 +47,12 @@ class UsersController {
         try {
             MailService::sendVerification($email, $token);
         } catch (\Exception $e) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => $e->getMessage() ]);
             return;
         }
 
-        http_response_code(201);
+        http_response_code(200);
         echo json_encode([ 'message' => 'user created successfully' ]);
     }
 
