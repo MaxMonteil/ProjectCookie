@@ -22,7 +22,6 @@ class UsersController {
         $token = md5(rand(0, 1000));
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $name = $data['name'];
         $email = htmlspecialchars($data['email']);
         $password = $data['password'];
         $confirmpassword = $data['confirmpassword'];
@@ -35,7 +34,6 @@ class UsersController {
         
         try {
             Users::newUser([
-            'Name' => $name,
             'Email' => $email,
             'Password' => $password,
             'EmailHash' => $token,
@@ -71,24 +69,24 @@ class UsersController {
         $password = $data['password'];
 
         $user = Users::getUser([
-            'email' => htmlspecialchars($email),
+            'Email' => $email,
         ]);
-
+        
         if (!$user) {
-            http_response_code(404);
-            echo json_encode([ 'message' => 'no user with this email address found' ]);
+            http_response_code(401);
+            echo json_encode([ 'message' => 'no user with this email address found',
+            "email" => $email ]);
             return;
         }
 
         if (!password_verify(htmlspecialchars($password), $user['Password'])) {
             http_response_code(401);
-            echo json_encode([ 'message' => 'incorrect password' ]);
+            echo json_encode([ 'message' => 'incorrect password',
+            "email" => $email ]);
             return;
         }
 
-        http_response_code(200);
         if (!$user['Verified']) {
-            // setcookie("verification", false, time() + 600, "/");
             http_response_code(401);
             echo json_encode([
                 "message" => "account not verified",
@@ -115,10 +113,8 @@ class UsersController {
         //setcookie('email', $user['email'], time() + (600), "/");
         http_response_code(200);
         echo json_encode([
-            "message" => "Successful login.",
             "jwt" => $jwt,
             "email" => $user['Email'],
-            "expireAt" => $expire_claim,
         ]);
     }
 
