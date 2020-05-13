@@ -48,7 +48,7 @@ class UsersController {
             MailService::sendVerification($email, $token);
         } catch (\Exception $e) {
             http_response_code(400);
-            echo json_encode([ 'message' => $e->getMessage() ]);
+            echo json_encode([ 'message' => 'Failed to send email verification' ]);
             return;
         }
 
