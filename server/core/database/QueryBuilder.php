@@ -96,6 +96,8 @@ class QueryBuilder {
             implode(' , ', array_map(fn ($p) => "{$p} = :{$p}", array_keys($parameters))),
             implode(' AND ', array_map(fn ($c) => "{$c} = :{$c}", array_keys($conditions))),
         );
+        // UPDATE users SET name= :name WHERE email= :email
+        // $parameters =[name=> 'marwa']   
         try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute($parameters);
