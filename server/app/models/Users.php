@@ -19,11 +19,17 @@ class Users {
         if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])[0-9A-Za-z!@#$%^&*]{8,}$/", $user['Password'])) {
             throw new \Exception("This password is weak, please enter another one");
         }
-        $user['Password'] = password_hash($user['Password'], PASSWORD_BCRYPT);
+
         if (!preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]{2,})+(\.[a-zA-Z0-9-]{2,})*(\.[a-zA-Z]{2,})$/", $user['Email'])) {
             throw new \Exception("Invalid email, please enter another one");
         }
-        App::get('database')->insert(static::$table, $user);
+
+        $user['Password'] = password_hash($user['Password'], PASSWORD_BCRYPT);
+        try {
+            App::get('database')->insert(static::$table, $user);
+        } catch (\Exception $e) {
+            throw new \Exception('There is already an account with this email.');
+        }
     }
     /**
      * Get user from the database
@@ -36,7 +42,7 @@ class Users {
         $columns = ['UserID', 'Name', 'Email', 'Password', 'Verified', 'EmailHash'];
         return App::get('database')->selectOne(static::$table, $user, $columns);
     }
-    
+
     /**
      * Update password of certain user in the database
      *
