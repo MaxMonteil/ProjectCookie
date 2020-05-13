@@ -32,7 +32,7 @@
         class="p-4 text-center bg-green-500 rounded shadow"
       >
         <p class="font-bold text-white">
-          Your account was successfully created! Redirecting you to login in 3 seconds...
+          Your account was successfully created! Check your email to verify your account before you can log in.
         </p>
 
         <router-link
@@ -103,13 +103,12 @@ export default {
           confirmpassword: this.passwordConfirm,
         })
 
+        this.email = ''
+        this.password = ''
+        this.confirmpassword = ''
+
         this.loading = false
         this.success = true
-
-        const id = setTimeout(() => {
-          clearTimeout(id)
-          this.$router.push({ name: 'login' })
-        }, 3000)
       } catch (error) {
         this.loading = false
         this.error = error

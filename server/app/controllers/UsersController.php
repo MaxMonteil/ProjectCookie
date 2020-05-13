@@ -38,10 +38,9 @@ class UsersController {
             'Password' => $password,
             'EmailHash' => $token,
             ]);
-            echo "yes";
         } catch(\Exception $e) {
             http_response_code(400);
-            echo json_encode([ 'message' => 'Email already exists' ]);
+            echo json_encode([ 'message' => $e->getMessage() ]);
             return;
         }
 

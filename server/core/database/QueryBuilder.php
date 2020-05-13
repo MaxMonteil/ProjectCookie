@@ -53,12 +53,8 @@ class QueryBuilder {
             ':' . implode(', :', array_keys($parameters)),
         );
 
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute($parameters);
-        } catch (\Exception $e) {
-            die(var_dump($e->getMessage()));
-        }
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($parameters);
     }
 
     public function deleteOne($table, $parameters) {
@@ -68,12 +64,8 @@ class QueryBuilder {
             implode(' AND ', array_map(fn ($p) => "{$p} = :{$p}", array_keys($parameters))),
         );
 
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute($parameters);
-        } catch (\Exception $e) {
-            die(var_dump($e->getMessage()));
-        }
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($parameters);
     }
 
     public function deleteAll($table) {
@@ -81,12 +73,9 @@ class QueryBuilder {
             'DELETE FROM %s ',
             $table,
         );
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute();
-        } catch (\Exception $e) {
-            die(var_dump($e->getMessage()));
-        }
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
     }
 
     public function update($table, $parameters, $conditions) {
@@ -96,13 +85,8 @@ class QueryBuilder {
             implode(' , ', array_map(fn ($p) => "{$p} = :{$p}", array_keys($parameters))),
             implode(' AND ', array_map(fn ($c) => "{$c} = :{$c}", array_keys($conditions))),
         );
-        // UPDATE users SET name= :name WHERE email= :email
-        // $parameters =[name=> 'marwa']   
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute(array_merge($parameters, $conditions));
-        } catch (\Exception $e) {
-            die(var_dump($e->getMessage()));
-        }
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array_merge($parameters, $conditions));
     }
 }
