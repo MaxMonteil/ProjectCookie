@@ -29,13 +29,20 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    props: true,
     meta: {
       hideHeaderSearchBar: true,
+      requiresAuth: false,
     },
   },
   {
     path: '/auth',
     component: Auth,
+    props: true,
+    meta: {
+      requiresAuth: false,
+      hideHeader: true,
+    },
     children: [
       {
         path: '',
@@ -57,16 +64,15 @@ const routes = [
         component: ForgotPasswordLayout,
       },
     ],
-    meta: {
-      hideHeader: true,
-    },
   },
   {
     path: '/search',
     name: 'search',
     component: Search,
+    props: true,
     meta: {
       hideHeaderSearchBar: true,
+      requiresAuth: false,
     },
   },
   {
@@ -74,16 +80,26 @@ const routes = [
     name: 'course',
     component: Course,
     props: true,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/course/:courseId/section/:sectionId/lesson/:lessonId',
     name: 'lesson',
     component: Lesson,
     props: true,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/profile',
     component: Profile,
+    props: true,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: '',
@@ -110,6 +126,7 @@ const routes = [
         path: 'customer-support',
         name: 'customer-support',
         component: CustomerSupportLayout,
+        props: true,
       },
     ],
   },
@@ -118,6 +135,9 @@ const routes = [
     name: 'form',
     component: Form,
     props: true,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     // catch all route
@@ -131,5 +151,18 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 })
+
+// Route guards to prevent unauthorized access to restricted routes
+// router.beforeEach((to, _, next) => {
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+//   const user = window.localStorage.getItem(process.env.VUE_APP_USER_KEY)
+//
+//   // anonymous user trying to access app
+//   if (requiresAuth && !user) next({ name: 'login' })
+//   // prevent logged in user from getting to login and register pages again
+//   else if (to.path.includes('auth') && user) next({ name: 'home' })
+//   // logged in user navigating the app or anonymous user on public pages
+//   else if (!requiresAuth || user) next()
+// })
 
 export default router

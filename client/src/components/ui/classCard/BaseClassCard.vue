@@ -6,16 +6,25 @@
     <div
       v-if="props.showImage"
       class="w-full h-32 rounded-t"
-      :class="props.color === 'blue' ? 'bg-blue-500' : 'bg-green-500'"
+      :class="{
+        'bg-blue-500': props.color === 'blue' && props.courseId !== ' ',
+        'bg-green-500': props.color !== 'blue' && props.courseId !== ' ',
+        'bg-gray-200': props.courseId === ' ',
+      }"
     />
 
     <article class="px-2 pb-1 space-y-1">
       <h1 class="text-lg font-bold">
         <router-link
+          v-if="props.courseId !== ' '"
           :to="{ name: 'course', params: { courseId: props.courseId } }"
         >
           <slot name="name" />
         </router-link>
+        <slot
+          v-else
+          name="name"
+        />
       </h1>
 
       <p

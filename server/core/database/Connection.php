@@ -7,8 +7,7 @@ namespace App\Core\Database;
  *
  * Handle connecting to the database.
  */
-class Connection
-{
+class Connection {
     /**
      * Create a PDO connection to a database.
      *
@@ -16,8 +15,7 @@ class Connection
      *
      * @return \PDO A connection to the database server.
      */
-    public static function make($config)
-    {
+    public static function make($config) {
         try {
             return new \PDO(
                 $config['connection'].';dbname='.$config['name'],
@@ -26,7 +24,7 @@ class Connection
                 $config['options'],
             );
         } catch (\PDOException $e) {
-            die(var_dump($e->getMessage()));
+            throw new \Exception($e->getMessage());
         }
     }
 }

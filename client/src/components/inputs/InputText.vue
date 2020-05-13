@@ -15,12 +15,14 @@
       :class="[
         data.class,
         data.staticClass,
-        props.bgGray ? 'bg-gray-200' : 'bg-white'
+        props.bgGray ? 'bg-gray-200' : 'bg-white',
+        props.disabled ? 'text-gray-600 bg-gray-200' : 'text-black'
       ]"
       :style="[
         data.style,
         data.staticStyle,
       ]"
+      :disabled="props.disabled"
       v-bind="data.attrs"
       v-on="{ ...listeners, input: e => listeners.input(e.target.value) }"
     >
@@ -51,6 +53,10 @@ export default {
       default: false,
     },
     bgGray: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
