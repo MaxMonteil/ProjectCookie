@@ -12,6 +12,7 @@
         v-model="email"
         label="Email (must end with .edu)"
         class="flex-grow"
+        type="email"
         :disabled="loading"
       />
 
