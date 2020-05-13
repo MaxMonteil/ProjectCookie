@@ -23,7 +23,11 @@ class Users {
         if (!preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]{2,})+(\.[a-zA-Z0-9-]{2,})*(\.[a-zA-Z]{2,})$/", $user['Email'])) {
             throw new \Exception("Invalid email, please enter another one");
         }
-        App::get('database')->insert(static::$table, $user);
+        try {
+            App::get('database')->insert(static::$table, $user);
+        } catch (\Exception $e) {
+            throw new \Exception("Email already exists");
+        }
     }
     /**
      * Get user from the database
