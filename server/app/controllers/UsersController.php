@@ -38,7 +38,7 @@ class UsersController {
             'Password' => $password,
             'EmailHash' => $token,
             ]);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             http_response_code(400);
             echo json_encode([ 'message' => $e->getMessage() ]);
             return;
@@ -71,7 +71,7 @@ class UsersController {
         $user = Users::getUser([
             'Email' => $email,
         ]);
-        
+
         if (!$user) {
             http_response_code(400);
             echo json_encode([ 'message' => 'no user with this email address found',
@@ -139,11 +139,11 @@ class UsersController {
             http_response_code(404);
             echo json_encode([ 'message' => 'no user with this email address found' ]);
             return;
-        } else if ($password != $confirmnewpassword) {
+        } elseif ($password != $confirmnewpassword) {
             http_response_code(406);
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
-        } else if (!password_verify($oldpassword, $user['Password'])) {
+        } elseif (!password_verify($oldpassword, $user['Password'])) {
             http_response_code(406);
             echo json_encode([ 'message' => 'Incorrect original password' ]);
             return;
@@ -161,7 +161,6 @@ class UsersController {
             http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
         }
-
     }
 
     /**
@@ -182,7 +181,6 @@ class UsersController {
             http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
         }
-
     }
 
     /**
@@ -358,6 +356,5 @@ class UsersController {
             echo json_encode([ 'message' => $e->getMessage() ]);
             return;
         }
-
     }
 }
