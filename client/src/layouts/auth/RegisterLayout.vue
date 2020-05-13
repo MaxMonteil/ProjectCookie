@@ -112,7 +112,7 @@ export default {
         }, 3000)
       } catch (error) {
         this.loading = false
-        this.error = error.message
+        this.error = error
       }
     },
   },

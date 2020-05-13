@@ -162,7 +162,7 @@ export default {
         this.password.new = ''
         this.password.confirm = ''
         this.loading = false
-        this.error = error.message
+        this.error = error
       }
     },
   },

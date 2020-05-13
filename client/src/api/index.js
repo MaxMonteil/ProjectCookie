@@ -1,6 +1,7 @@
 import { client } from './client'
 import { auth } from './auth'
 import { user } from './user'
+import { search } from './search'
 
 const api = {
   install (Vue) {
@@ -8,6 +9,7 @@ const api = {
       client,
       auth,
       user,
+      search,
     }
   },
 }

@@ -20,16 +20,16 @@
       <div class="flex flex-col p-4 border border-green-500 rounded space-y-4">
         <ClassCardRow
           card="detailed"
-          :courses="subjectCourses"
+          :courses="courses[open]"
           :tight="true"
         />
 
-        <a
-          href="#"
+        <router-link
+          :to="{ name: 'search', params: { options: { subject: open } } }"
           class="self-end text-sm text-green-900 underline"
         >
           See all
-        </a>
+        </router-link>
       </div>
     </article>
   </section>
@@ -43,27 +43,47 @@ export default {
   components: {
     ClassCardRow,
   },
-  props: {
-    courses: {
-      type: Array,
-      required: true,
-    },
-  },
   data () {
     return {
+      loading: true,
+      courses: {},
+      subjects: [],
       open: '',
     }
   },
   computed: {
-    subjects () {
-      return [...new Set(this.courses.map(course => course.subject))]
-    },
     subjectCourses () {
       return this.courses.filter(course => course.subject === this.open)
     },
   },
+  created () {
+    this.fetchTopCourses()
+  },
   mounted () {
-    this.open = this.subjects[0]
+  },
+  methods: {
+    async fetchTopCourses () {
+      try {
+        await this.fetchSubjects()
+        await this.fetchSubjectCourse(null, [this.open])
+
+        // start prefetching the other courses
+        this.$api.courses.getBySubjects(this.subjects.slice(1))
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async fetchSubjects () {
+      this.subjects = await this.$api.courses.getAllSubjects()
+      this.open = this.subjects[0]
+    },
+    async fetchSubjectCourse (_, subjects) {
+      this.courses = {
+        ...await this.$api.courses.getBySubjects(subjects),
+      }
+    },
   },
 }
 </script>

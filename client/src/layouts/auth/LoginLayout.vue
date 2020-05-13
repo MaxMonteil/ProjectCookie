@@ -99,7 +99,7 @@ export default {
         this.$router.push({ name: 'home' })
       } catch (error) {
         this.loading = false
-        this.error = error.message
+        this.error = error
       }
     },
   },
