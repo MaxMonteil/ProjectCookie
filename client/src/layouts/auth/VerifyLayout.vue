@@ -57,12 +57,13 @@ export default {
         this.loading = true
         this.error = ''
 
-        const token = this.$route.query.token
-        if (!token) {
-          throw new Error('No verification token found')
+        const hash = this.$route.query.hash
+        const email = this.$route.query.email
+        if (!hash || !email) {
+          throw new Error('Invalid verification link')
         }
 
-        await this.$api.auth.verify({ token })
+        await this.$api.auth.verify({ hash, email })
 
         this.loading = false
       } catch (error) {
