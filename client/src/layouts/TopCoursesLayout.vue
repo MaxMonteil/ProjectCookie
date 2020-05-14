@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-col">
+  <section class="flex flex-col pt-8">
     <h2 class="mb-6 text-3xl font-semibold leading-none">
       Top Courses
     </h2>
