@@ -105,7 +105,7 @@ export default {
 
         this.email = ''
         this.password = ''
-        this.confirmpassword = ''
+        this.passwordConfirm = ''
 
         this.loading = false
         this.success = true
