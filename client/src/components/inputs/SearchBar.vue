@@ -129,7 +129,11 @@ export default {
       if (this.$route.name !== 'search') {
         this.$router.push({ name: 'search', query: { q: this.searchTerm } })
       }
+
       try {
+        this.loading = true
+        this.error = ''
+
         const {
           searchOptions,
           courses,
@@ -151,6 +155,9 @@ export default {
     },
     async fetchCourses () {
       try {
+        this.loading = true
+        this.error = ''
+
         this.courses = await this.$api.courses.getAllCourses()
       } catch (error) {
         this.error = error

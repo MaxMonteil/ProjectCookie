@@ -83,11 +83,12 @@ export default {
   created () {
     this.fetchTopCourses()
   },
-  mounted () {
-  },
   methods: {
     async fetchTopCourses () {
       try {
+        this.loading = true
+        this.error = ''
+
         await this.fetchSubjects()
         await this.fetchSubjectCourse(null, [this.open])
 

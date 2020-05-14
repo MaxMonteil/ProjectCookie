@@ -64,12 +64,11 @@ export default {
         }
 
         await this.$api.auth.verify({ hash, email })
-
-        this.loading = false
       } catch (error) {
-        this.loading = false
         this.error = error
       }
+
+      this.loading = false
     },
   },
 }
