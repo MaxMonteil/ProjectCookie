@@ -89,7 +89,7 @@ class UsersController {
         if (!$user['Verified']) {
             http_response_code(400);
             echo json_encode([
-                "message" => "Please verify your account",
+                "message" => "account not verified",
                 "email" => $user['Email'],
             ]);
             return;
@@ -127,7 +127,7 @@ class UsersController {
         $data = json_decode(file_get_contents('php://input'), true);
 
         $email = htmlspecialchars($data['email']);
-        $password = $data['newpassword'];
+        $password = $data['password'];
         $confirmnewpassword = $data['confirmnewpassword'];
         $oldpassword = $data['oldpassword'];
 
@@ -136,19 +136,19 @@ class UsersController {
         ]);
 
         if (!$user) {
-            http_response_code(400);
+            http_response_code(404);
             echo json_encode([ 'message' => 'No user with this email address found' ]);
             return;
         }
 
         if ($password !== $confirmnewpassword) {
-            http_response_code(400);
+            http_response_code(406);
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
         }
 
         if (!password_verify($oldpassword, $user['Password'])) {
-            http_response_code(400);
+            http_response_code(406);
             echo json_encode([ 'message' => 'Incorrect original password' ]);
             return;
         }
@@ -159,10 +159,10 @@ class UsersController {
                 'Password' => $password,
             ]);
 
-            http_response_code(200);
-            echo json_encode([ 'message' => 'User password updated successfully' ]);
+            http_response_code(201);
+            echo json_encode([ 'message' => 'user password updated successfully' ]);
         } catch (\Exception $e) {
-            http_response_code(400);
+            http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
         }
     }
@@ -179,10 +179,10 @@ class UsersController {
 
             session_destroy();
 
-            http_response_code(200);
+            http_response_code(201);
             echo json_encode([ 'message' => 'user logged out successfully' ]);
         } catch (\Exception $e) {
-            http_response_code(400);
+            http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
         }
     }
@@ -196,20 +196,20 @@ class UsersController {
     public function verify(): void {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $token = $data['hash'];
+        $token = $data['token'];
         $email = htmlspecialchars($data['email']);
         $user = Users::getUser([
             'Email' => $email,
         ]);
 
         if (!$user) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No user with this email address found' ]);
+            http_response_code(404);
+            echo json_encode([ 'message' => 'no user with this email address found' ]);
             return;
         }
         if (htmlspecialchars($token) != $user['EmailHash']) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'Invalid token' ]);
+            http_response_code(401);
+            echo json_encode([ 'message' => 'invalid token' ]);
             return;
         }
 
@@ -220,11 +220,11 @@ class UsersController {
 
             http_response_code(200);
             echo json_encode([
-                "message" => "Account has been verified",
+                "message" => "account has been verified",
             ]);
             return;
         } catch (\Exception $e) {
-            http_response_code(400);
+            http_response_code(401);
             echo json_encode([ 'message' => $e->getMessage() ]);
         }
     }
@@ -238,26 +238,27 @@ class UsersController {
     public function resetPassword(): void {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $token = $data['validator'];
+        $token = urldecode($data['validator']);
+        $token = implode('+', explode(' ', $token));
         $password = $data['password'];
         $confirmpassword = $data['confirmpassword'];
 
         if ($password != $confirmpassword) {
-            http_response_code(406);
-            echo json_encode([ 'message' => 'Passwords do not match' ]);
+            http_response_code(400);
+            echo json_encode([ 'message' => 'passwords do not match' ]);
             return;
         }
 
         // Store the cipher method
         $ciphering = "AES-128-CTR";
-
+    
         // Use OpenSSl Encryption method
         $iv_length = openssl_cipher_iv_length($ciphering);
         $options = 0;
 
         // Non-NULL Initialization Vector for encryption
         $decryption_iv = '1234567891011121';
-
+        
         // Store the encryption key
         $decryption_key = "000102030405060708090a0b0c0d0e0f";
 
@@ -279,8 +280,8 @@ class UsersController {
         ]);
 
         if (!$user) {
-            http_response_code(406);
-            echo json_encode([ 'message' => $data ]);
+            http_response_code(400);
+            echo json_encode([ 'message' => "Invalid password reset link" ]);
             return;
         }
 
@@ -297,7 +298,7 @@ class UsersController {
             ]);
 
             http_response_code(200);
-            echo json_encode([ 'message' => 'User password updated successfully' ]);
+            echo json_encode([ 'message' => 'user password updated successfully' ]);
             return;
         } catch (\Exception $e) {
             http_response_code(400);
@@ -319,7 +320,7 @@ class UsersController {
         ]);
 
         if (!$user) {
-            http_response_code(400);
+            http_response_code(404);
             echo json_encode([ 'message' => 'no user with this email address found' ]);
             return;
         }
