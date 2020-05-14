@@ -51,11 +51,14 @@
 
         <button
           class="self-end btn btn-blue"
-          :class="{ 'bg-blue-200 border-blue-200 text-blue-900 cursor-wait' : loading }"
+          :class="{
+            'bg-blue-200 border-blue-200 text-blue-900 cursor-wait' : loading,
+            'bg-blue-200 border-blue-200 text-blue-900 shadow-none cursor-default' : !formValid,
+          }"
           type="submit"
-          :disabled="loading"
+          :disabled="loading || !formValid"
         >
-          Change Password
+          {{ formValid ? 'Change Password' : 'All fields required' }}
         </button>
 
         <div
@@ -133,22 +136,31 @@ export default {
       },
     }
   },
+  computed: {
+    formValid () {
+      const { current, new: newPass, confirm } = this.password
+      return current !== '' && newPass !== '' && confirm !== ''
+    },
+  },
   created () {
-    const user = window.localStorage.getItem(process.env.VUE_APP_USER_KEY)
+    let user = window.localStorage.getItem(process.env.VUE_APP_USER_KEY)
+    user = JSON.parse(user)
     this.email = user.email
     this.loading = false
   },
   methods: {
     async changePass () {
+      let { current, new: newPass, confirm } = this.password
+
       try {
         this.loading = true
         this.error = ''
 
         await this.$api.auth.changePass({
           email: this.email,
-          oldpassword: this.password.current,
-          newpassword: this.password.new,
-          confirmnewpassword: this.password.confirm,
+          oldpassword: current,
+          newpassword: newPass,
+          confirmnewpassword: confirm,
         })
 
         this.loading = false
@@ -158,9 +170,10 @@ export default {
           this.sucess = false
         }, 3000)
       } catch (error) {
-        this.password.current = ''
-        this.password.new = ''
-        this.password.confirm = ''
+        current = ''
+        newPass = ''
+        confirm = ''
+
         this.loading = false
         this.error = error
       }
