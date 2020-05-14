@@ -1,7 +1,9 @@
 <template>
   <main class="h-screen px-64 pt-24 pb-32 bg-gradient space-y-20">
     <h1 class="text-5xl font-bold leading-tight text-center text-white">
-      ProjectCookie
+      <router-link :to="{ name: 'home' }">
+        ProjectCookie
+      </router-link>
     </h1>
 
     <router-view />
