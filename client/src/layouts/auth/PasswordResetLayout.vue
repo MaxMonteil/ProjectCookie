@@ -81,12 +81,14 @@ export default {
       loading: false,
       error: '',
       success: '',
-      validator: '',
       password: '',
       passwordConfirm: '',
     }
   },
   computed: {
+    test () {
+      return this.$route
+    },
     formValid () {
       return this.password !== '' && this.passwordConfirm !== ''
     },
@@ -102,14 +104,16 @@ export default {
           throw new Error('Invalid password reset link')
         }
 
-        await this.$api.auth.resetPass({
-          validator: this.validator,
+        const { message } = await this.$api.auth.resetPass({
+          validator,
           password: this.password,
           confirmpassword: this.passwordConfirm,
         })
 
         this.password = ''
         this.passwordConfirm = ''
+
+        this.success = message
       } catch (error) {
         this.error = error
       }
