@@ -51,14 +51,14 @@ class Course {
     // get all courses a certain user is taking (use UserJoinCourse table)
     public static function getCoursesTakenBy($user) {
         $columns1 = ['CourseID'];
-        $courses= App::get('database')->selectByAttrValues('userjoincourse', 'UserID',$user['UserID'], $columns1);
+        $courses= App::get('database')->selectByAttrValues('userjoincourse', 'UserID',['UserID'=>$user['UserID']], $columns1);
         $columns2 = ['CourseID', 'CourseName']; 
-        return App::get('database')->selectByAttrValues(static::$table, 'CourseID', $courses['CourseID'], $columns2);
+        return App::get('database')->selectByAttrValues(static::$table, 'CourseID', ['CourseID'=>$courses['CourseID']], $columns2);
     }
 
     // get courses by attribute (for example: courses given by certain teacher, or have a certain price, etc. )
     public static function getCourseByAttr($attr, $values){
-        $columns = ['CourseID', 'CourseName'];
+        $columns = ['CourseID', 'CourseName', 'StartDate', 'NumOfViewers', 'Description'];
         return App::get('database')->selectByAttrValues(static::$table, $attr, $values, $columns);
     }
     // getCourseProgress
@@ -69,5 +69,13 @@ class Course {
     public static function updateCourseProg($course, $user){
         App::get('database')->update('userjoincourse', ['CourseProgress'=>$course['CourseProgress']], ['CourseID'=>$course['CourseID'], 'UserID'=> $user['UserID']]);
     }
+    public static function getAllSubjects($subject){
+        $columns = ['Subject'];
+        return App::get('database')->selectByAttrValues(static::$table, 'Subject' ,$subject , $columns);
+    }
+    public static function getAllCourses(){
+        return App::get('database')->selectAll(static::$table);
+    }
+    
 
 }

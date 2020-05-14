@@ -32,7 +32,7 @@ class QueryBuilder {
 
     public function selectByAttrValues($table, $parameter, $values, $columns) {
         $sql = sprintf(
-            'SELECT %s FROM %s WHERE %s IN (%s)',
+            'SELECT DISTINCT %s FROM %s WHERE %s IN (%s)',
             implode(', ', $columns),
             $table,
             $parameter,
