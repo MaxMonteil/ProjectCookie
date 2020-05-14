@@ -137,13 +137,17 @@ class UsersController {
 
         if (!$user) {
             http_response_code(404);
-            echo json_encode([ 'message' => 'no user with this email address found' ]);
+            echo json_encode([ 'message' => 'No user with this email address found' ]);
             return;
-        } elseif ($password != $confirmnewpassword) {
+        }
+
+        if ($password !== $confirmnewpassword) {
             http_response_code(406);
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
-        } elseif (!password_verify($oldpassword, $user['Password'])) {
+        }
+
+        if (!password_verify($oldpassword, $user['Password'])) {
             http_response_code(406);
             echo json_encode([ 'message' => 'Incorrect original password' ]);
             return;
