@@ -69,13 +69,13 @@ class Course {
     public static function updateCourseProg($course, $user){
         App::get('database')->update('userjoincourse', ['CourseProgress'=>$course['CourseProgress']], ['CourseID'=>$course['CourseID'], 'UserID'=> $user['UserID']]);
     }
-    public static function getAllSubjects($subject){
-        $columns = ['Subject'];
-        return App::get('database')->selectByAttrValues(static::$table, 'Subject' ,$subject , $columns);
+    public static function getAllSubjects(){
+        
+        return App::get('database')->selectAllOneCol(static::$table, 'Subject');
     }
     public static function getAllCourses(){
         return App::get('database')->selectAll(static::$table);
     }
-    
+
 
 }
