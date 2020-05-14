@@ -227,6 +227,36 @@ $data = json_decode(file_get_contents('php://input'), true);
 }
 ```
 
+#### Get enrolled courses
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /enrolled    | GET   | get all enrolled courses |
+| /enrolled    | POST   | get a certain number of courses |
+
+##### Data
+
+```jsonc
+{
+    "limit": 4 // number, number of courses to return
+}
+```
+
+##### Expected response
+
+```jsonc
+{
+    "courses": [
+        {
+            "id": "fpiu314",    // string
+            "name": "web dev",  // string
+            "progress": 32      // number
+        },
+        // ...
+    ]
+}
+```
+
 ### Search
 
 #### Search for a query
