@@ -160,7 +160,7 @@ class UsersController {
             ]);
 
             http_response_code(200);
-            echo json_encode([ 'message' => 'user password updated successfully' ]);
+            echo json_encode([ 'message' => 'User password updated successfully' ]);
         } catch (\Exception $e) {
             http_response_code(400);
             echo json_encode([ 'message' => $e->getMessage() ]);
@@ -243,8 +243,8 @@ class UsersController {
         $confirmpassword = $data['confirmpassword'];
 
         if ($password != $confirmpassword) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'passwords do not match' ]);
+            http_response_code(406);
+            echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
         }
 
@@ -279,8 +279,8 @@ class UsersController {
         ]);
 
         if (!$user) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No user with this email address found' ]);
+            http_response_code(406);
+            echo json_encode([ 'message' => $data ]);
             return;
         }
 
@@ -297,7 +297,7 @@ class UsersController {
             ]);
 
             http_response_code(200);
-            echo json_encode([ 'message' => 'user password updated successfully' ]);
+            echo json_encode([ 'message' => 'User password updated successfully' ]);
             return;
         } catch (\Exception $e) {
             http_response_code(400);
