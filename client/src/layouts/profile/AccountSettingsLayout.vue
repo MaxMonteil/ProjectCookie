@@ -6,7 +6,7 @@
       </h2>
 
       <InputText
-        v-model="email"
+        :value="email"
         class="w-1/2"
         label="Email"
         type="email"
@@ -23,7 +23,7 @@
         </h3>
 
         <InputText
-          v-model="password.current"
+          v-model.trim="password.current"
           label="Current password"
           type="password"
           :bg-gray="true"
@@ -32,7 +32,7 @@
         />
 
         <InputText
-          v-model="password.new"
+          v-model.trim="password.new"
           label="New password"
           type="password"
           :bg-gray="true"
@@ -41,7 +41,7 @@
         />
 
         <InputText
-          v-model="password.confirm"
+          v-model.trim="password.confirm"
           label="Confirm new password"
           type="password"
           :bg-gray="true"
