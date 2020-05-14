@@ -2,7 +2,7 @@ CREATE TABLE Users(
 	UserID int NOT NULL AUTO_INCREMENT,
     Name varchar(200),
     Email varchar(200) UNIQUE,
-    Password varchar(50),
+    Password varchar(256),
     Verified tinyint(1) default 0,
     EmailHash varchar(256),
 	PRIMARY KEY(UserID)
@@ -12,6 +12,8 @@ CREATE TABLE UserJoinCourse(
 	UserID int NOT NULL,
     CourseID int NOT NULL, 
 	CourseProgress varchar(15) NOT NULL,
+    Completed Boolean default FALSE,
+    CompletedOn varchar(60),
 	PRIMARY KEY(UserID, CourseID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
@@ -50,14 +52,13 @@ CREATE TABLE Courses(
     Subject varchar(200),
     Description varchar(200),
     RecommendedUsers varchar(500),
-    StartDate DATE,
-    EndDate DATE,
+    StartDate varchar(60),
+    EndDate varchar(60),
     Price varchar(20),
     NumOfViewers int,
     Teacher varchar(200),
     Language varchar(200),
     SyllabusName varchar(40) UNIQUE,
-    FOREIGN KEY (SyllabusName) REFERENCES Syllabus(SyllabusName)
 );
 
 
@@ -67,7 +68,7 @@ CREATE TABLE Classes(
     PRIMARY KEY(ClassID),
     VideoPath varchar(256),
 	Description varchar(200), 
-    ModuleName varchar(100),
+    ModuleName varchar(100) UNIQUE,
     CourseID int,
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
 );
