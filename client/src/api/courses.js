@@ -2,6 +2,8 @@ import { client } from './client'
 
 const getAllCourses = () => client('courses')
 
+const getOne = id => client('courses', { body: id })
+
 const getBySubject = subjects => client('subjects', { body: subjects })
 
 const getAllSubjects = () => client('subjects')
@@ -16,6 +18,7 @@ const getDrafts = user => client('drafts', { body: user })
 
 export const courses = {
   getAllCourses,
+  getOne,
   getBySubject,
   getAllSubjects,
   getEnrolled,

@@ -139,11 +139,20 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 #### Get all courses
 
-| endpoint | method |
-| -------- |:------:|
-| /courses    | GET   |
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /courses    | GET   | get all courses |
+| /courses    | POST   | get a course by id |
 
-##### Expected Response
+##### Data
+
+```jsonc
+{
+    "courseId": "fpiu314" // string
+}
+```
+
+##### Expected GET Response
 
 ```jsonc
 {
@@ -170,6 +179,37 @@ $data = json_decode(file_get_contents('php://input'), true);
             // ...
         ]
     },
+}
+```
+
+##### Expected POST Response
+
+```jsonc
+{
+    "id": "fpiu314",                                    // string
+    "name": "web dev",                                  // string
+    "teacher": "Jane Doe",                              // string
+    "startDate": "YYYY-MM-DD",                          // string
+    "studentCount": 459,                                // number
+    "description": "This course is about web dev...",   // string
+    "price": 20,                                        // number
+    "syllabus": [
+        {
+            "id": "doy32fe",                                // string
+            "name": "The Web",                              // string
+            "description": "An introduction to the web",    // string
+            "lessons": [
+                {
+                    "id": "lesgh893",               // string
+                    "courseId": "fpiu314",          // string
+                    "sectionId": "doy32fe",         // string
+                    "name": "How the web works",    // string
+                },
+                // ... other lessons
+            ]
+        },
+        // ... other sections
+    ]
 }
 ```
 
