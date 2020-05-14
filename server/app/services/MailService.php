@@ -54,7 +54,7 @@ class MailService {
             ------------------------
 
             Please click this link to activate your account:
-            http://localhost:8080/auth/verify?email={$email}&hash={$token}";
+            {$_ENV['CLIENT_URL']}/auth/verify?email={$email}&hash={$token}";
 
         try {
             static::$phpMailer->send();
@@ -88,7 +88,7 @@ class MailService {
         ------------------------
 
         Please click this link to change your account's password:
-        http://localhost:8080/auth/password-reset?validator={$token}";
+        {$_ENV['CLIENT_URL']}/auth/password-reset?validator={$token}";
 
         try {
             static::$phpMailer->send();
