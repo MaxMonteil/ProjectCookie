@@ -10,19 +10,45 @@
       </p>
     </div>
 
-    <form class="flex flex-col w-1/2 space-y-8">
+    <form
+      v-if="!error"
+      class="flex flex-col w-1/2 space-y-8"
+      @submit.prevent="sendRecoveryEmail"
+    >
       <InputText
-        v-model="email"
+        v-model.trim="email"
         label="Email (must end with .edu)"
         class="flex-grow"
       />
 
       <div class="text-center">
-        <button class="self-center w-4/5 mt-10 btn btn-blue">
-          Send me a reset link
+        <button
+          class="self-center w-4/5 mt-10 btn btn-blue"
+          :class="{
+            'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading,
+            'bg-blue-200 border-blue-200 text-blue-900 shadow-none cursor-default' : !formValid,
+          }"
+          :disabled="loading || !formValid"
+        >
+          {{
+            loading
+              ? 'Sending you a recovery email...'
+              : formValid
+                ? 'Send me a reset link'
+                : 'Email is required'
+          }}
         </button>
       </div>
     </form>
+
+    <div
+      v-if="error"
+      class="p-4 text-center bg-red-500 rounded shadow"
+    >
+      <p class="font-bold text-white">
+        {{ error }}
+      </p>
+    </div>
 
     <div class="flex space-x-8">
       <router-link
@@ -52,9 +78,31 @@ export default {
   },
   data () {
     return {
+      loading: false,
+      error: '',
       email: '',
-      password: '',
     }
+  },
+  computed: {
+    formValid () {
+      return this.email !== ''
+    },
+  },
+  methods: {
+    async sendRecoveryEmail () {
+      try {
+        this.loading = true
+        this.error = ''
+
+        await this.$api.auth.sendPassReset({
+          email: this.email,
+        })
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
   },
 }
 </script>
