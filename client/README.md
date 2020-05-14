@@ -382,7 +382,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 | -------- |:------:|
 | /lessons    | post   |
 
-##### data
+##### Data
 
 ```jsonc
 {
@@ -438,7 +438,7 @@ Set a lesson's completion to true or false.
 | -------- |:------:|
 | /complete-lesson    | POST   |
 
-##### data
+##### Data
 
 ```jsonc
 {
