@@ -8,9 +8,12 @@ const getAllSubjects = () => client('subjects')
 
 const getEnrolled = limit => client('enrolled', { body: limit })
 
+const getCompleted = () => client('completed')
+
 export const courses = {
   getAllCourses,
   getBySubject,
   getAllSubjects,
   getEnrolled,
+  getCompleted,
 }

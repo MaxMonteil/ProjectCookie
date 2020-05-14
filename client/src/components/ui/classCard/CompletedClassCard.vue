@@ -1,20 +1,16 @@
 <template functional>
   <component
     :is="injections.components.BaseClassCard"
-    :course-id="props.course.id"
+    :course-id="props.course.id || ' '"
     color="gray"
     :show-image="false"
   >
     <template #name>
-      {{ props.course.name }}
-    </template>
-
-    <template #progress>
-      Progress: {{ props.course.progress }}%
+      {{ props.course.name || 'Loading' }}
     </template>
 
     <template #completed-on>
-      Completed on: {{ props.course.completedOn }}
+      Completed on: {{ props.course.completedOn || '...' }}
     </template>
   </component>
 </template>

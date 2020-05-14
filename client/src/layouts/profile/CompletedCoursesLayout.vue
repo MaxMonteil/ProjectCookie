@@ -1,18 +1,32 @@
 <template>
-  <section class="flex flex-col">
+  <section class="flex flex-col pt-20">
     <h2 class="mb-6 text-3xl font-semibold leading-tight">
       Completed Courses
     </h2>
 
-    <p v-if="loading">
-      Loading...
-    </p>
+    <div v-if="!error">
+      <ClassCardRow
+        v-if="courses.length >= 1"
+        card="completed"
+        :courses="courses"
+      />
 
-    <ClassCardRow
+      <h3
+        v-else
+        class="text-lg font-bold text-gray-600"
+      >
+        You haven't completed into any courses yet...
+      </h3>
+    </div>
+
+    <div
       v-else
-      card="completed"
-      :courses="courses"
-    />
+      class="p-4 text-center bg-red-500 rounded shadow"
+    >
+      <p class="font-bold text-white">
+        {{ error }}
+      </p>
+    </div>
   </section>
 </template>
 
@@ -27,7 +41,8 @@ export default {
   data () {
     return {
       loading: true,
-      courses: [],
+      error: '',
+      courses: [{}],
     }
   },
   created () {
@@ -35,10 +50,16 @@ export default {
   },
   methods: {
     async fetchCompletedCourses () {
-      const response = await fetch('../../courses.json')
-      const allCourses = await response.json()
+      try {
+        this.loading = true
+        this.error = ''
 
-      this.courses = allCourses.filter(course => course.completed)
+        const { courses } = await this.$api.courses.getCompleted()
+        this.courses = courses
+      } catch (error) {
+        this.error = error
+      }
+
       this.loading = false
     },
   },

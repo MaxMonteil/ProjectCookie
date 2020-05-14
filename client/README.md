@@ -257,6 +257,27 @@ $data = json_decode(file_get_contents('php://input'), true);
 }
 ```
 
+#### Get completed courses
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /completed    | GET   | get all completed courses |
+
+##### Expected response
+
+```jsonc
+{
+    "courses": [
+        {
+            "id": "fpiu314",            // string
+            "name": "web dev",          // string
+            "completedOn": "YYYY-MM-DD" // number
+        },
+        // ...
+    ]
+}
+```
+
 ### Search
 
 #### Search for a query
