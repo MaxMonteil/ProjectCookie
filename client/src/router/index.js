@@ -165,16 +165,18 @@ const router = new VueRouter({
 })
 
 // Route guards to prevent unauthorized access to restricted routes
-// router.beforeEach((to, _, next) => {
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-//   const user = window.localStorage.getItem(process.env.VUE_APP_USER_KEY)
-//
-//   // anonymous user trying to access app
-//   if (requiresAuth && !user) next({ name: 'login' })
-//   // prevent logged in user from getting to login and register pages again
-//   else if (to.path.includes('auth') && user) next({ name: 'home' })
-//   // logged in user navigating the app or anonymous user on public pages
-//   else if (!requiresAuth || user) next()
-// })
+router.beforeEach((to, _, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const user = JSON.parse(
+    window.localStorage.getItem(process.env.VUE_APP_USER_KEY),
+  )
+
+  // anonymous user trying to access app
+  if (requiresAuth && !user) next({ name: 'login' })
+  // prevent logged in user from getting to login and register pages again
+  else if (to.path.includes('auth') && user) next({ name: 'home' })
+  // logged in user navigating the app or anonymous user on public pages
+  else if (!requiresAuth || user) next()
+})
 
 export default router
