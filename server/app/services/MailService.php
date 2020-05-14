@@ -12,9 +12,9 @@ class MailService {
         static::$phpMailer = new PHPMailer(true);
         static::$phpMailer->SMTPOptions = [
             'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
                 ]
             ];
 
@@ -84,11 +84,11 @@ class MailService {
         If you did not request to change your password, please ignore this email.
 
         ------------------------
-        Email: '.$email.'
+        Email: {$email}
         ------------------------
 
-        Please click this link to change your account\'s password:
-        http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/reset.php?'.'&validator='.$token.'";
+        Please click this link to change your account's password:
+        http://localhost:8888/Cmps278-Project/ProjectCookie/server/test-authentication/api/reset.php?'.'&validator={$token}";
 
         try {
             static::$phpMailer->send();

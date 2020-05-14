@@ -31,12 +31,12 @@ class UsersController {
             echo json_encode([ 'message' => 'Passwords do not match' ]);
             return;
         }
-        
+
         try {
             Users::newUser([
-            'Email' => $email,
-            'Password' => $password,
-            'EmailHash' => $token,
+                'Email' => $email,
+                'Password' => $password,
+                'EmailHash' => $token,
             ]);
         } catch (\Exception $e) {
             http_response_code(400);
@@ -151,8 +151,8 @@ class UsersController {
 
         try {
             Users::updatePass([
-            'Email' => $email,
-            'Password' => $password,
+                'Email' => $email,
+                'Password' => $password,
             ]);
 
             http_response_code(201);
@@ -174,7 +174,7 @@ class UsersController {
             setcookie('email', null, time() - 3600, "/");
 
             session_destroy();
-        
+
             http_response_code(201);
             echo json_encode([ 'message' => 'user logged out successfully' ]);
         } catch (\Exception $e) {
@@ -208,12 +208,12 @@ class UsersController {
             echo json_encode([ 'message' => 'invalid token' ]);
             return;
         }
-        
+
         try {
             Users::verifyUser([
-            'Email' => $email,
+                'Email' => $email,
             ]);
-            
+
             http_response_code(200);
             echo json_encode([
                 "message" => "account has been verified",
@@ -239,7 +239,7 @@ class UsersController {
         $confirmpassword = $data['confirmpassword'];
 
         if ($password != $confirmpassword) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => 'passwords do not match' ]);
             return;
         }
@@ -276,27 +276,27 @@ class UsersController {
 
         if (!$user) {
             http_response_code(404);
-            echo json_encode([ 'message' => 'no user with this email address found' ]);
+            echo json_encode([ 'message' => 'No user with this email address found' ]);
             return;
         }
 
         if (intval($expiry) < time()) {
-            http_response_code(401);
-            echo json_encode([ 'message' => 'expired token' ]);
+            http_response_code(400);
+            echo json_encode([ 'message' => 'Your password reset link has expired.' ]);
             return;
         }
 
         try {
             Users::updatePass([
-            'Email' => $email,
-            'Password' => $password,
+                'Email' => $email,
+                'Password' => $password,
             ]);
 
             http_response_code(201);
             echo json_encode([ 'message' => 'user password updated successfully' ]);
             return;
         } catch (\Exception $e) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => $e->getMessage() ]);
         }
     }
