@@ -118,7 +118,6 @@ export default {
   },
   created () {
     this.getAllCourses && this.fetchCourses()
-    console.log(this.$route.params)
 
     if (this.$route.query.q) {
       this.searchTerm = this.$route.query.q
@@ -152,7 +151,7 @@ export default {
     },
     async fetchCourses () {
       try {
-        this.courses = await this.$api.search.getAllCourses()
+        this.courses = await this.$api.courses.getAllCourses()
       } catch (error) {
         this.error = error
       }

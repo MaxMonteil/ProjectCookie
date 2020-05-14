@@ -135,7 +135,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 ##### Expected Response
 
-### Search
+### Courses
 
 #### Get all courses
 
@@ -172,11 +172,66 @@ $data = json_decode(file_get_contents('php://input'), true);
 }
 ```
 
+#### Get all courses by subject
+
+| endpoint | method |
+| -------- |:------:|
+| /subjects    | POST   |
+
+##### Data
+
+```jsonc
+{
+    "subjects": [
+        "history",
+        "math"
+        // ...
+    ]
+}
+```
+
+##### Expected Response
+
+```jsonc
+{
+    "history": [
+        {
+            "name": "web dev",          // string
+            "startDate": "YYYY-MM-DD",  // string
+            "studentCount": 459,        // number
+            "description": "This course is about web dev..." // string
+        }
+        // ...
+    ]
+    // ...
+}
+```
+
+#### Get all subjects
+
+| endpoint | method |
+| -------- |:------:|
+| /subjects    | GET   |
+
+##### Expected Response
+
+```jsonc
+{
+    "subjects": [
+        "history",
+        "math"
+        // ...
+    ],
+}
+```
+
+### Search
+
 #### Search for a query
 
 | endpoint | method |
 | -------- |:------:|
-| /courses    | POST   |
+| /search    | POST   |
 
 ##### Data
 
