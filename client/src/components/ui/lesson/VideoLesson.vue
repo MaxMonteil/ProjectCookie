@@ -1,7 +1,16 @@
 <template>
   <section class="space-y-6">
-    <div class="bg-video">
-      <video class="w-full" />
+    <!-- trick to embed an iframe with a fixed aspect ratio and width full -->
+    <div
+      class="relative"
+      style="padding-top:56.25%;"
+    >
+      <iframe
+        :src="lesson.link"
+        frameborder="0"
+        allowfullscreen
+        class="absolute top-0 left-0 w-full h-full shadow-md"
+      />
     </div>
 
     <div class="flex items-center justify-between">
@@ -39,6 +48,10 @@
         Next Lesson &#8680;
       </a>
     </div>
+
+    <p>
+      {{ lesson.description }}
+    </p>
   </section>
 </template>
 

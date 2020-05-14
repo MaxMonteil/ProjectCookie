@@ -347,6 +347,62 @@ $data = json_decode(file_get_contents('php://input'), true);
 }
 ```
 
+### Lessons
+
+#### Get one lesson
+
+| endpoint | method |
+| -------- |:------:|
+| /lessons    | POST   |
+
+##### Data
+
+```jsonc
+{
+    "email": "abc123@mail.aub.edu", // string or null, to check if they are enrolled
+    "courseId": "fpiu314",          // string
+    "sectionId": "doy32fe",         // string
+    "lessonId": "lesgh893",         // string
+}
+```
+
+##### Expected Response
+
+```jsonc
+{
+    "courseName": "web dev", // string
+    "lesson": {
+        // both types
+        "id": "lesgh893",         // string
+        "sectionId": "doy32fe",         // string
+        "courseId": "fpiu314",          // string
+        "prevLessonId": "lessonId", // string, id of the lesson that comes before it, empty string if this is lesson 1
+        "nextLessonId": "lessonId", // string, id of the lesson that comes after it, empty string if this is the last lesson
+        "name": "lesson name", // string
+        "description": "Some description about this lesson", // string
+        "completed": true, // boolean
+
+        // type 'class'
+        "link": "youtube url",  // string
+        "type": "class",        // string
+
+        // type 'quiz'
+        "type": "quiz",
+        "questions": [
+            {
+                "question": "actual question being asked", // string
+                "answers": [
+                    "Option A",
+                    "Option B",
+                    // ...
+                ]
+            },
+            // ... other questions
+        ],
+    }
+}
+```
+
 ### Search
 
 #### Search for a query
