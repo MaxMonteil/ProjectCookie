@@ -29,8 +29,12 @@
         &#8678; Previous Lesson
       </a>
 
-      <button class="btn btn-blue">
-        Mark Lesson as Completed
+      <button
+        class="btn btn-blue"
+        :class="{ 'border-blue-200 bg-blue-200 text-blue-900': lesson.completed }"
+        @click="toggleCompletion"
+      >
+        {{ lesson.completed ? 'Lesson completed!' : 'Mark Lesson as Completed' }}
       </button>
 
       <router-link
@@ -49,6 +53,23 @@
       </a>
     </div>
 
+    <div
+      v-if="error"
+      class="p-4 text-center text-white bg-red-500 rounded shadow"
+    >
+      <p>There was an error setting this lesson as complete:</p>
+      <p class="font-bold">
+        {{ error }}
+      </p>
+    </div>
+
+    <div
+      v-if="success"
+      class="p-4 font-bold text-center text-white bg-green-500 rounded shadow"
+    >
+      <p>Lesson successfully marked as completed!</p>
+    </div>
+
     <p>
       {{ lesson.description }}
     </p>
@@ -62,6 +83,41 @@ export default {
     lesson: {
       type: Object,
       required: true,
+    },
+  },
+  data () {
+    return {
+      loading: false,
+      error: '',
+      success: '',
+    }
+  },
+  methods: {
+    async toggleCompletion () {
+      try {
+        this.loading = true
+        this.error = ''
+
+        const email = JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
+
+        const { message } = await this.$api.lessons.toggleCompletion({
+          email: email || null,
+          courseId: this.courseId,
+          sectionId: this.sectionId,
+          lessonId: this.lessonId,
+        })
+
+        this.success = message
+
+        const id = setTimeout(() => {
+          this.success = ''
+          clearTimeout(id)
+        }, 2000)
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
     },
   },
 }

@@ -353,16 +353,16 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method |
 | -------- |:------:|
-| /lessons    | POST   |
+| /lessons    | post   |
 
-##### Data
+##### data
 
 ```jsonc
 {
     "email": "abc123@mail.aub.edu", // string or null, to check if they are enrolled
-    "courseId": "fpiu314",          // string
-    "sectionId": "doy32fe",         // string
-    "lessonId": "lesgh893",         // string
+    "courseid": "fpiu314",          // string
+    "sectionid": "doy32fe",         // string
+    "lessonid": "lesgh893",         // string
 }
 ```
 
@@ -402,6 +402,29 @@ $data = json_decode(file_get_contents('php://input'), true);
     }
 }
 ```
+
+#### Toggle lesson completion
+
+Set a lesson's completion to true or false.
+
+| endpoint | method |
+| -------- |:------:|
+| /complete-lesson    | POST   |
+
+##### data
+
+```jsonc
+{
+    "email": "abc123@mail.aub.edu", // string or null, to check if they are enrolled
+    "courseid": "fpiu314",          // string
+    "sectionid": "doy32fe",         // string
+    "lessonid": "lesgh893",         // string
+}
+```
+
+##### Expected Response
+
+Success code 200
 
 ### Search
 
