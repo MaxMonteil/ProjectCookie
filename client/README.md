@@ -139,16 +139,26 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 #### Get all courses
 
-| endpoint | method |
-| -------- |:------:|
-| /courses    | GET   |
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /courses    | GET   | get all courses |
+| /courses    | POST   | get a course by id |
 
-##### Expected Response
+##### Data
+
+```jsonc
+{
+    "courseId": "fpiu314" // string
+}
+```
+
+##### Expected GET Response
 
 ```jsonc
 {
     "courses": [
         {
+            "id": "fpiu314",            // string
             "name": "web dev",          // string
             "startDate": "YYYY-MM-DD",  // string
             "studentCount": 459,        // number
@@ -169,6 +179,37 @@ $data = json_decode(file_get_contents('php://input'), true);
             // ...
         ]
     },
+}
+```
+
+##### Expected POST Response
+
+```jsonc
+{
+    "id": "fpiu314",                                    // string
+    "name": "web dev",                                  // string
+    "teacher": "Jane Doe",                              // string
+    "startDate": "YYYY-MM-DD",                          // string
+    "studentCount": 459,                                // number
+    "description": "This course is about web dev...",   // string
+    "price": 20,                                        // number
+    "syllabus": [
+        {
+            "id": "doy32fe",                                // string
+            "name": "The Web",                              // string
+            "description": "An introduction to the web",    // string
+            "lessons": [
+                {
+                    "id": "lesgh893",               // string
+                    "courseId": "fpiu314",          // string
+                    "sectionId": "doy32fe",         // string
+                    "name": "How the web works",    // string
+                },
+                // ... other lessons
+            ]
+        },
+        // ... other sections
+    ]
 }
 ```
 
@@ -196,6 +237,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 {
     "history": [
         {
+            "id": "fpiu314",            // string
             "name": "web dev",          // string
             "startDate": "YYYY-MM-DD",  // string
             "studentCount": 459,        // number
@@ -224,6 +266,165 @@ $data = json_decode(file_get_contents('php://input'), true);
     ],
 }
 ```
+
+#### Get enrolled courses
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /enrolled    | GET   | get all enrolled courses |
+| /enrolled    | POST   | get a certain number of courses |
+
+##### Data
+
+```jsonc
+{
+    "limit": 4 // number, number of courses to return
+}
+```
+
+##### Expected response
+
+```jsonc
+{
+    "courses": [
+        {
+            "id": "fpiu314",    // string
+            "name": "web dev",  // string
+            "progress": 32      // number
+        },
+        // ...
+    ]
+}
+```
+
+#### Get completed courses
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /completed    | GET   | get all completed courses |
+
+##### Expected response
+
+```jsonc
+{
+    "courses": [
+        {
+            "id": "fpiu314",            // string
+            "name": "web dev",          // string
+            "completedOn": "YYYY-MM-DD" // number
+        },
+        // ...
+    ]
+}
+```
+
+#### Get published and draft courses
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /published    | POST   | get all published courses |
+| /drafts    | POST   | get all drafts |
+
+##### Data
+
+```jsonc
+{
+    "email": "abc123@aub.mail.edu" // string
+}
+```
+
+##### Expected response
+
+```jsonc
+{
+    "courses": [
+        {
+            "id": "fpiu314",            // string
+            "name": "web dev",          // string
+        },
+        // ...
+    ]
+}
+```
+
+### Lessons
+
+#### Get one lesson
+
+| endpoint | method |
+| -------- |:------:|
+| /lessons    | post   |
+
+##### data
+
+```jsonc
+{
+    "email": "abc123@mail.aub.edu", // string or null, to check if they are enrolled
+    "courseid": "fpiu314",          // string
+    "sectionid": "doy32fe",         // string
+    "lessonid": "lesgh893",         // string
+}
+```
+
+##### Expected Response
+
+```jsonc
+{
+    "courseName": "web dev", // string
+    "lesson": {
+        // both types
+        "id": "lesgh893",         // string
+        "sectionId": "doy32fe",         // string
+        "courseId": "fpiu314",          // string
+        "prevLessonId": "lessonId", // string, id of the lesson that comes before it, empty string if this is lesson 1
+        "nextLessonId": "lessonId", // string, id of the lesson that comes after it, empty string if this is the last lesson
+        "name": "lesson name", // string
+        "description": "Some description about this lesson", // string
+        "completed": true, // boolean
+
+        // type 'class'
+        "link": "youtube url",  // string
+        "type": "class",        // string
+
+        // type 'quiz'
+        "type": "quiz",
+        "questions": [
+            {
+                "question": "actual question being asked", // string
+                "answers": [
+                    "Option A",
+                    "Option B",
+                    // ...
+                ]
+            },
+            // ... other questions
+        ],
+    }
+}
+```
+
+#### Toggle lesson completion
+
+Set a lesson's completion to true or false.
+
+| endpoint | method |
+| -------- |:------:|
+| /complete-lesson    | POST   |
+
+##### data
+
+```jsonc
+{
+    "email": "abc123@mail.aub.edu", // string or null, to check if they are enrolled
+    "courseid": "fpiu314",          // string
+    "sectionid": "doy32fe",         // string
+    "lessonid": "lesgh893",         // string
+}
+```
+
+##### Expected Response
+
+Success code 200
 
 ### Search
 
@@ -254,6 +455,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 {
     "courses": [
         {
+            "id": "fpiu314",            // string
             "name": "web dev",          // string
             "startDate": "YYYY-MM-DD",  // string
             "studentCount": 459,        // number

@@ -1,13 +1,22 @@
 <template>
-  <section class="flex flex-col pt-20">
-    <h2 class="mb-6 text-3xl font-semibold leading-tight">
-      Completed Courses
-    </h2>
+  <section class="flex flex-col space-y-6">
+    <header class="flex items-center justify-between">
+      <h2 class="text-3xl font-semibold leading-tight">
+        Drafts
+      </h2>
+
+      <router-link
+        class="text-lg font-bold text-gray-600 underline"
+        :to="{ name: 'form', params: { formType: 'course' } }"
+      >
+        <span class="text-blue-500">+</span> Create a new course
+      </router-link>
+    </header>
 
     <div v-if="!error">
       <ClassCardRow
         v-if="courses.length >= 1"
-        card="completed"
+        card="managed"
         :courses="courses"
       />
 
@@ -15,7 +24,7 @@
         v-else
         class="text-lg font-bold text-gray-600"
       >
-        You haven't completed into any courses yet...
+        You don't have any drafts.
       </h3>
     </div>
 
@@ -34,9 +43,15 @@
 import ClassCardRow from '@/components/ui/classCard/ClassCardRow'
 
 export default {
-  name: 'CompletedCoursesLayout',
+  name: 'DraftsCoursesLayout',
   components: {
     ClassCardRow,
+  },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
   },
   data () {
     return {
@@ -46,15 +61,17 @@ export default {
     }
   },
   created () {
-    this.fetchCompletedCourses()
+    this.fetchDraftCourses()
   },
   methods: {
-    async fetchCompletedCourses () {
+    async fetchDraftCourses () {
       try {
         this.loading = true
         this.error = ''
 
-        const { courses } = await this.$api.courses.getCompleted()
+        const { courses } = await this.$api.courses.getDrafts({
+          user: this.user,
+        })
         this.courses = courses
       } catch (error) {
         this.error = error

@@ -1,13 +1,13 @@
 <template>
-  <section class="flex flex-col pt-20">
-    <h2 class="mb-6 text-3xl font-semibold leading-tight">
-      Completed Courses
+  <section class="flex flex-col space-y-6">
+    <h2 class="text-3xl font-semibold leading-tight">
+      Published Courses
     </h2>
 
     <div v-if="!error">
       <ClassCardRow
         v-if="courses.length >= 1"
-        card="completed"
+        card="managed"
         :courses="courses"
       />
 
@@ -15,7 +15,7 @@
         v-else
         class="text-lg font-bold text-gray-600"
       >
-        You haven't completed into any courses yet...
+        You don't have any published courses.
       </h3>
     </div>
 
@@ -34,9 +34,15 @@
 import ClassCardRow from '@/components/ui/classCard/ClassCardRow'
 
 export default {
-  name: 'CompletedCoursesLayout',
+  name: 'PublishedCoursesLayout',
   components: {
     ClassCardRow,
+  },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
   },
   data () {
     return {
@@ -46,15 +52,17 @@ export default {
     }
   },
   created () {
-    this.fetchCompletedCourses()
+    this.fetchPublishedCourses()
   },
   methods: {
-    async fetchCompletedCourses () {
+    async fetchPublishedCourses () {
       try {
         this.loading = true
         this.error = ''
 
-        const { courses } = await this.$api.courses.getCompleted()
+        const { courses } = await this.$api.courses.getPublished({
+          user: this.user,
+        })
         this.courses = courses
       } catch (error) {
         this.error = error

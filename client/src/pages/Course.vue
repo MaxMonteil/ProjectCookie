@@ -8,39 +8,48 @@
       />
     </aside>
 
-    <main class="space-y-8">
+    <main v-if="true">
+      <div class="p-4 text-center bg-red-500 rounded shadow">
+        <p class="font-bold text-white">
+          {{ error }}
+        </p>
+      </div>
+    </main>
+
+    <main
+      v-else
+      class="space-y-8"
+    >
       <header class="space-y-2">
         <h1 class="text-3xl font-semibold leading-tight">
-          {{ course.name }}
+          {{ loading ? 'Loading...' : course.name }}
         </h1>
 
         <span class="flex items-center rounded space-x-2 divide-x-2 divide-gray-200">
           <span class="flex items-center">
             <div class="w-6 h-6 p-2 mr-2 bg-blue-900 rounded-full" />
-            <p>{{ course.teacher }}</p>
+            <p>{{ loading ? '...' : course.teacher }}</p>
           </span>
-          <p class="pl-2 text-gray-600">{{ course.startDate }}</p>
-          <p class="pl-2 text-gray-600">{{ course.studentCount }} Students</p>
+          <p class="pl-2 text-gray-600">{{ loading ? '...' : course.startDate }}</p>
+          <p class="pl-2 text-gray-600">{{ loading ? '...' : course.studentCount }} Students</p>
         </span>
       </header>
 
-      <div class="flex flex-col">
-        <p>{{ course.description }}</p>
-
-        <button class="self-end text-gray-600 underline">
-          Read More
-        </button>
-      </div>
+      <p>{{ loading ? '...' : course.description }}</p>
 
       <div class="inline-block text-center space-y-2">
         <h2 class="text-lg font-bold text-blue-500">
-          Course Price: {{ course.price }}$
+          Course Price: {{ loading ? '...' : course.price }}$
         </h2>
         <button
           class="btn btn-blue"
+          :class="{
+            'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading
+          }"
+          :disabled="loading"
           @click="showModal = true"
         >
-          Enroll in this Class
+          {{ loading ? 'Loading...' : 'Enroll in this Class' }}
         </button>
       </div>
 
@@ -49,10 +58,13 @@
           Syllabus
         </h2>
 
-        <div class="space-y-4 divide-y divide-gray-200">
+        <div
+          v-if="!loading"
+          class="space-y-4 divide-y divide-gray-200"
+        >
           <SyllabusSection
             v-for="section in course.syllabus"
-            :key="section.name"
+            :key="section.id"
             :section="section"
           />
         </div>
@@ -79,8 +91,9 @@ export default {
   },
   data () {
     return {
-      showModal: false,
       loading: true,
+      error: '',
+      showModal: false,
       course: {},
     }
   },
@@ -89,10 +102,17 @@ export default {
   },
   methods: {
     async fetchCourseData () {
-      const response = await fetch('../courses.json')
-      const courses = await response.json()
+      try {
+        this.loading = true
+        this.error = ''
 
-      this.course = courses.find(course => course.id === this.courseId)
+        this.course = await this.$api.courses.getOne({
+          courseId: this.courseId,
+        })
+      } catch (error) {
+        this.error = error
+      }
+
       this.loading = false
     },
   },

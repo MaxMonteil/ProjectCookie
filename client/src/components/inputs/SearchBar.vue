@@ -6,7 +6,7 @@
     >
       <div class="flex space-x-6">
         <input
-          v-model="searchTerm"
+          v-model.trim="searchTerm"
           placeholder="Search"
           class="block w-full py-1 pl-2 text-black placeholder-gray-600 rounded outline-none transition-opacity duration-100 focus:shadow focus:opacity-100"
           :class="[
@@ -126,6 +126,8 @@ export default {
   },
   methods: {
     async handleSearch (_, optionsParam = {}) {
+      if (this.searchTerm.length === 0) return
+
       if (this.$route.name !== 'search') {
         this.$router.push({ name: 'search', query: { q: this.searchTerm } })
       }
