@@ -5,17 +5,18 @@
     </h2>
 
     <form
+      v-if="!error"
       class="flex flex-col w-1/2 space-y-8"
       @submit.prevent="resetPassword"
     >
       <InputText
-        v-model="password"
+        v-model.trim="password"
         label="Password"
         :disabled="loading"
       />
 
       <InputText
-        v-model="passwordConfirm"
+        v-model.trim="passwordConfirm"
         label="Confirm Password"
         :disabled="loading"
       />
@@ -36,42 +37,59 @@
         </router-link>
       </div>
 
-      <div
-        v-if="error"
-        class="p-4 text-center bg-red-500 rounded shadow"
-      >
-        <p class="font-bold text-white">
-          {{ error }}
-        </p>
-      </div>
-
       <div class="text-center">
         <button
           class="self-center w-4/5 mt-20 btn btn-blue"
-          :class="{ 'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading }"
-          :disabled="loading"
+          :class="{
+            'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading,
+            'bg-blue-200 border-blue-200 text-blue-900 shadow-none cursor-default' : !formValid,
+          }"
+          :disabled="loading || !formValid"
         >
-          {{ loading ? 'Changing your password' : 'Confirm Password Reset' }}
+          {{
+            loading
+              ? 'Changing your password...'
+              : formValid
+                ? 'Reset my password'
+                : 'All fields are required'
+          }}
         </button>
       </div>
     </form>
+
+    <div
+      v-if="error"
+      class="p-4 text-center bg-red-500 rounded shadow"
+    >
+      <p class="font-bold text-white">
+        {{ error }}
+      </p>
+    </div>
   </section>
 </template>
 
 <script>
+import InputText from '@/components/inputs/InputText'
+
 export default {
   name: 'PasswordReset',
+  components: {
+    InputText,
+  },
   data () {
     return {
-      loading: true,
+      loading: false,
       error: '',
+      success: '',
       validator: '',
       password: '',
       passwordConfirm: '',
     }
   },
-  mounted () {
-    this.resetPassword()
+  computed: {
+    formValid () {
+      return this.password !== '' && this.passwordConfirm !== ''
+    },
   },
   methods: {
     async resetPassword () {
@@ -84,17 +102,19 @@ export default {
           throw new Error('Invalid password reset link')
         }
 
-        await this.$api.auth.resetPassword({
+        await this.$api.auth.resetPass({
           validator: this.validator,
           password: this.password,
           confirmpassword: this.passwordConfirm,
         })
 
-        this.loading = false
+        this.password = ''
+        this.passwordConfirm = ''
       } catch (error) {
-        this.loading = false
         this.error = error
       }
+
+      this.loading = false
     },
   },
 }
