@@ -57,7 +57,7 @@ export default {
         this.loading = true
         this.error = ''
 
-        const hash = this.$route.query.hash
+        const hash = encodeURIComponent(new URLSearchParams(window.location.search.substring(1)).get('hash'))
         const email = this.$route.query.email
         if (!hash || !email) {
           throw new Error('Invalid verification link')

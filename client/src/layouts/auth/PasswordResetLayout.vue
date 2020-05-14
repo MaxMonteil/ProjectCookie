@@ -86,9 +86,6 @@ export default {
     }
   },
   computed: {
-    test () {
-      return this.$route
-    },
     formValid () {
       return this.password !== '' && this.passwordConfirm !== ''
     },
@@ -99,7 +96,7 @@ export default {
         this.loading = true
         this.error = ''
 
-        const validator = this.$route.query.validator
+        const validator = encodeURIComponent(new URLSearchParams(window.location.search.substring(1)).get('validator'))
         if (!validator) {
           throw new Error('Invalid password reset link')
         }
