@@ -51,7 +51,7 @@ class MailService {
 
             ------------------------
             Email: {$email}
-            ------------------------
+            ------------------------ 
 
             Please click this link to activate your account:
             {$_ENV['CLIENT_URL']}/auth/verify?email={$email}&hash={$token}";

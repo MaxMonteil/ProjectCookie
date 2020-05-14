@@ -238,7 +238,8 @@ class UsersController {
     public function resetPassword(): void {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $token = $data['validator'];
+        $token = urldecode($data['validator']);
+        $token = implode('+', explode(' ', $token));
         $password = $data['password'];
         $confirmpassword = $data['confirmpassword'];
 
@@ -250,14 +251,14 @@ class UsersController {
 
         // Store the cipher method
         $ciphering = "AES-128-CTR";
-
+    
         // Use OpenSSl Encryption method
         $iv_length = openssl_cipher_iv_length($ciphering);
         $options = 0;
 
         // Non-NULL Initialization Vector for encryption
         $decryption_iv = '1234567891011121';
-
+        
         // Store the encryption key
         $decryption_key = "000102030405060708090a0b0c0d0e0f";
 
@@ -279,8 +280,8 @@ class UsersController {
         ]);
 
         if (!$user) {
-            http_response_code(404);
-            echo json_encode([ 'message' => 'No user with this email address found' ]);
+            http_response_code(400);
+            echo json_encode([ 'message' => "Invalid password reset link" ]);
             return;
         }
 
@@ -296,7 +297,7 @@ class UsersController {
                 'Password' => $password,
             ]);
 
-            http_response_code(201);
+            http_response_code(200);
             echo json_encode([ 'message' => 'user password updated successfully' ]);
             return;
         } catch (\Exception $e) {
@@ -352,11 +353,11 @@ class UsersController {
 
         try {
             MailService::sendRecovery($email, $validator);
-            http_response_code(201);
-            echo json_encode([ 'message' => 'password recovery sent to email' ]);
+            http_response_code(200);
+            echo json_encode([ 'message' => 'Password recovery sent to email' ]);
             return;
         } catch (\Exception $e) {
-            http_response_code(401);
+            http_response_code(400);
             echo json_encode([ 'message' => $e->getMessage() ]);
             return;
         }
