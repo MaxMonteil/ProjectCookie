@@ -1,5 +1,32 @@
 # ProjectCookie Client
 
+## Table of Contents
+
+* [Project setup](#project-setup)
+	* [Compiles-and-hot-reloads-for-development](#compiles-and-hot-reloads-for-development)
+	* [Compiles and minifies for production](#compiles-and-minifies-for-production)
+	* [Lints and fixes files](#lints-and-fixes-files)
+* [Client-Server Communication Reference](#client-server-communication-reference)
+	* [Errors](#errors)
+	* [Auth](#auth)
+		* [Login](#login)
+		* [Register](#register)
+		* [Change Password](#change-password)
+	* [User](#user)
+		* [Get User](#get-user)
+	* [Courses](#courses)
+		* [Get all courses](#get-all-courses)
+		* [Get all courses by subject](#get-all-courses-by-subject)
+		* [Get all subjects](#get-all-subjects)
+		* [Get enrolled courses](#get-enrolled-courses)
+		* [Get completed courses](#get-completed-courses)
+		* [Get published and draft courses](#get-published-and-draft-courses)
+	* [Lessons](#lessons)
+		* [Get one lesson](#get-one-lesson)
+		* [Toggle lesson completion](#toggle-lesson-completion)
+	* [Search](#search)
+		* [Search for a query](#search-for-a-query)
+
 ## Project setup
 ```
 npm install
@@ -355,7 +382,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 | -------- |:------:|
 | /lessons    | post   |
 
-##### data
+##### Data
 
 ```jsonc
 {
@@ -411,7 +438,7 @@ Set a lesson's completion to true or false.
 | -------- |:------:|
 | /complete-lesson    | POST   |
 
-##### data
+##### Data
 
 ```jsonc
 {
