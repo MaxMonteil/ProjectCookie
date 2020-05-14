@@ -149,6 +149,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 {
     "courses": [
         {
+            "id": "fpiu314",            // string
             "name": "web dev",          // string
             "startDate": "YYYY-MM-DD",  // string
             "studentCount": 459,        // number
@@ -196,6 +197,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 {
     "history": [
         {
+            "id": "fpiu314",            // string
             "name": "web dev",          // string
             "startDate": "YYYY-MM-DD",  // string
             "studentCount": 459,        // number
@@ -254,6 +256,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 {
     "courses": [
         {
+            "id": "fpiu314",            // string
             "name": "web dev",          // string
             "startDate": "YYYY-MM-DD",  // string
             "studentCount": 459,        // number
