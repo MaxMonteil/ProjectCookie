@@ -19,7 +19,7 @@
     />
 
     <label class="block text-sm font-medium leading-none text-blue-500">
-      {{ value.questions.length }} Questions
+      {{ value.questions.length }} Question{{ value.questions.length === 1 ? '' : 's' }}
       <button
         class="block mt-2 whitespace-no-wrap btn btn-blue"
         @click.prevent="showModal = true"

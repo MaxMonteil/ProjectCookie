@@ -12,7 +12,6 @@
     >
       <SearchBar
         v-if="!$route.matched.some(r => r.meta.hideHeaderSearchBar)"
-        v-model="search"
         label="search"
         :with-opacity="true"
       />
@@ -46,11 +45,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  data () {
-    return {
-      search: '',
-    }
   },
   methods: {
     submitSearch () {

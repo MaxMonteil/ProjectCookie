@@ -2,7 +2,7 @@ CREATE TABLE Users(
 	UserID int NOT NULL AUTO_INCREMENT,
     Name varchar(200),
     Email varchar(200) UNIQUE,
-    Password varchar(50),
+    Password varchar(256),
     Verified tinyint(1) default 0,
     EmailHash varchar(256),
 	PRIMARY KEY(UserID)
@@ -56,8 +56,7 @@ CREATE TABLE Courses(
     NumOfViewers int,
     Teacher varchar(200),
     Language varchar(200),
-    SyllabusName varchar(40) UNIQUE,
-    FOREIGN KEY (SyllabusName) REFERENCES Syllabus(SyllabusName)
+    SyllabusName varchar(40) UNIQUE
 );
 
 

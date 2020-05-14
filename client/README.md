@@ -134,3 +134,146 @@ $data = json_decode(file_get_contents('php://input'), true);
 ```
 
 ##### Expected Response
+
+### Courses
+
+#### Get all courses
+
+| endpoint | method |
+| -------- |:------:|
+| /courses    | GET   |
+
+##### Expected Response
+
+```jsonc
+{
+    "courses": [
+        {
+            "name": "web dev",          // string
+            "startDate": "YYYY-MM-DD",  // string
+            "studentCount": 459,        // number
+            "description": "This course is about web dev..." // string
+        }
+        // ...
+    ],
+    // available search options the user can use for a more advanced search
+    "searchOptions": {
+        "subject": [
+            "history",
+            "math"
+            // ...
+        ],
+        "language": [
+            "english",
+            "french"
+            // ...
+        ]
+    },
+}
+```
+
+#### Get all courses by subject
+
+| endpoint | method |
+| -------- |:------:|
+| /subjects    | POST   |
+
+##### Data
+
+```jsonc
+{
+    "subjects": [
+        "history",
+        "math"
+        // ...
+    ]
+}
+```
+
+##### Expected Response
+
+```jsonc
+{
+    "history": [
+        {
+            "name": "web dev",          // string
+            "startDate": "YYYY-MM-DD",  // string
+            "studentCount": 459,        // number
+            "description": "This course is about web dev..." // string
+        }
+        // ...
+    ]
+    // ...
+}
+```
+
+#### Get all subjects
+
+| endpoint | method |
+| -------- |:------:|
+| /subjects    | GET   |
+
+##### Expected Response
+
+```jsonc
+{
+    "subjects": [
+        "history",
+        "math"
+        // ...
+    ],
+}
+```
+
+### Search
+
+#### Search for a query
+
+| endpoint | method |
+| -------- |:------:|
+| /search    | POST   |
+
+##### Data
+
+```jsonc
+{
+    "search": "web dev",        // string, user's search term
+
+    // optional parameters, if they are empty string, disregard
+    "options": {
+        "subject": "history"    // string
+        "language": "english"   // string
+        "price": 10             // number | null
+    }
+}
+```
+
+##### Expected Response
+
+```jsonc
+{
+    "courses": [
+        {
+            "name": "web dev",          // string
+            "startDate": "YYYY-MM-DD",  // string
+            "studentCount": 459,        // number
+            "description": "This course is about web dev..." // string
+        }
+        // ...
+    ],
+    // available search options the user can use for a more advanced search
+    "searchOptions": {
+        "subject": [
+            "history",
+            "math"
+            // ...
+        ],
+        "language": [
+            "english",
+            "french"
+            // ...
+        ]
+    },
+}
+```
+

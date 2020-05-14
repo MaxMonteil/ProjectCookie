@@ -1,14 +1,17 @@
 <?php
 
+namespace App\Models;
+
+use App\Core\App;
+
 class Quizzes {
     protected static $table = 'quizzes';
     public static function newQuiz($quiz) {
-        PDOException $e;
-        if(!preg_match(^[a-zA-z0-9]: [a-z)]$, $quiz['QuestionsAns'])){
-            die(var_dump($e->"The question and the answer aren't in a correct format: question: ans)"));
+        if(!preg_match("^[a-zA-z0-9]: [a-z)]$", $quiz['QuestionsAns'])){
+            throw new \Exception("The question and the answer aren't in a correct format: question: ans)");
         }
         if($quiz['CourseID']==NULL){
-            die(var_dump($e->"The quiz should belong to a course"));
+            throw new \Exception("The quiz should belong to a course");
         }
         App::get('database')->insert(static::$table, $quiz);
     }
@@ -24,9 +27,11 @@ class Quizzes {
 
     // deleteQuiz
     // getQuizProgress
+    /*
     public static function getQuizProgressForUser($quiz, $user) {
         $columns = ['QuizID','CourseID', 'QuestionsAns'];
-        return App::get('database')->selectOne(static:: 'userdoquiz', $quiz, $columns);
+        return App::get('database')->selectOne('userdoquiz', $quiz, $columns);
     }
+    */
 }
 

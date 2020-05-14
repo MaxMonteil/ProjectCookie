@@ -13,7 +13,7 @@ App::bind('database', new QueryBuilder(
     Connection::make(App::get('config')['database'])
 ));
 
-App::bind('email', new MailService(
+App::bind('email', MailService::setup(
     App::get('config')['email']
 ));
 

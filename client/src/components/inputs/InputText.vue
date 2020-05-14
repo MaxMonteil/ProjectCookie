@@ -1,6 +1,6 @@
 <template functional>
   <label
-    class="block text-sm font-medium leading-none"
+    class="block font-medium leading-none"
     :class="[
       data.class,
       data.staticClass,

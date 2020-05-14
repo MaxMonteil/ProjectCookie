@@ -9,15 +9,16 @@
       @submit.prevent="loginUser"
     >
       <InputText
-        v-model="email"
+        v-model.trim="email"
         label="Email (must end with .edu)"
         class="flex-grow"
+        type="email"
         :disabled="loading"
       />
 
       <div>
         <InputText
-          v-model="password"
+          v-model.trim="password"
           label="Password"
           :disabled="loading"
         />
@@ -99,7 +100,7 @@ export default {
         this.$router.push({ name: 'home' })
       } catch (error) {
         this.loading = false
-        this.error = error.message
+        this.error = error
       }
     },
   },

@@ -1,7 +1,7 @@
 const localStorageKey = process.env.VUE_APP_USER_KEY
 
 export async function client (endpoint, { body, ...customConfig } = {}) {
-  const user = window.localStorage.getItem(localStorageKey)
+  const user = JSON.parse(window.localStorage.getItem(localStorageKey))
 
   const headers = { 'content-type': 'application/json' }
 
@@ -32,14 +32,19 @@ export async function client (endpoint, { body, ...customConfig } = {}) {
       }
 
       const text = await response.text()
-      const data = text && JSON.parse(text)
 
-      if (!response.ok) {
-        const error = (data && data.message) || response.statusText
-        return Promise.reject(error)
+      try {
+        const data = text && JSON.parse(text)
+
+        if (!response.ok) {
+          const error = (data && data.message) || response.statusText
+          return Promise.reject(error)
+        }
+
+        return data
+      } catch (e) {
+        return Promise.reject(response.statusText)
       }
-
-      return data
     })
 }
 

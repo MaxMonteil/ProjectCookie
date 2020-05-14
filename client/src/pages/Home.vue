@@ -1,12 +1,5 @@
 <template>
-  <h1 v-if="loading">
-    loading...
-  </h1>
-
-  <main
-    v-else
-    class="space-y-8"
-  >
+  <main class="space-y-8">
     <!-- ENROLLED -->
     <EnrolledCoursesLayout v-if="loggedIn" />
 
@@ -29,23 +22,16 @@
     </section>
 
     <!-- TOP -->
-    <TopCoursesLayout :courses="courses" />
+    <TopCoursesLayout />
 
     <!-- LINKS -->
     <section class="text-gray-600 space-y-6">
-      <a
-        href="#"
-        class="block text-3xl font-semibold leading-none hover:underline"
-      >
-        See all subjects >
-      </a>
-
-      <a
-        href="#"
+      <router-link
+        :to="{ name: 'search', params: { getAllCourses: true } }"
         class="block text-3xl font-semibold leading-none hover:underline"
       >
         See all courses >
-      </a>
+      </router-link>
     </section>
   </main>
 </template>
