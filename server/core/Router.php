@@ -67,7 +67,9 @@ class Router {
      */
     public function direct(string $uri, string $method): void {
         if (!array_key_exists($uri, $this->routes[$method])) {
-            throw new \Exception("No route defined for this URI: {$uri}");
+            http_response_code(404);
+            echo json_encode([ 'message' => '404: Route not found.' ]);
+            return;
         }
 
         $this->callAction(...explode('@', $this->routes[$method][$uri]));
