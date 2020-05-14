@@ -107,12 +107,12 @@ export default {
         this.password = ''
         this.passwordConfirm = ''
 
-        this.loading = false
         this.success = true
       } catch (error) {
-        this.loading = false
         this.error = error
       }
+
+      this.loading = false
     },
   },
 }
