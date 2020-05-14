@@ -9,15 +9,16 @@
       @submit.prevent="loginUser"
     >
       <InputText
-        v-model="email"
+        v-model.trim="email"
         label="Email (must end with .edu)"
         class="flex-grow"
+        type="email"
         :disabled="loading"
       />
 
       <div>
         <InputText
-          v-model="password"
+          v-model.trim="password"
           label="Password"
           :disabled="loading"
         />

@@ -1,20 +1,14 @@
 <template>
   <section class="flex flex-col items-center space-y-4">
     <h2 class="text-3xl font-bold text-center text-white">
-      Register
+      Reset Your Password
     </h2>
 
     <form
+      v-if="!error"
       class="flex flex-col w-1/2 space-y-8"
-      @submit.prevent="registerUser"
+      @submit.prevent="resetPassword"
     >
-      <InputText
-        v-model.trim="email"
-        label="Email (must end with .edu)"
-        class="flex-grow"
-        :disabled="loading"
-      />
-
       <InputText
         v-model.trim="password"
         label="Password"
@@ -32,7 +26,7 @@
         class="p-4 text-center bg-green-500 rounded shadow"
       >
         <p class="font-bold text-white">
-          Your account was successfully created! Check your email to verify your account before you can log in.
+          Your password was successfully changed!
         </p>
 
         <router-link
@@ -43,33 +37,34 @@
         </router-link>
       </div>
 
-      <div
-        v-if="error"
-        class="p-4 text-center bg-red-500 rounded shadow"
-      >
-        <p class="font-bold text-white">
-          {{ error }}
-        </p>
-      </div>
-
       <div class="text-center">
         <button
           class="self-center w-4/5 mt-20 btn btn-blue"
-          :class="{ 'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading }"
-          :disabled="loading"
+          :class="{
+            'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading,
+            'bg-blue-200 border-blue-200 text-blue-900 shadow-none cursor-default' : !formValid,
+          }"
+          :disabled="loading || !formValid"
         >
-          {{ loading ? 'Creating your account...' : 'Register' }}
+          {{
+            loading
+              ? 'Changing your password...'
+              : formValid
+                ? 'Reset my password'
+                : 'All fields are required'
+          }}
         </button>
       </div>
     </form>
-    <router-link
-      :to="{ name: 'login' }"
-      class="inline-block mt-3 text-sm text-gray-200 underline"
-      :class="{ 'cursor-default no-underline': loading }"
-      :disabled="loading"
+
+    <div
+      v-if="error"
+      class="p-4 text-center bg-red-500 rounded shadow"
     >
-      I already have an account. <span class="text-bold">Log In</span>
-    </router-link>
+      <p class="font-bold text-white">
+        {{ error }}
+      </p>
+    </div>
   </section>
 </template>
 
@@ -77,42 +72,49 @@
 import InputText from '@/components/inputs/InputText'
 
 export default {
-  name: 'Register',
+  name: 'PasswordReset',
   components: {
     InputText,
   },
   data () {
     return {
       loading: false,
-      success: false,
       error: '',
-      email: '',
+      success: '',
+      validator: '',
       password: '',
       passwordConfirm: '',
     }
   },
+  computed: {
+    formValid () {
+      return this.password !== '' && this.passwordConfirm !== ''
+    },
+  },
   methods: {
-    async registerUser () {
+    async resetPassword () {
       try {
         this.loading = true
         this.error = ''
 
-        await this.$api.auth.register({
-          email: this.email,
+        const validator = this.$route.query.validator
+        if (!validator) {
+          throw new Error('Invalid password reset link')
+        }
+
+        await this.$api.auth.resetPass({
+          validator: this.validator,
           password: this.password,
           confirmpassword: this.passwordConfirm,
         })
 
-        this.email = ''
         this.password = ''
         this.passwordConfirm = ''
-
-        this.loading = false
-        this.success = true
       } catch (error) {
-        this.loading = false
         this.error = error
       }
+
+      this.loading = false
     },
   },
 }

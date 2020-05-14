@@ -34,7 +34,7 @@ export default {
     $route: {
       immediate: true,
       handler () {
-        this.loggedIn = !!localStorage.getItem(process.env.VUE_APP_USER_KEY)
+        this.loggedIn = !!JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
       },
     },
   },
