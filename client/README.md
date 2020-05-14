@@ -278,6 +278,35 @@ $data = json_decode(file_get_contents('php://input'), true);
 }
 ```
 
+#### Get published and draft courses
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /published    | POST   | get all published courses |
+| /drafts    | POST   | get all drafts |
+
+##### Data
+
+```jsonc
+{
+    "email": "abc123@aub.mail.edu" // string
+}
+```
+
+##### Expected response
+
+```jsonc
+{
+    "courses": [
+        {
+            "id": "fpiu314",            // string
+            "name": "web dev",          // string
+        },
+        // ...
+    ]
+}
+```
+
 ### Search
 
 #### Search for a query
