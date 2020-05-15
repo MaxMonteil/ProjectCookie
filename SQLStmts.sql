@@ -28,15 +28,13 @@ CREATE TABLE courses(
     CourseName varchar(200),
     Subject varchar(200),
     Description varchar(200),
-    RecommendedUsers varchar(500),
     StartDate varchar(250),
-    CompletionDate DATE,
     Price varchar(20),
     NumOfViewers int,
     Teacher varchar(200),
     Language varchar(200),
     SyllabusName varchar(40) UNIQUE,
-    IsDraft Boolean default TRUE,
+    IsDraft Boolean default TRUE
 );
 
 CREATE TABLE quizzes(
@@ -62,6 +60,7 @@ CREATE TABLE userJoinCourse(
     UserID int NOT NULL,
     CourseID int NOT NULL,
     CourseProgress varchar(15) NOT NULL,
+    CompletionDate varchar(250),
     PRIMARY KEY(UserID, CourseID),
     FOREIGN KEY (UserID) REFERENCES users(UserID),
     FOREIGN KEY (CourseID) REFERENCES courses(CourseID)
@@ -95,10 +94,10 @@ VALUES
     ("Hanin Wehbi","hanin.wehbi@gmail.com","jumpToMoon@midnt");
 
 
-INSERT INTO `userJoinCourse`(`UserID`, `CourseID`, `CourseProgress`)
+INSERT INTO `userJoinCourse`(`UserID`, `CourseID`, `CourseProgress`, `CompletionDate`)
 VALUES
-    (1,1,"30"),
-    (3,2,"25");
+    (1,1,"30","2020-05-2"),
+    (3,2,"25","2020-05-2");
 
 INSERT INTO `userDoQuiz`(`UserID`, `QuizID`, `Completed`)
 VALUES
@@ -112,10 +111,10 @@ VALUES
 
 
 INSERT
-    INTO `courses`(`CourseName`, `Subject`, `Description`, `RecommendedUsers`, `StartDate`, `CompletionDate`, `Price`, `NumOfViewers`,`Teacher`, `Language`, `SyllabusName`, `IsDraft`)
+    INTO `courses`(`CourseName`, `Subject`, `Description`, `StartDate`, `Price`, `NumOfViewers`,`Teacher`, `Language`, `SyllabusName`, `IsDraft`)
     VALUES
-        ("Web programming","CMPS","This course help the students practice developing web pages and create a complete web project","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS1", FALSE),
-        ("Programming Languages","CMPS","This course help students to choose from different languages according to their needs","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS2", FALSE);
+        ("Web programming","CMPS","This course help the students practice developing web pages and create a complete web project","2020-02-21","$2500",1, "Saeed Raheel", "English", "CMPS1", FALSE),
+        ("Programming Languages","CMPS","This course help students to choose from different languages according to their needs","2020-02-21","$2500",1, "Saeed Raheel", "English", "CMPS2", FALSE);
 
 INSERT INTO `classes`(`ClassName`,`VideoPath`, `Description`, `ModuleName`, `CourseID`)
 VALUES

@@ -18,9 +18,6 @@ class Course {
         if (is_null($course['Description'])) {
             throw new \Exception("please provide the course's description");
         }
-        if (is_null($course['RecommendedUsers'])) {
-            throw new \Exception("please provide recommended users for the course");
-        }
         if (is_null($course['StartDate'])) {
             throw new \Exception("please provide start date for the course");
         }
@@ -43,7 +40,7 @@ class Course {
     }
 
     public static function getCourse($course) {
-        $columns = ['CourseID', 'CourseName', 'Subject', 'Description', 'RecommendedUsers', 'StartDate', 'EndDate', 'Price', 'NumOfViewers','Language', 'Teacher', 'SyllabusName'];
+        $columns = ['CourseID', 'CourseName', 'Subject', 'Description', 'StartDate', 'EndDate', 'Price', 'NumOfViewers','Language', 'Teacher', 'SyllabusName'];
         return App::get('database')->selectOne(static::$table, $course, $columns);
     }
 
