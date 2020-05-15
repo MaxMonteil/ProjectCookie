@@ -12,11 +12,11 @@ use App\Models\Lesson;
  * Controller for courses related routes
  */
 class CoursesController {
-     /**
-     * Get All Courses
-     *
-     * @return void
-     */
+    /**
+    * Get All Courses
+    *
+    * @return void
+    */
     public function getAllCourses(): void {
         $courses = Course::getAllCourses();
 
@@ -29,8 +29,8 @@ class CoursesController {
         $allCourses = [];
 
         
-        for ($i=0; $i < sizeof($courses); $i++) { 
-            if($courses[$i]['isDraft'] == 0) {
+        for ($i=0; $i < sizeof($courses); $i++) {
+            if ($courses[$i]['isDraft'] == 0) {
                 continue;
             }
             $temp = [
@@ -49,14 +49,14 @@ class CoursesController {
         $allSubjectsSeperated = [];
         $allLanguagesSeperated = [];
 
-        for ($i=0; $i < sizeof($allSubjects); $i++) { 
+        for ($i=0; $i < sizeof($allSubjects); $i++) {
             array_push($allSubjectsSeperated, $allSubjects[$i]['Subject']);
         }
-        for ($i=0; $i < sizeof($allLanguages); $i++) { 
+        for ($i=0; $i < sizeof($allLanguages); $i++) {
             array_push($allLanguagesSeperated, $allLanguages[$i]['Language']);
         }
 
-        $arr = json_encode([ 
+        $arr = json_encode([
             'courses' => $allCourses,
             'searchOptions' => [
                 'subject' => $allSubjectsSeperated,
@@ -68,11 +68,11 @@ class CoursesController {
         echo $arr;
     }
 
-     /**
-     * Get a Course
-     *
-     * @return void
-     */
+    /**
+    * Get a Course
+    *
+    * @return void
+    */
     public function getCourse(): void {
         $data = json_decode(file_get_contents('php://input'), true);
         $courseid = $data['courseId'];
@@ -90,21 +90,21 @@ class CoursesController {
         
         $modules = [];
 
-        for ($i=0; $i < sizeof($syllabus); $i++) { 
+        for ($i=0; $i < sizeof($syllabus); $i++) {
             array_push($modules, $syllabus[$i]['ModuleName']);
         }
         $modules = array_values(array_unique($modules));
 
         $sections = [];
 
-        for ($i=0; $i < sizeof($modules); $i++) { 
+        for ($i=0; $i < sizeof($modules); $i++) {
             $temp = [];
-            for ($i2=0; $i2 < sizeof($syllabus); $i2++) { 
-                if($syllabus[$i2]['ModuleName'] == $modules[$i]) {
+            for ($i2=0; $i2 < sizeof($syllabus); $i2++) {
+                if ($syllabus[$i2]['ModuleName'] == $modules[$i]) {
                     $arr = [
-                        "id" => $syllabus[$i2]['ClassID'],    
-                        "courseId" => $syllabus[$i2]['CourseID'],      
-                        "sectionId" => $syllabus[$i2]['ClassID']."-".$syllabus[$i2]['ModuleName'], 
+                        "id" => $syllabus[$i2]['ClassID'],
+                        "courseId" => $syllabus[$i2]['CourseID'],
+                        "sectionId" => $syllabus[$i2]['ClassID']."-".$syllabus[$i2]['ModuleName'],
                         "name" => $syllabus[$i2]['ClassName'],
                     ];
                     array_push($temp, $arr);
@@ -118,7 +118,7 @@ class CoursesController {
             array_push($sections, $temp2);
         }
 
-        $arr = json_encode([ 
+        $arr = json_encode([
             'id' => $courses['CourseID'],
             'name' => $courses['CourseName'],
             'teacher' => $courses['Teacher'],
@@ -133,17 +133,17 @@ class CoursesController {
         echo $arr;
     }
 
-     /**
-     * Get a Course by Subject
-     *
-     * @return void
-     */
+    /**
+    * Get a Course by Subject
+    *
+    * @return void
+    */
     public function getCourseBySubject(): void {
         $data = json_decode(file_get_contents('php://input'), true);
 
         $allCourses = [];
 
-        for ($i=0; $i < sizeof($data['subjects']); $i++) { 
+        for ($i=0; $i < sizeof($data['subjects']); $i++) {
             $courses = Course::getCourseByAttr(
                 'Subject',
                 [$data['subjects'][$i]]
@@ -151,8 +151,8 @@ class CoursesController {
 
             $temp = [];
 
-            for ($i2=0; $i2 < sizeof($courses); $i2++) { 
-                if($courses[$i2]['isDraft'] == 0) {
+            for ($i2=0; $i2 < sizeof($courses); $i2++) {
+                if ($courses[$i2]['isDraft'] == 0) {
                     continue;
                 }
                 $temp2 = [
@@ -167,7 +167,7 @@ class CoursesController {
             array_push($allCourses, [$data['subjects'][$i] => $temp]);
         }
 
-        if(sizeof($allCourses) == 0) {
+        if (sizeof($allCourses) == 0) {
             http_response_code(200);
             echo json_encode([], JSON_FORCE_OBJECT);
             return;
@@ -186,16 +186,16 @@ class CoursesController {
      */
     public function getAllSubjects(): void {
         $courses = Course::getAllParamArg('isDraft', 1, 'Subject');
-        
+
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No subjects found' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
         $allSubjects = [];
 
-        for ($i=0; $i < sizeof($courses); $i++) { 
+        for ($i=0; $i < sizeof($courses); $i++) {
             array_push($allSubjects, $courses[$i]['Subject']);
         }
 
@@ -226,13 +226,13 @@ class CoursesController {
 
         $tempId = [];
 
-        for ($i=0; $i < sizeof($coursesId); $i++) { 
+        for ($i=0; $i < sizeof($coursesId); $i++) {
             array_push($tempId, $coursesId[$i]['CourseID']);
         }
 
         $courses = [];
 
-        for ($i=0; $i < sizeof($coursesId); $i++) { 
+        for ($i=0; $i < sizeof($coursesId); $i++) {
             $getName = Course::getCourseByAttr(
                 'CourseID',
                 [$coursesId[$i]['CourseID']]
@@ -281,13 +281,13 @@ class CoursesController {
 
         $tempId = [];
 
-        for ($i=0; $i < sizeof($coursesId); $i++) { 
+        for ($i=0; $i < sizeof($coursesId); $i++) {
             array_push($tempId, $coursesId[$i]['CourseID']);
         }
 
         $courses = [];
 
-        for ($i=0; $i < sizeof($coursesId); $i++) { 
+        for ($i=0; $i < sizeof($coursesId); $i++) {
             if ($i+1 > $limit) {
                 break;
             }
@@ -337,14 +337,14 @@ class CoursesController {
 
         $tempId = [];
 
-        for ($i=0; $i < sizeof($coursesId); $i++) { 
+        for ($i=0; $i < sizeof($coursesId); $i++) {
             array_push($tempId, $coursesId[$i]['CourseID']);
         }
 
         $courses = [];
 
-        for ($i=0; $i < sizeof($coursesId); $i++) { 
-            if($coursesId[$i]['CourseProgress'] != 100) {
+        for ($i=0; $i < sizeof($coursesId); $i++) {
+            if ($coursesId[$i]['CourseProgress'] != 100) {
                 continue;
             }
             $getName = Course::getCourseByAttr(
@@ -403,8 +403,8 @@ class CoursesController {
 
         $courses = [];
 
-        for ($i=0; $i < sizeof($allPublished); $i++) { 
-            if($allPublished[$i]['isDraft'] == 0) {
+        for ($i=0; $i < sizeof($allPublished); $i++) {
+            if ($allPublished[$i]['isDraft'] == 0) {
                 continue;
             }
             $temp = [
@@ -458,8 +458,8 @@ class CoursesController {
 
         $courses = [];
 
-        for ($i=0; $i < sizeof($allDrafts); $i++) { 
-            if($allDrafts[$i]['isDraft'] == 1) {
+        for ($i=0; $i < sizeof($allDrafts); $i++) {
+            if ($allDrafts[$i]['isDraft'] == 1) {
                 continue;
             }
             $temp = [
@@ -496,7 +496,7 @@ class CoursesController {
 
         if (!$userId) {
             http_response_code(200);
-            echo json_encode([]);
+            echo json_encode([], JSON_FORCE_OBJECT);
             return;
         }
 
@@ -508,14 +508,14 @@ class CoursesController {
 
         if (!$allCoursesTaken) {
             http_response_code(200);
-            echo json_encode([]);
+            echo json_encode([], JSON_FORCE_OBJECT);
             return;
         }
         
         $enrolled = false;
 
-        for ($i=0; $i < sizeof($allCoursesTaken); $i++) { 
-            if($allCoursesTaken[$i]['CourseID'] == $courseid) {
+        for ($i=0; $i < sizeof($allCoursesTaken); $i++) {
+            if ($allCoursesTaken[$i]['CourseID'] == $courseid) {
                 $enrolled = true;
                 break;
             }
@@ -523,7 +523,7 @@ class CoursesController {
         
         if (!$enrolled) {
             http_response_code(200);
-            echo json_encode([]);
+            echo json_encode([], JSON_FORCE_OBJECT);
             return;
         }
 
@@ -534,7 +534,7 @@ class CoursesController {
 
         if (!$getCourseInfo) {
             http_response_code(200);
-            echo json_encode([]);
+            echo json_encode([], JSON_FORCE_OBJECT);
             return;
         }
 
@@ -542,7 +542,7 @@ class CoursesController {
             'ClassID' => $lessonid,
         ]);
         
-        if(intval($lessons['CourseID']) != $courseid) {
+        if (intval($lessons['CourseID']) != $courseid) {
             http_response_code(400);
             echo json_encode([ 'message' => 'Lesson does not belong to course provided' ]);
             return;
@@ -555,13 +555,13 @@ class CoursesController {
 
         $allLessonsId = [];
 
-        for ($i=0; $i < sizeof($allLessons); $i++) { 
+        for ($i=0; $i < sizeof($allLessons); $i++) {
             array_push($allLessonsId, $allLessons[$i]['ClassID']);
         }
         sort($allLessonsId);
 
         $previous =  intval(array_search($lessonid, $allLessonsId, false)) - 1;
-        if ($previous < $allLessons[0] ) {
+        if ($previous < $allLessons[0]) {
             $previous = array_search($lessonid, $allLessonsId, false);
         }
         $next = intval(array_search($lessonid, $allLessonsId, false)) + 1;
@@ -570,24 +570,23 @@ class CoursesController {
             $next = array_search($lessonid, $allLessonsId, false);
         }
 
-        $temp = [
-            "id" => $lessons['ClassID'],
-            "sectionId" => $lessons['ClassID']."-".$lessons['ModuleName'],
-            "courseId" => $lessons['CourseID'],
-            "prevLessonId" => $allLessonsId[$previous],
-            "nextLessonId" => $allLessonsId[$next],
-            "name" => $lessons['ModuleName'],
-            "description" => $lessons['Description'],
-            "completed" => $lessons['Description'],
-            "link" => $lessons['VideoPath'],
-            "type" => $lessons['Description'],
-            "questions" => $lessons['Description']
-        ];
 
         http_response_code(200);
-        echo json_encode([ 
+        echo json_encode([
             'courseName' => $getCourseInfo[0]['CourseName'],
-            'lesson' => $temp 
+            'lesson' => [
+                "id" => $lessons['ClassID'],
+                "sectionId" => $lessons['ClassID']."-".$lessons['ModuleName'],
+                "courseId" => $lessons['CourseID'],
+                "prevLessonId" => $allLessonsId[$previous],
+                "nextLessonId" => $allLessonsId[$next],
+                "name" => $lessons['ModuleName'],
+                "description" => $lessons['Description'],
+                "completed" => $lessons['Description'],
+                "link" => $lessons['VideoPath'],
+                "type" => $lessons['Description'],
+                "questions" => $lessons['Description']
+            ]
         ]);
     }
 
@@ -626,8 +625,8 @@ class CoursesController {
         
         $enrolled = false;
 
-        for ($i=0; $i < sizeof($allCoursesTaken); $i++) { 
-            if($allCoursesTaken[$i]['CourseID'] == $courseid) {
+        for ($i=0; $i < sizeof($allCoursesTaken); $i++) {
+            if ($allCoursesTaken[$i]['CourseID'] == $courseid) {
                 $enrolled = true;
                 break;
             }
@@ -655,23 +654,25 @@ class CoursesController {
             'ClassID' => $lessonid,
         ]);
         
-        if(intval($lessons['CourseID']) != $courseid) {
+        if (intval($lessons['CourseID']) != $courseid) {
             http_response_code(400);
             echo json_encode([ 'message' => 'Lesson does not belong to course provided' ]);
             return;
         }
 
         try {
-            Lesson::updateClassProg([
+            Lesson::updateClassProg(
+                [
                 'ClassID' => $lessonid
             ],
-            [
+                [
                 'UserID' => $courseid
-            ], 
-            [
+            ],
+                [
                 'ClassProgress' => 100,
                 'Completed' => 1
-            ]);
+            ]
+            );
             http_response_code(200);
         } catch (\Exception $e) {
             echo json_encode([ 'message' => $e->getMessage() ]);
@@ -691,7 +692,7 @@ class CoursesController {
         
         $results = [];
 
-        for ($i=0; $i < sizeof($classes); $i++) { 
+        for ($i=0; $i < sizeof($classes); $i++) {
             if (strpos(strtolower($classes[$i]['CourseName']), $search) !== false) {
                 array_push($results, $classes[$i]);
             }
@@ -699,10 +700,10 @@ class CoursesController {
         //array_unique
         $allCourses = [];
 
-        for ($i=0; $i < sizeof($results); $i++) { 
-            if($results[$i]['isDraft'] == 0) {
+        for ($i=0; $i < sizeof($results); $i++) {
+            if ($results[$i]['isDraft'] == 0) {
                 continue;
-            }   
+            }
             $temp = [
                 "id" => $results[$i]['CourseID'],
                 "name" => $results[$i]['CourseName'],
@@ -714,7 +715,7 @@ class CoursesController {
         }
 
         http_response_code(200);
-        echo json_encode([ 
+        echo json_encode([
             'courses' => $allCourses
         ]);
     }

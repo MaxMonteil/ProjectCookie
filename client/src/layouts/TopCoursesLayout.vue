@@ -90,8 +90,11 @@ export default {
         this.error = ''
 
         await this.fetchSubjects()
-        this.courses = await this.$api.courses.getBySubject(this.subjects)
-        this.open = this.subjects[0]
+
+        if (this.subjects.length) {
+          this.courses = await this.$api.courses.getBySubject(this.subjects)
+          this.open = this.subjects[0]
+        }
       } catch (error) {
         this.error = error
       }
@@ -100,7 +103,7 @@ export default {
     },
     async fetchSubjects () {
       const { subjects } = await this.$api.courses.getAllSubjects()
-      this.subjects = subjects
+      this.subjects = subjects || []
     },
   },
 }

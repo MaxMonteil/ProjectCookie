@@ -10,10 +10,7 @@
       :show-advanced="true"
       :get-all-courses="getAllCourses"
     >
-      <div
-        v-if="courses[0].id || error"
-        class="space-y-6"
-      >
+      <div class="space-y-6">
         <header class="flex items-end justify-between">
           <h1 class="text-3xl font-semibold leading-none">
             Results {{ searchTerm ? `for: ${searchTerm}` : '' }}
@@ -32,7 +29,7 @@
         </section>
 
         <section
-          v-if="!error"
+          v-if="!error && courses.length"
           class="items-center grid grid-cols-5 gap-8"
         >
           <DetailedClassCard
@@ -41,6 +38,12 @@
             :course="course"
           />
         </section>
+
+        <p
+          class="text-2xl font-bold text-gray-600"
+        >
+          No results...
+        </p>
       </div>
     </SearchBar>
   </main>

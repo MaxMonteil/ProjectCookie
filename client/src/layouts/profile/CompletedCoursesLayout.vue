@@ -56,7 +56,7 @@ export default {
 
         const { email } = JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
         const { courses } = await this.$api.courses.getCompleted(email)
-        this.courses = courses
+        this.courses = courses || []
       } catch (error) {
         this.error = error
       }

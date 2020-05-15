@@ -40,7 +40,7 @@ class Course {
     }
 
     public static function getCourse($course) {
-        $columns = ['CourseID', 'CourseName', 'Subject', 'Description', 'StartDate', 'EndDate', 'Price', 'NumOfViewers','Language', 'Teacher', 'SyllabusName'];
+        $columns = ['CourseID', 'CourseName', 'Subject', 'Description', 'StartDate', 'Price', 'NumOfViewers','Language', 'Teacher', 'SyllabusName'];
         return App::get('database')->selectOne(static::$table, $course, $columns);
     }
 
@@ -56,7 +56,7 @@ class Course {
 
     // get courses by attribute (for example: courses given by certain teacher, or have a certain price, etc. )
     public static function getCourseByAttr($attr, $values) {
-        $columns = ['CourseID', 'CourseName', 'StartDate', 'NumOfViewers', 'Description', 'isDraft', 'Publisher'];
+        $columns = ['CourseID', 'CourseName', 'StartDate', 'NumOfViewers', 'Description', 'isDraft', 'Teacher'];
         return App::get('database')->selectByAttrValues(static::$table, $attr, $values, $columns);
     }
 

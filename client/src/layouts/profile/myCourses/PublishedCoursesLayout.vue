@@ -63,7 +63,7 @@ export default {
         const { courses } = await this.$api.courses.getPublished({
           user: this.user,
         })
-        this.courses = courses
+        this.courses = courses || []
       } catch (error) {
         this.error = error
       }

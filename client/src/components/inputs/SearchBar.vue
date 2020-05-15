@@ -129,7 +129,10 @@ export default {
   },
   methods: {
     async handleSearch (_, optionsParam = {}) {
-      if (this.searchTerm.length === 0) return
+      if (this.searchTerm.length === 0) {
+        await this.fetchCourses()
+        return
+      }
 
       if (this.$route.name !== 'search') {
         this.$router.push({ name: 'search', query: { q: this.searchTerm } })
@@ -151,7 +154,7 @@ export default {
         })
 
         // this.searchOptions = searchOptions
-        this.courses = courses
+        this.courses = courses || []
       } catch (error) {
         this.error = error
       }
