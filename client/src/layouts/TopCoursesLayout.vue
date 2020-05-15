@@ -101,7 +101,8 @@ export default {
       this.loading = false
     },
     async fetchSubjects () {
-      this.subjects = await this.$api.courses.getAllSubjects()
+      const { subjects } = await this.$api.courses.getAllSubjects()
+      this.subjects = subjects
       this.open = this.subjects[0]
     },
     async fetchSubjectCourse (_, subjects) {
