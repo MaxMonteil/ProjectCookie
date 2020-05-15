@@ -106,7 +106,7 @@ export default {
     },
     async fetchSubjectCourse (_, subjects) {
       this.courses = {
-        ...await this.$api.courses.getBySubjects(subjects),
+        ...await this.$api.courses.getBySubject(subjects),
       }
     },
   },

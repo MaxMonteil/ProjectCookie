@@ -135,8 +135,8 @@ class CoursesController {
         }
 
         if(sizeof($allCourses) == 0) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No courses found' ]);
+            http_response_code(200);
+            echo json_encode([], JSON_FORCE_OBJECT);
             return;
         }
 
@@ -176,9 +176,7 @@ class CoursesController {
      * @return void
      */
     public function getAllEnrolled(): void {
-        $data = json_decode(file_get_contents('php://input'), true);
-        $email = htmlspecialchars($data['email']);
-        $email = 'khm08@mail.aub.edu';
+        $email = htmlspecialchars($_GET['email']);
         $userId = Users::getUser([
             'Email' => $email
         ]);
