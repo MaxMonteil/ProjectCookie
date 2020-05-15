@@ -49,16 +49,29 @@ class Course {
     }
     // get all courses a certain user is taking (use UserJoinCourse table)
     public static function getCoursesTakenBy($user) {
-        $columns1 = ['CourseID'];
-        $courses= App::get('database')->selectByAttrValues('userjoincourse', 'UserID',$user['UserID'], $columns1);
-        $columns2 = ['CourseID', 'CourseName']; 
-        return App::get('database')->selectByAttrValues(static::$table, 'CourseID', $courses['CourseID'], $columns2);
+        $columns1 = ['CourseID', 'CourseProgress', 'CompletionDate'];
+        return App::get('database')->selectByAttrValues('userjoincourse', 'UserID',['UserID'=>$user['UserID']], $columns1);
     }
-
     // get courses by attribute (for example: courses given by certain teacher, or have a certain price, etc. )
     public static function getCourseByAttr($attr, $values){
-        $columns = ['CourseID', 'CourseName'];
+        $columns = ['CourseID', 'CourseName', 'StartDate', 'NumOfViewers', 'Description', 'isDraft', 'Publisher'];
         return App::get('database')->selectByAttrValues(static::$table, $attr, $values, $columns);
     }
     // getCourseProgress
+    public static function getCourseProg($course, $user){
+        $columns = ['CourseProgress'];
+        return App::get('database')->selectOne('userjoincourse', ['CourseID'=>$course['CourseID'], 'UserID'=> $$user['UserID']] , $columns);
+    }
+    public static function updateCourseProg($course, $user){
+        App::get('database')->update('userjoincourse', ['CourseProgress'=>$course['CourseProgress']], ['CourseID'=>$course['CourseID'], 'UserID'=> $user['UserID']]);
+    }
+    public static function getAllParam($val){
+        return App::get('database')->selectAllOneCol(static::$table, $val);
+    }
+    public static function getAllParamArg($paramN, $param, $val){
+        return App::get('database')->selectAllOneColWithArg(static::$table, $paramN, $param, $val);
+    }
+    public static function getAllCourses(){
+        return App::get('database')->selectAll(static::$table);
+    }
 }

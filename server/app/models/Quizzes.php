@@ -27,11 +27,17 @@ class Quizzes {
 
     // deleteQuiz
     // getQuizProgress
-    /*
-    public static function getQuizProgressForUser($quiz, $user) {
-        $columns = ['QuizID','CourseID', 'QuestionsAns'];
-        return App::get('database')->selectOne('userdoquiz', $quiz, $columns);
+    public static function getQuizProgress($quiz, $user) {
+        $columns = ['Completed'];
+        return App::get('database')->selectOne('userdoquiz', ['QuizID'=>$quiz['QuizID'], 'UserID'=>$user['UserID']], $columns);
     }
-    */
+    public static function updateQuizProgress($quiz, $user, $prog) {
+        $columns = ['Completed'];
+        App::get('database')->update('userdoquiz', $prog, ['QuizID'=>$quiz['QuizID'], 'UserID'=>$user['UserID']]);
+    }
+    public static function getQuizzesTakenBy($user) {
+        $columns = ['QuizID'];
+        return App::get('database')->selectOne('userdoquiz', ['UserID'=>$user['UserID']], $columns);
+    }
 }
 
