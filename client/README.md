@@ -537,9 +537,9 @@ Success code 200
 
     // optional parameters, if they are empty string, disregard
     "options": {
-        "subject": "history"    // string
-        "language": "english"   // string
-        "price": 10             // number | null
+        "Subject": "history",    // string
+        "Language": "english",   // string
+        "Price": 10             // number | null
     }
 }
 ```

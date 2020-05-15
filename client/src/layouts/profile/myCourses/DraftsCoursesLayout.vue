@@ -72,7 +72,7 @@ export default {
         const { courses } = await this.$api.courses.getDrafts({
           user: this.user,
         })
-        this.courses = courses
+        this.courses = courses || []
       } catch (error) {
         this.error = error
       }

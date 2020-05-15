@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Core\App;
 
 class Users {
-    protected static $table = 'Users';
+    protected static $table = 'users';
 
     /**
      * Insert a new user into the database

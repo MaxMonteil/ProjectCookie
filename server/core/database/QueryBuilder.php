@@ -36,7 +36,34 @@ class QueryBuilder {
             implode(', ', $columns),
             $table,
             $parameter,
-            implode(', ', $values),
+            "\"".implode('", "', $values)."\"",
+        );
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function selectAllOneCol($table, $column){
+        $sql = sprintf(
+            'SELECT DISTINCT %s FROM %s',
+            $column,
+            $table,
+        );
+        
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function selectAllOneColWithArg($table, $paramName, $paramVal, $column){
+        $sql = sprintf(
+            'SELECT DISTINCT %s FROM %s WHERE %s = %s',
+            $column,
+            $table,
+            $paramName,
+            "\"".$paramVal."\""
         );
 
         $statement = $this->pdo->prepare($sql);
@@ -79,13 +106,15 @@ class QueryBuilder {
     }
 
     public function update($table, $parameters, $conditions) {
+        print_r($parameters);
+        print_r($conditions);
         $sql = sprintf(
             'UPDATE %s SET %s WHERE %s',
             $table,
             implode(' , ', array_map(fn ($p) => "{$p} = :{$p}", array_keys($parameters))),
             implode(' AND ', array_map(fn ($c) => "{$c} = :{$c}", array_keys($conditions))),
         );
-
+        var_dump(($sql));
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array_merge($parameters, $conditions));
     }

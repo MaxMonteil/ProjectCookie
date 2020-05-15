@@ -8,7 +8,7 @@
       />
     </aside>
 
-    <main v-if="true">
+    <main v-if="error">
       <div class="p-4 text-center bg-red-500 rounded shadow">
         <p class="font-bold text-white">
           {{ error }}
