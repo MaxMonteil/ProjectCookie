@@ -66,7 +66,7 @@ CREATE TABLE Classes(
 	ClassID int NOT NULL AUTO_INCREMENT,
     ClassName varchar(200),
     PRIMARY KEY(ClassID),
-    VideoPath varchar(256),
+    VideoLink varchar(256),
 	Description varchar(200), 
     ModuleName varchar(100) UNIQUE,
     CourseID int,
