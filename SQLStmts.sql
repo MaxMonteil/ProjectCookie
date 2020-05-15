@@ -50,8 +50,8 @@ CREATE TABLE Courses(
     Subject varchar(200),
     Description varchar(200),
     RecommendedUsers varchar(500),
-    StartDate DATE,
-    EndDate DATE,
+    StartDate varchar(250),
+    EndDate varchar(250),
     Price varchar(20),
     NumOfViewers int,
     Teacher varchar(200),
@@ -90,7 +90,7 @@ INSERT INTO `courses`(`CourseName`, `Subject`, `Description`, `RecommendedUsers`
 ("Web programming","CMPS","This course help the students practice developing web pages and create a complete web project","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS1"),
 ("Programming Languages","CMPS","This course help students to choose from different languages according to their needs","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS2");
 
-INSERT INTO `classes`('ClassName',`VideoPath`, `Description`, `ModuleName`, `CourseID`) VALUES ("Programming Languages","C:/user/msm56/Desktop/class1","Intro","Functional programming",2),
+INSERT INTO `classes`(`ClassName`,`VideoPath`, `Description`, `ModuleName`, `CourseID`) VALUES ("Programming Languages","C:/user/msm56/Desktop/class1","Intro","Functional programming",2),
 ("Programming Languages", "C:/user/msm56/Desktop/class2","Slide 1 of FP","Pogramming language design",2),
 ("Programming Languages", "C:/user/msm56/Desktop/class3","Slide 2 of FP","Pogramming language design",2),
 ("Programming Languages", "C:/user/msm56/Desktop/class4","Slide 1 of OPP","Pogramming language design",2),
@@ -109,5 +109,5 @@ INSERT INTO `classes`('ClassName',`VideoPath`, `Description`, `ModuleName`, `Cou
 ("Web Development", "C:/user/msm56/Desktop/class17","Slide 1 of Cookies & sessions","Backend",1),
 ("Web Development", "C:/user/msm56/Desktop/class18","Slide 1 of ASP.Net",".net using VS",1);
 
-INSERT INTO `quizzes`(`QuestionsWithAns`, `CourseID`) VALUES ( "What are higher order functions: a)",2),
+INSERT INTO `quizzes`(`QuestionsAns`, `CourseID`) VALUES ( "What are higher order functions: a)",2),
 ( "Are html, ccs & js used for the frontend: a)",1);
