@@ -90,10 +90,8 @@ export default {
         this.error = ''
 
         await this.fetchSubjects()
-        await this.fetchSubjectCourse(null, [this.open])
-
-        // start prefetching the other courses
-        this.fetchSubjectCourse(null, this.subjects.slice(1))
+        this.courses = await this.$api.courses.getBySubject(this.subjects)
+        this.open = this.subjects[0]
       } catch (error) {
         this.error = error
       }
@@ -103,12 +101,6 @@ export default {
     async fetchSubjects () {
       const { subjects } = await this.$api.courses.getAllSubjects()
       this.subjects = subjects
-      this.open = this.subjects[0]
-    },
-    async fetchSubjectCourse (_, subjects) {
-      this.courses = {
-        ...await this.$api.courses.getBySubject(subjects),
-      }
     },
   },
 }
