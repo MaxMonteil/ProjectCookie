@@ -8,9 +8,9 @@ const getBySubject = subjects => client('subjects', { body: subjects })
 
 const getAllSubjects = () => client('subjects')
 
-const getEnrolled = limit => client('enrolled', { body: limit })
+const getEnrolled = (email, limit) => client(`enrolled/${email}`, { body: limit })
 
-const getCompleted = () => client('completed')
+const getCompleted = email => client(`completed/${email}`)
 
 const getPublished = user => client('published', { body: user })
 

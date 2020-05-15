@@ -70,7 +70,10 @@ export default {
         this.loading = true
         this.error = ''
 
+        const { email } = JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
+
         const { courses } = await this.$api.courses.getEnrolled(
+          email,
           this.showAll
             ? { limit: ENROLLED_FETCH_LIMIT }
             : null,

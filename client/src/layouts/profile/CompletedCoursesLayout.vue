@@ -54,7 +54,8 @@ export default {
         this.loading = true
         this.error = ''
 
-        const { courses } = await this.$api.courses.getCompleted()
+        const { email } = JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
+        const { courses } = await this.$api.courses.getCompleted(email)
         this.courses = courses
       } catch (error) {
         this.error = error
