@@ -9,9 +9,12 @@
       </h1>
     </router-link>
 
-    <form class="grid grid-cols-8 row-gap-6 col-gap-8">
+    <form
+      class="grid grid-cols-8 row-gap-6 col-gap-8"
+      @submit.prevent="$emit('submit')"
+    >
       <InputText
-        v-model="course.name"
+        v-model.trim="course.name"
         class="col-span-7"
         label="Course Name"
         :label-white="false"
@@ -19,7 +22,7 @@
       />
 
       <InputText
-        v-model="course.subject"
+        v-model.trim="course.subject"
         class="col-start-1 col-span-3"
         label="Subject"
         :label-white="false"
@@ -27,7 +30,7 @@
       />
 
       <InputText
-        v-model="course.language"
+        v-model.trim="course.language"
         class="col-span-3"
         label="Language of Instruction"
         :label-white="false"
@@ -35,7 +38,7 @@
       />
 
       <InputText
-        v-model="course.startDate"
+        v-model.trim="course.startDate"
         class="col-start-1 col-span-3"
         label="Start Date"
         :label-white="false"
@@ -43,7 +46,7 @@
       />
 
       <InputText
-        v-model="course.price"
+        v-model.number="course.price"
         class="col-span-3"
         label="Price"
         :label-white="false"
@@ -51,7 +54,7 @@
       />
 
       <InputTextArea
-        v-model="course.description"
+        v-model.trim.lazy="course.description"
         class="col-start-1 col-span-7"
         label="Description"
         :label-white="false"
@@ -68,7 +71,7 @@
         class="col-span-8 grid grid-cols-8 col-gap-8 row-gap-6"
       >
         <InputText
-          v-model="section.name"
+          v-model.trim="section.name"
           class="col-span-7"
           label="Section Name"
           :label-white="false"
@@ -76,7 +79,7 @@
         />
 
         <InputTextArea
-          v-model="section.description"
+          v-model.trim.lazy="section.description"
           class="col-span-7"
           label="Description - optional"
           :label-white="false"
@@ -115,6 +118,7 @@
             </button>
 
             <button
+              type="button"
               class="btn btn-blue-sec"
               @click.prevent="addLesson({ sectionIndex: i, type: 'quiz' })"
             >
@@ -124,6 +128,7 @@
         </div>
 
         <button
+          type="button"
           class="mb-10 whitespace-no-wrap btn btn-red col-start-1 col-span-2"
           @click.prevent="removeSection({ sectionIndex: i })"
         >
@@ -133,6 +138,7 @@
 
       <div class="pt-8 border-t-2 border-gray-200 col-span-8">
         <button
+          type="button"
           class="btn btn-blue"
           @click.prevent="addSection"
         >
@@ -141,11 +147,23 @@
       </div>
 
       <div class="flex justify-end mt-16 space-x-8 col-start-5 col-span-4">
-        <button class="btn btn-blue-sec">
+        <button
+          class="btn btn-blue-sec"
+          :class="{
+            'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading,
+          }"
+          :disabled="loading"
+        >
           Save Draft
         </button>
 
-        <button class="btn btn-blue">
+        <button
+          class="btn btn-blue"
+          :class="{
+            'border-blue-200 bg-blue-200 text-blue-900 cursor-wait shadow-none': loading,
+          }"
+          :disabled="loading"
+        >
           Save and Publish
         </button>
       </div>
@@ -171,6 +189,10 @@ export default {
     value: {
       type: Object,
       default: null,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
     },
   },
   computed: {

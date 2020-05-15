@@ -16,6 +16,10 @@ const getPublished = user => client('published', { body: user })
 
 const getDrafts = user => client('drafts', { body: user })
 
+const create = course => client('create-course', { body: course })
+
+const publish = course => client('create-course', { body: course })
+
 export const courses = {
   getAllCourses,
   getOne,
@@ -25,4 +29,6 @@ export const courses = {
   getCompleted,
   getPublished,
   getDrafts,
+  create,
+  publish,
 }
