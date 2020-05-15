@@ -178,7 +178,7 @@ class CoursesController {
     public function getAllEnrolled(): void {
         $data = json_decode(file_get_contents('php://input'), true);
         $email = htmlspecialchars($data['email']);
-
+        $email = 'khm08@mail.aub.edu';
         $userId = Users::getUser([
             'Email' => $email
         ]);
@@ -188,8 +188,8 @@ class CoursesController {
         ]);
         
         if (!$coursesId) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No enrolled courses' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
