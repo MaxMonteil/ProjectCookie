@@ -298,14 +298,14 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method | description |
 | -------- |:------:| ----------- |
-| /enrolled    | GET   | get all enrolled courses |
-| /enrolled    | POST   | get a certain number of courses |
+| /enrolled/<email>    | GET   | get all the courses enrolled |
+| /enrolled/<email>    | POST   | get a certain number of courses |
 
 ##### Data
 
 ```jsonc
 {
-    "limit": 4 // number, number of courses to return
+    "limit": 4  // number, number of courses to return
 }
 ```
 
@@ -328,7 +328,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method | description |
 | -------- |:------:| ----------- |
-| /completed    | GET   | get all completed courses |
+| /completed/<email>    | GET   | get all completed courses |
 
 ##### Expected response
 
