@@ -24,30 +24,30 @@
         </button>
       </div>
 
-      <div
-        v-if="showAdvanced"
-        class="flex items-end space-x-8"
-      >
-        <InputSelect
-          v-model="options.subject"
-          label="Subjects"
-          :values="searchOptions.subject"
-        />
-
-        <InputSelect
-          v-model="options.language"
-          label="Language"
-          :values="searchOptions.language"
-        />
-
-        <InputText
-          v-model.number="options.price"
-          label="Price"
-          class="w-16"
-          :bg-gray="true"
-          :label-white="false"
-        />
-      </div>
+      <!-- <div -->
+      <!--   v&#45;if="showAdvanced" -->
+      <!--   class="flex items&#45;end space&#45;x&#45;8" -->
+      <!-- > -->
+      <!--   <InputSelect -->
+      <!--     v&#45;model="options.subject" -->
+      <!--     label="Subjects" -->
+      <!--     :values="searchOptions.subject" -->
+      <!--   /> -->
+      <!--  -->
+      <!--   <InputSelect -->
+      <!--     v&#45;model="options.language" -->
+      <!--     label="Language" -->
+      <!--     :values="searchOptions.language" -->
+      <!--   /> -->
+      <!--  -->
+      <!--   <InputText -->
+      <!--     v&#45;model.number="options.price" -->
+      <!--     label="Price" -->
+      <!--     class="w&#45;16" -->
+      <!--     :bg&#45;gray="true" -->
+      <!--     :label&#45;white="false" -->
+      <!--   /> -->
+      <!-- </div> -->
     </form>
 
     <slot
@@ -60,14 +60,14 @@
 </template>
 
 <script>
-import InputSelect from '@/components/inputs/InputSelect'
-import InputText from '@/components/inputs/InputText'
+// import InputSelect from '@/components/inputs/InputSelect'
+// import InputText from '@/components/inputs/InputText'
 
 export default {
   name: 'SearchBar',
   components: {
-    InputSelect,
-    InputText,
+    // InputSelect,
+    // InputText,
   },
   props: {
     getAllCourses: {
@@ -105,15 +105,15 @@ export default {
       error: '',
       searchTerm: '',
       courses: [{}],
-      options: {
-        subject: '',
-        language: '',
-        price: null,
-      },
-      searchOptions: {
-        subject: [],
-        language: [],
-      },
+      // options: {
+      //   subject: '',
+      //   language: '',
+      //   price: null,
+      // },
+      // searchOptions: {
+      //   subject: [],
+      //   language: [],
+      // },
     }
   },
   created () {
@@ -121,7 +121,10 @@ export default {
 
     if (this.$route.query.q) {
       this.searchTerm = this.$route.query.q
-      this.handleSearch(null, this.$route.params.options)
+      this.handleSearch(
+        null,
+        // this.$route.params.options,
+      )
     }
   },
   methods: {
@@ -137,17 +140,17 @@ export default {
         this.error = ''
 
         const {
-          searchOptions,
+          // searchOptions,
           courses,
         } = await this.$api.search.withOptions({
           search: this.searchTerm,
-          options: {
-            ...this.options,
-            ...optionsParam,
-          },
+          // options: {
+          //   ...this.options,
+          //   ...optionsParam,
+          // },
         })
 
-        this.searchOptions = searchOptions
+        // this.searchOptions = searchOptions
         this.courses = courses
       } catch (error) {
         this.error = error
