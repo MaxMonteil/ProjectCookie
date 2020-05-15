@@ -16,6 +16,6 @@ $router->get('enrolled', 'CoursesController@getAllEnrolled');
 $router->get('completed', 'CoursesController@getAllCompleted');
 $router->post('published', 'CoursesController@getAllPublished');
 $router->post('drafts', 'CoursesController@getAllDrafts');
-$router->get('lessons', 'CoursesController@getLessons');
+$router->post('lessons', 'CoursesController@getLessons');
 $router->post('complete-lesson', 'CoursesController@completeLesson');
 $router->post('search', 'CoursesController@search');

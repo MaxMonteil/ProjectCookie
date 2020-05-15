@@ -75,16 +75,49 @@ class CoursesController {
      */
     public function getCourse(): void {
         $data = json_decode(file_get_contents('php://input'), true);
-
+        $courseid = $data['courseId'];
         $courses = Course::getCourse([
-            'CourseID' => $data['courseId'],
+            'CourseID' => $courseid,
         ]);
 
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No courses found' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
+
+        $syllabus = Lesson::getAllClass('CourseID', [$courseid]);
+        
+        $modules = [];
+
+        for ($i=0; $i < sizeof($syllabus); $i++) { 
+            array_push($modules, $syllabus[$i]['ModuleName']);
+        }
+        $modules = array_values(array_unique($modules));
+
+        $sections = [];
+
+        for ($i=0; $i < sizeof($modules); $i++) { 
+            $temp = [];
+            for ($i2=0; $i2 < sizeof($syllabus); $i2++) { 
+                if($syllabus[$i2]['ModuleName'] == $modules[$i]) {
+                    $arr = [
+                        "id" => $syllabus[$i2]['ClassID'],    
+                        "courseId" => $syllabus[$i2]['CourseID'],      
+                        "sectionId" => $syllabus[$i2]['ClassID']."-".$syllabus[$i2]['ModuleName'], 
+                        "name" => $syllabus[$i2]['ClassName'],
+                    ];
+                    array_push($temp, $arr);
+                }
+            }
+            $temp2 = [
+                'name' => $modules[$i],
+                'id' => $courseid."-".$modules[$i],
+                'lessons' => $temp
+            ];
+            array_push($sections, $temp2);
+        }
+
         $arr = json_encode([ 
             'id' => $courses['CourseID'],
             'name' => $courses['CourseName'],
@@ -93,7 +126,7 @@ class CoursesController {
             'studentCount' => $courses['NumOfViewers'],
             'description' => $courses['Description'],
             'price' => $courses['Price'],
-            'syllabus' => $courses['SyllabusName']
+            'syllabus' => $sections
         ]);
 
         http_response_code(200);
@@ -187,7 +220,7 @@ class CoursesController {
         
         if (!$coursesId) {
             http_response_code(200);
-            echo json_encode([]);
+            echo json_encode(['courses' => []]);
             return;
         }
 
@@ -213,8 +246,8 @@ class CoursesController {
         }
 
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No class found with this id' ]);
+            http_response_code(200);
+            echo json_encode(['courses' => []]);
             return;
         }
 
@@ -229,7 +262,7 @@ class CoursesController {
      */
     public function getLimitedEnrolled(): void {
         $data = json_decode(file_get_contents('php://input'), true);
-        $email = htmlspecialchars($data['email']);
+        $email = htmlspecialchars($_GET['email']);
         $limit = intval($data['limit']);
 
         $userId = Users::getUser([
@@ -241,8 +274,8 @@ class CoursesController {
         ]);
         
         if (!$coursesId) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No enrolled courses' ]);
+            http_response_code(200);
+            echo json_encode(['courses' => []]);
             return;
         }
 
@@ -271,8 +304,8 @@ class CoursesController {
         }
 
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No class found with this id' ]);
+            http_response_code(200);
+            echo json_encode(['courses' => []]);
             return;
         }
 
@@ -286,8 +319,7 @@ class CoursesController {
      * @return void
      */
     public function getAllCompleted(): void {
-        $data = json_decode(file_get_contents('php://input'), true);
-        $email = htmlspecialchars($data['email']);
+        $email = htmlspecialchars($_GET['email']);
 
         $userId = Users::getUser([
             'Email' => $email
@@ -298,8 +330,8 @@ class CoursesController {
         ]);
         
         if (!$coursesId) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No enrolled classes' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -328,8 +360,8 @@ class CoursesController {
         }
 
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No class found with this id' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -351,8 +383,8 @@ class CoursesController {
         ]);
 
         if (!$userId) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No user found with this id' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -383,8 +415,8 @@ class CoursesController {
         }
 
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No published courses' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -406,8 +438,8 @@ class CoursesController {
         ]);
 
         if (!$userId) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No user found with this id' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -419,8 +451,8 @@ class CoursesController {
         );
         
         if (!$allDrafts) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No drafted courses' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -438,8 +470,8 @@ class CoursesController {
         }
 
         if (!$courses) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No drafted courses' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -463,8 +495,8 @@ class CoursesController {
         ]);
 
         if (!$userId) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No user found with this id' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -475,8 +507,8 @@ class CoursesController {
         ]);
 
         if (!$allCoursesTaken) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'Not enrolled in any course' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
         
@@ -490,8 +522,8 @@ class CoursesController {
         }
         
         if (!$enrolled) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'Not enrolled in this course' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -501,8 +533,8 @@ class CoursesController {
         );
 
         if (!$getCourseInfo) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'No courses with this id' ]);
+            http_response_code(200);
+            echo json_encode([]);
             return;
         }
 
@@ -656,7 +688,7 @@ class CoursesController {
         $search = strtolower(trim(htmlspecialchars($data['search'])));
 
         $classes = Course::getAllCourses();
-
+        
         $results = [];
 
         for ($i=0; $i < sizeof($classes); $i++) { 
@@ -666,7 +698,6 @@ class CoursesController {
         }
         //array_unique
         $allCourses = [];
-
 
         for ($i=0; $i < sizeof($results); $i++) { 
             if($results[$i]['isDraft'] == 0) {

@@ -29,7 +29,7 @@ CREATE TABLE courses(
     Subject varchar(200),
     Description varchar(200),
     RecommendedUsers varchar(500),
-    StartDate DATE,
+    StartDate varchar(250),
     CompletionDate DATE,
     Price varchar(20),
     NumOfViewers int,
