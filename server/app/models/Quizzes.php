@@ -6,6 +6,7 @@ use App\Core\App;
 
 class Quizzes {
     protected static $table = 'quizzes';
+    protected static $userDoQuizTable = 'userDoQuiz';
 
     public static function newQuiz($quiz) {
         if (!preg_match("^[a-zA-z0-9]: [a-z)]$", $quiz['QuestionsAns'])) {
@@ -21,6 +22,7 @@ class Quizzes {
         $columns = ['QuizID','CourseID', 'QuestionsAns'];
         return App::get('database')->selectOne(static::$table, $quiz, $columns);
     }
+
     public static function updateQuiz($quiz) {
         App::get('database')->update(static::$table, $quiz, ['QuizID'=> $quiz['QuizID']]);
     }
@@ -30,14 +32,15 @@ class Quizzes {
     // getQuizProgress
     public static function getQuizProgress($quiz, $user) {
         $columns = ['Completed'];
-        return App::get('database')->selectOne('userdoquiz', ['QuizID'=>$quiz['QuizID'], 'UserID'=>$user['UserID']], $columns);
+        return App::get('database')->selectOne(static::$userDoQuizTable, ['QuizID'=>$quiz['QuizID'], 'UserID'=>$user['UserID']], $columns);
     }
+
     public static function updateQuizProgress($quiz, $user, $prog) {
-        $columns = ['Completed'];
-        App::get('database')->update('userdoquiz', $prog, ['QuizID'=>$quiz['QuizID'], 'UserID'=>$user['UserID']]);
+        App::get('database')->update(static::$userDoQuizTable, $prog, ['QuizID'=>$quiz['QuizID'], 'UserID'=>$user['UserID']]);
     }
+
     public static function getQuizzesTakenBy($user) {
         $columns = ['QuizID'];
-        return App::get('database')->selectOne('userdoquiz', ['UserID'=>$user['UserID']], $columns);
+        return App::get('database')->selectOne(static::$userDoQuizTable, ['UserID'=>$user['UserID']], $columns);
     }
 }

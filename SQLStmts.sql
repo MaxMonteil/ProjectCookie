@@ -8,6 +8,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
 /************************************************************/
 
+DROP DATABASE IF EXISTS project_cookie;
+CREATE DATABASE project_cookie;
+USE project_cookie;
+
 CREATE TABLE users(
     UserID int NOT NULL AUTO_INCREMENT,
     Name varchar(200),
@@ -26,12 +30,13 @@ CREATE TABLE courses(
     Description varchar(200),
     RecommendedUsers varchar(500),
     StartDate DATE,
-    EndDate DATE,
+    CompletionDate DATE,
     Price varchar(20),
     NumOfViewers int,
     Teacher varchar(200),
     Language varchar(200),
-    SyllabusName varchar(40) UNIQUE
+    SyllabusName varchar(40) UNIQUE,
+    IsDraft Boolean default TRUE,
 );
 
 CREATE TABLE quizzes(
@@ -107,10 +112,10 @@ VALUES
 
 
 INSERT
-    INTO `courses`(`CourseName`, `Subject`, `Description`, `RecommendedUsers`, `StartDate`, `EndDate`, `Price`, `NumOfViewers`,`Teacher`, `Language`, `SyllabusName`)
+    INTO `courses`(`CourseName`, `Subject`, `Description`, `RecommendedUsers`, `StartDate`, `CompletionDate`, `Price`, `NumOfViewers`,`Teacher`, `Language`, `SyllabusName`, `IsDraft`)
     VALUES
-        ("Web programming","CMPS","This course help the students practice developing web pages and create a complete web project","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS1"),
-        ("Programming Languages","CMPS","This course help students to choose from different languages according to their needs","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS2");
+        ("Web programming","CMPS","This course help the students practice developing web pages and create a complete web project","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS1", FALSE),
+        ("Programming Languages","CMPS","This course help students to choose from different languages according to their needs","Seniors","2020-02-21","2020-05-2","$2500",1, "Saeed Raheel", "English", "CMPS2", FALSE);
 
 INSERT INTO `classes`(`ClassName`,`VideoPath`, `Description`, `ModuleName`, `CourseID`)
 VALUES
@@ -145,4 +150,4 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;
 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;
 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;
-SET SQL_NOTES=@OLD_SQL_NOTES; 
+SET SQL_NOTES=@OLD_SQL_NOTES;
