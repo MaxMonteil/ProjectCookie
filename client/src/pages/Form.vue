@@ -1,7 +1,12 @@
 <template>
-  <h1 v-if="loading">
-    loading...
-  </h1>
+  <div
+    v-if="error"
+    class="p-4 text-center bg-red-500 rounded shadow"
+  >
+    <p class="font-bold text-white">
+      {{ error }}
+    </p>
+  </div>
 
   <main
     v-else
@@ -10,6 +15,8 @@
     <component
       :is="formComponent"
       v-model="formData"
+      :loading="loading"
+      @submit="createCourse"
     />
   </main>
 </template>
@@ -25,10 +32,15 @@ export default {
         return ['course', 'quiz'].includes(value)
       },
     },
+    course: {
+      type: Object,
+      default: null,
+    },
   },
   data () {
     return {
       loading: false,
+      error: '',
       formData: null,
     }
   },
@@ -39,6 +51,25 @@ export default {
       }
 
       return forms[this.formType]
+    },
+  },
+  mounted () {
+    if (this.course) {
+      this.formData = this.course
+    }
+  },
+  methods: {
+    async createCourse () {
+      try {
+        this.loading = true
+        this.error = ''
+
+        await this.$api.courses.create(this.formData)
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
     },
   },
 }

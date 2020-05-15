@@ -1,5 +1,34 @@
 # ProjectCookie Client
 
+## Table of Contents
+
+* [Project setup](#project-setup)
+    * [Compiles-and-hot-reloads-for-development](#compiles-and-hot-reloads-for-development)
+    * [Compiles and minifies for production](#compiles-and-minifies-for-production)
+    * [Lints and fixes files](#lints-and-fixes-files)
+* [Client-Server Communication Reference](#client-server-communication-reference)
+    * [Errors](#errors)
+    * [Auth](#auth)
+        * [Login](#login)
+        * [Register](#register)
+        * [Change Password](#change-password)
+    * [User](#user)
+        * [Get User](#get-user)
+    * [Courses](#courses)
+        * [Get all courses](#get-all-courses)
+        * [Get all courses by subject](#get-all-courses-by-subject)
+        * [Get all subjects](#get-all-subjects)
+        * [Get enrolled courses](#get-enrolled-courses)
+        * [Get completed courses](#get-completed-courses)
+        * [Get published and draft courses](#get-published-and-draft-courses)
+        * [Create a Course](#create-a-course)
+        * [Publish a Course](#publish-a-course)
+    * [Lessons](#lessons)
+        * [Get one lesson](#get-one-lesson)
+        * [Toggle lesson completion](#toggle-lesson-completion)
+    * [Search](#search)
+        * [Search for a query](#search-for-a-query)
+
 ## Project setup
 ```
 npm install
@@ -271,14 +300,14 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method | description |
 | -------- |:------:| ----------- |
-| /enrolled    | GET   | get all enrolled courses |
-| /enrolled    | POST   | get a certain number of courses |
+| /enrolled?email=\<email\>    | GET   | get all the courses enrolled |
+| /enrolled?email=\<email\>    | POST   | get a certain number of courses |
 
 ##### Data
 
 ```jsonc
 {
-    "limit": 4 // number, number of courses to return
+    "limit": 4  // number, number of courses to return
 }
 ```
 
@@ -301,7 +330,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method | description |
 | -------- |:------:| ----------- |
-| /completed    | GET   | get all completed courses |
+| /completed?email=\<email\>    | GET   | get all completed courses |
 
 ##### Expected response
 
@@ -339,11 +368,77 @@ $data = json_decode(file_get_contents('php://input'), true);
 {
     "courses": [
         {
-            "id": "fpiu314",            // string
-            "name": "web dev",          // string
+            "id": "fpiu314",    // string
+            "name": "web dev",  // string
+            "isDraft": false,   // boolean
         },
         // ...
     ]
+}
+```
+
+#### Create a Course
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /create-course | POST | create a new course |
+
+##### Data
+
+```jsonc
+{
+    "name": "course name",
+    "subject": "math",
+    "language": "english",
+    "startDate": "YYYY-MM-DD",
+    "description": "This is a course about math",
+    "price": 30,
+    "syllabus": [
+        "name": "module name",
+        "description": "this module is about arithmetic",
+        "lessons": [
+            // type class
+            {
+                "name": "learning addition",
+                "type": "class",
+                "description": "first we will learn how to add",
+                "link": "https://www.youtube.com/fjoefh",
+            },
+
+            // type quiz
+            {
+                "name": "Quiz One",
+                "type": "quiz",
+                "description": "This quiz is about math",
+                "questions": [
+                    {
+                        "question": "What is 1+1?",
+                        "correct": "2",
+                        "answers": [
+                            "1",
+                            "2"
+                        ],
+                    },
+                    // ...
+                ]
+            },
+        ],
+    ],
+}
+```
+
+#### Publish a Course
+
+| endpoint | method | description |
+| -------- |:------:| ----------- |
+| /publish | POST | publish to the store/home this course |
+
+##### Data
+
+```jsonc
+{
+    "email": "abc123@mail.aub.edu",
+    "id": "courseId",
 }
 ```
 
@@ -355,7 +450,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 | -------- |:------:|
 | /lessons    | post   |
 
-##### data
+##### Data
 
 ```jsonc
 {
@@ -411,7 +506,7 @@ Set a lesson's completion to true or false.
 | -------- |:------:|
 | /complete-lesson    | POST   |
 
-##### data
+##### Data
 
 ```jsonc
 {
