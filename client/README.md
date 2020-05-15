@@ -298,8 +298,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method | description |
 | -------- |:------:| ----------- |
-| /enrolled/<email>    | GET   | get all the courses enrolled |
-| /enrolled/<email>    | POST   | get a certain number of courses |
+| /enrolled?email=\<email\>    | GET   | get all the courses enrolled |
+| /enrolled?email=\<email\>    | POST   | get a certain number of courses |
 
 ##### Data
 
@@ -328,7 +328,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 | endpoint | method | description |
 | -------- |:------:| ----------- |
-| /completed/<email>    | GET   | get all completed courses |
+| /completed?email=\<email\>    | GET   | get all completed courses |
 
 ##### Expected response
 
