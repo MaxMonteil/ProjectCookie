@@ -10,7 +10,7 @@
       v-else
       class="text-3xl font-bold text-center text-white"
     >
-      {{ error }}
+      Unable to verify your account.
     </h2>
 
     <div
