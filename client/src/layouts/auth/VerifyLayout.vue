@@ -57,13 +57,13 @@ export default {
         this.loading = true
         this.error = ''
 
-        const hash = encodeURIComponent(new URLSearchParams(window.location.search.substring(1)).get('hash'))
+        const token = encodeURIComponent(new URLSearchParams(window.location.search.substring(1)).get('hash'))
         const email = this.$route.query.email
-        if (!hash || !email) {
+        if (!token || !email) {
           throw new Error('Invalid verification link')
         }
 
-        await this.$api.auth.verify({ hash, email })
+        await this.$api.auth.verify({ token, email })
       } catch (error) {
         this.error = error
       }
