@@ -65,6 +65,8 @@ export default {
 
         await this.$api.auth.verify({ token, email })
       } catch (error) {
+        if (error === 'OK') return
+
         this.error = error
       }
 
