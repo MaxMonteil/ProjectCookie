@@ -14,6 +14,15 @@
     </h2>
 
     <div
+      v-if="!loading && success"
+      class="p-4 text-center bg-green-500 rounded shadow"
+    >
+      <p class="font-bold text-white">
+        {{ success }}
+      </p>
+    </div>
+
+    <div
       v-if="error"
       class="p-4 text-center bg-red-500 rounded shadow"
     >
@@ -21,13 +30,6 @@
         {{ error }}
       </p>
     </div>
-
-    <p
-      v-if="!loading && !error"
-      class="text-white"
-    >
-      You may now login
-    </p>
 
     <router-link
       v-if="!loading && !error"
@@ -45,6 +47,7 @@ export default {
   data () {
     return {
       loading: true,
+      success: '',
       error: '',
     }
   },
@@ -57,15 +60,18 @@ export default {
         this.loading = true
         this.error = ''
 
-        const hash = encodeURIComponent(new URLSearchParams(window.location.search.substring(1)).get('hash'))
+        const token = encodeURIComponent(new URLSearchParams(window.location.search.substring(1)).get('hash'))
         const email = this.$route.query.email
-        if (!hash || !email) {
+        if (!token || !email) {
           throw new Error('Invalid verification link')
         }
 
-        await this.$api.auth.verify({ hash, email })
+        await this.$api.auth.verify({ token, email })
+        this.success = 'Your account has been verified! You may now log in.'
       } catch (error) {
-        this.error = error
+        if (error !== 'OK') {
+          this.error = error
+        }
       }
 
       this.loading = false

@@ -194,26 +194,27 @@ class UsersController {
      * @return void
      */
     public function verify(): void {
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        $token = $data['token'];
-        $email = htmlspecialchars($data['email']);
-        $user = Users::getUser([
-            'Email' => $email,
-        ]);
-
-        if (!$user) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'no user with this email address found' ]);
-            return;
-        }
-        if (htmlspecialchars($token) != $user['EmailHash']) {
-            http_response_code(400);
-            echo json_encode([ 'message' => 'invalid token' ]);
-            return;
-        }
-
         try {
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            $token = $data['token'];
+            $email = htmlspecialchars($data['email']);
+            $user = Users::getUser([
+                'Email' => $email,
+            ]);
+
+            if (!$user) {
+                http_response_code(400);
+                echo json_encode([ 'message' => 'no user with this email address found' ]);
+                return;
+            }
+
+            if (htmlspecialchars($token) != $user['EmailHash']) {
+                http_response_code(400);
+                echo json_encode([ 'message' => 'invalid token' ]);
+                return;
+            }
+
             Users::verifyUser([
                 'Email' => $email,
             ]);
