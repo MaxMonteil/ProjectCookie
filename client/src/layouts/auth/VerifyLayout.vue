@@ -69,9 +69,9 @@ export default {
         await this.$api.auth.verify({ token, email })
         this.success = 'Your account has been verified! You may now log in.'
       } catch (error) {
-        if (error === 'OK') return
-
-        this.error = error
+        if (error !== 'OK') {
+          this.error = error
+        }
       }
 
       this.loading = false
