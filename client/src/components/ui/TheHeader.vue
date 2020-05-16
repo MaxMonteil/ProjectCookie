@@ -12,14 +12,22 @@
     >
       <SearchBar
         v-if="!$route.matched.some(r => r.meta.hideHeaderSearchBar)"
-        v-model="search"
         label="search"
         :with-opacity="true"
       />
     </form>
 
-    <router-link :to="{ name: 'my-courses' }">
-      <div class="w-8 h-8 p-4 bg-blue-900 rounded-full" />
+    <router-link
+      :to="{ name: loggedIn ? 'my-courses' : 'login' }"
+      :class="{ 'btn btn-blue-sec': !loggedIn }"
+    >
+      <div
+        v-if="loggedIn"
+        class="w-8 h-8 p-4 bg-blue-900 rounded-full"
+      />
+      <p v-else>
+        Login
+      </p>
     </router-link>
   </header>
 </template>
@@ -32,10 +40,11 @@ export default {
   components: {
     SearchBar,
   },
-  data () {
-    return {
-      search: '',
-    }
+  props: {
+    loggedIn: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     submitSearch () {

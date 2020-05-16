@@ -4,28 +4,44 @@
       Enrolled Courses
     </h2>
 
-    <p v-if="loading">
-      Loading...
-    </p>
+    <div v-if="!error">
+      <ClassCardRow
+        v-if="courses.length >= 1"
+        card="enrolled"
+        :courses="courses"
+      />
 
-    <ClassCardRow
+      <h3
+        v-else
+        class="text-lg font-bold text-gray-600"
+      >
+        You haven't enrolled into any courses yet...
+      </h3>
+
+      <router-link
+        v-if="!showAll && !loading"
+        :to="{ name: 'my-courses' }"
+        class="self-end mt-4 text-sm text-blue-900 underline"
+      >
+        See all
+      </router-link>
+    </div>
+
+    <div
       v-else
-      card="enrolled"
-      :courses="courses"
-    />
-
-    <router-link
-      v-if="!showAll"
-      :to="{ name: 'my-courses' }"
-      class="self-end mt-4 text-sm text-blue-900 underline"
+      class="p-4 text-center bg-red-500 rounded shadow"
     >
-      See all
-    </router-link>
+      <p class="font-bold text-white">
+        {{ error }}
+      </p>
+    </div>
   </section>
 </template>
 
 <script>
 import ClassCardRow from '@/components/ui/classCard/ClassCardRow'
+
+const ENROLLED_FETCH_LIMIT = 4
 
 export default {
   name: 'EnrolledCoursesLayout',
@@ -41,7 +57,8 @@ export default {
   data () {
     return {
       loading: true,
-      courses: [],
+      error: '',
+      courses: [{}],
     }
   },
   created () {
@@ -49,10 +66,24 @@ export default {
   },
   methods: {
     async fetchEnrolledCourses () {
-      const response = await fetch('../courses.json')
-      const allCourses = await response.json()
+      try {
+        this.loading = true
+        this.error = ''
 
-      this.courses = allCourses.filter(course => course.enrolled)
+        const { email } = JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
+
+        const { courses } = await this.$api.courses.getEnrolled(
+          email,
+          this.showAll
+            ? { limit: ENROLLED_FETCH_LIMIT }
+            : null,
+        )
+
+        this.courses = courses
+      } catch (error) {
+        this.error = error
+      }
+
       this.loading = false
     },
   },

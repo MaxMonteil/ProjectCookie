@@ -1,8 +1,6 @@
 <template>
-  <section class="space-y-20">
-    <EnrolledCoursesLayout
-      :show-all="true"
-    />
+  <section class="divide-y-2 divide-gray-200 space-y-20">
+    <EnrolledCoursesLayout :show-all="true" />
 
     <CompletedCoursesLayout />
   </section>

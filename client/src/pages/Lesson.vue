@@ -1,19 +1,39 @@
 <template>
-  <main class="space-y-6">
+  <main
+    v-if="error"
+    class="space-y-6"
+  >
+    <div class="p-4 text-center bg-red-500 rounded shadow">
+      <p class="font-bold text-white">
+        {{ error }}
+      </p>
+    </div>
+  </main>
+
+  <main
+    v-else
+    class="space-y-6"
+  >
     <header>
       <h2 class="text-lg font-bold text-gray-600 underline">
-        <router-link :to="{ name: 'course', params: { courseId } }">
+        <router-link
+          v-if="!loading"
+          :to="{ name: 'course', params: { courseId } }"
+        >
           {{ courseName }}
         </router-link>
+
+        <span v-else>...</span>
       </h2>
 
       <h1 class="text-3xl font-semibold leading-tight">
-        {{ lesson.name }}
+        {{ loading ? 'Loading...' : lesson.name }}
       </h1>
     </header>
 
     <component
       :is="lessonComponent"
+      v-if="!loading"
       :lesson="lesson"
     />
   </main>
@@ -45,6 +65,7 @@ export default {
   data () {
     return {
       loading: true,
+      error: '',
       courseName: '',
       lesson: {},
     }
@@ -61,14 +82,25 @@ export default {
   },
   methods: {
     async fetchLessonData () {
-      const response = await fetch('../../../../../courses.json')
-      const courses = await response.json()
-      const course = courses.find(course => course.id === this.courseId)
-      const section = course.syllabus.find(section => section.id === this.sectionId)
+      try {
+        this.loading = true
+        this.error = ''
 
-      this.courseName = course.name
+        const email = JSON.parse(localStorage.getItem(process.env.VUE_APP_USER_KEY))
 
-      this.lesson = section.lessons.find(lesson => lesson.id === this.lessonId)
+        const { courseName, lesson } = await this.$api.lessons.getOne({
+          email: email || null,
+          courseId: this.courseId,
+          sectionId: this.sectionId,
+          lessonId: this.lessonId,
+        })
+
+        this.courseName = courseName
+        this.lesson = lesson
+      } catch (error) {
+        this.error = error
+      }
+
       this.loading = false
     },
   },

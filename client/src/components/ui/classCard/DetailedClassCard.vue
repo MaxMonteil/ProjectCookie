@@ -1,23 +1,27 @@
 <template functional>
   <component
     :is="injections.components.BaseClassCard"
-    :course-id="props.course.id"
+    :course-id="props.course.id || ' '"
     color="green"
   >
     <template #name>
-      {{ props.course.name }}
+      {{ props.course.name || 'Loading' }}
     </template>
 
     <template #start-date>
-      {{ props.course.startDate }}
+      {{ props.course.startDate || '' }}
     </template>
 
     <template #student-count>
-      {{ props.course.studentCount }} Students
+      {{ props.course.studentCount || '' }} Students
     </template>
 
     <template #description>
-      {{ props.course.description.substring(0, 117) + '...' }}
+      {{
+        props.course.description
+          ? props.course.description.substring(0, 117) + '...'
+          : ''
+      }}
     </template>
   </component>
 </template>

@@ -1,24 +1,14 @@
 <template>
-  <h1 v-if="loading">
-    loading...
-  </h1>
-
-  <main
-    v-else
-    class="space-y-8"
-  >
-    <!-- ENROLLED -->
-    <EnrolledCoursesLayout />
+  <main class="divide-y-2 divide-gray-200 space-y-8">
+    <!-- ENROLLED COURSES -->
+    <EnrolledCoursesLayout v-if="loggedIn" />
 
     <!-- SEARCH -->
     <section class="flex flex-col">
-      <form @submit.prevent="submitSearch">
-        <SearchBar
-          v-model="search"
-          :bg-gray="true"
-          class="shadow"
-        />
-      </form>
+      <SearchBar
+        :bg-gray="true"
+        class="pt-8 "
+      />
 
       <router-link
         :to="{ name: 'search' }"
@@ -28,24 +18,17 @@
       </router-link>
     </section>
 
-    <!-- TOP -->
-    <TopCoursesLayout :courses="courses" />
+    <!-- TOP COURSES -->
+    <TopCoursesLayout />
 
     <!-- LINKS -->
     <section class="text-gray-600 space-y-6">
-      <a
-        href="#"
-        class="block text-3xl font-semibold leading-none hover:underline"
+      <router-link
+        :to="{ name: 'search', params: { getAllCourses: true } }"
+        class="block pt-8 text-3xl font-semibold leading-none hover:underline"
       >
-        See all subjects >
-      </a>
-
-      <a
-        href="#"
-        class="block text-3xl font-semibold leading-none hover:underline"
-      >
-        See all courses >
-      </a>
+        See all courses &#8680;
+      </router-link>
     </section>
   </main>
 </template>
@@ -62,26 +45,10 @@ export default {
     TopCoursesLayout,
     SearchBar,
   },
-  data () {
-    return {
-      loading: true,
-      search: '',
-      courses: [],
-    }
-  },
-  created () {
-    this.fetchCourses()
-  },
-  methods: {
-    submitSearch () {
-      if (this.search.trim().length > 0) {
-        this.$router.push({ name: 'search', query: { q: this.search.trim() } })
-      }
-    },
-    async fetchCourses () {
-      const response = await fetch('./courses.json')
-      this.courses = await response.json()
-      this.loading = false
+  props: {
+    loggedIn: {
+      type: Boolean,
+      default: false,
     },
   },
 }

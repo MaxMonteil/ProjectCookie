@@ -5,8 +5,8 @@
   >
     <component
       :is="classCard"
-      v-for="course in courses"
-      :key="course.id"
+      v-for="(course, i) in courses"
+      :key="course.id || i"
       :course="course"
     />
   </section>
@@ -18,7 +18,7 @@ export default {
   props: {
     courses: {
       type: Array,
-      required: true,
+      default: () => [{}],
     },
     card: {
       type: String,
